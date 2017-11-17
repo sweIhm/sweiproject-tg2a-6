@@ -1,5 +1,7 @@
 package base.activitymeter;
 
+import java.util.Random;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,7 @@ public class Activity {
     private String tags;
     private String title;
     private boolean published;
+    private String secretKey;
 
     public Activity (){};
 
@@ -23,6 +26,15 @@ public class Activity {
         this.tags = tags;
         this.title = title;
         this.published = false;
+        
+        char[] chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 60; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        secretKey = sb.toString();
     }
 
     public Long getId() {
