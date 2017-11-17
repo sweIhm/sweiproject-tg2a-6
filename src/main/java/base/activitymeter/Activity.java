@@ -14,6 +14,7 @@ public class Activity {
     private String text;
     private String tags;
     private String title;
+    private boolean published;
 
     public Activity (){};
 
@@ -21,6 +22,7 @@ public class Activity {
         this.text = text;
         this.tags = tags;
         this.title = title;
+        this.published = false;
     }
 
     public Long getId() {
@@ -53,5 +55,13 @@ public class Activity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public boolean isPublished() {
+    	return published;
+    }
+    
+    public void publish() {
+    	published = true;
     }
 }
