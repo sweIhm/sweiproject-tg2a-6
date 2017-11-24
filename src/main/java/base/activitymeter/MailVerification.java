@@ -25,7 +25,7 @@ public class MailVerification {
         properties.put("mail.smtp.auth", "true");    
         properties.put("mail.smtp.port", "465");    
 
-        PasswordAuthentication passwordAuthenticator = new PasswordAuthentication(eMailFrom, System.getProperty("password"));
+        PasswordAuthentication passwordAuthenticator = new PasswordAuthentication(eMailFrom, System.getenv("password"));
         Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {    
         															protected PasswordAuthentication getPasswordAuthentication() {    
         																return passwordAuthenticator;  
