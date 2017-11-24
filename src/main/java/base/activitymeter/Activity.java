@@ -3,6 +3,7 @@ package base.activitymeter;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,8 @@ public class Activity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    
+    @Column(columnDefinition="TEXT")
     private String text;
     private String tags;
     private String title;

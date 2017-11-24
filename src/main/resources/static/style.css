@@ -115,8 +115,15 @@ table tr:hover td {
 
 
 
-.postDialog textarea
+.postDialog textarea, .postDialog input
 {
 	width: 100%;
+}
+
+.postDialog p
+{
+	width: calc(100% - 40px);
+	margin-right: 20px;
+	margin-left: 20px;
 }
 
