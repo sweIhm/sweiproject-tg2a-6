@@ -26,7 +26,7 @@ public class Activity {
     private String uni;
     private String faculty;
     
-    @Lob
+    @Column(name = "IMAGE", columnDefinition="TEXT")
     private String image;
 
     public Activity (){};
