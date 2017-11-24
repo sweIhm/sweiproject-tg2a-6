@@ -8,22 +8,28 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/activity")
 public class ActivityController {
-  
+  private final String fakeSecretKey = "nope";
+	
   @Autowired
   private ActivityRepository activityRepository;
+  
   
   
   @GetMapping
   public ArrayList<Activity> listAll() {
       ArrayList<Activity> activities = new ArrayList<>();
+      
       activityRepository.findAll().forEach(activity -> activities.add(activity));
+      for (Activity a: activities) {
+    	  a.setSecretKey(fakeSecretKey);
+      }
       return activities;
   }
 
   @GetMapping("{id}")
   public Activity find(@PathVariable Long id) {
 	  Activity a = activityRepository.findOne(id);
-	  a.setSecretKey("");
+	  a.setSecretKey(fakeSecretKey);
       return a;
   }
 
