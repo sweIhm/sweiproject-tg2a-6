@@ -117,12 +117,6 @@ public class Activity {
     }
 
     public void publish() {
-    	boolean mailSent = new MailVerification().sendMail(eMail,id.toString());
-    	if (mailSent == true) {
-    		//say sent successfully
-    	}
-    	else {
-    		//say error sending email
-    	}
+    	new MailVerification().sendMail(eMail,id.toString());
     }
 }
