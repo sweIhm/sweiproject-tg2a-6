@@ -15,10 +15,8 @@ public class MailVerification {
 	
 	public void sendMail(String eMailTo, String verificationID) {
 		
-		//creating unique link for verification and posting activity
 		String verificationLink = "http://..........." + verificationID;
 		
-		//setting properties for sending email over Simple Mail Transfer Protocol with port 465 with g-mail as host
 		Properties properties = new Properties();    
         properties.put("mail.smtp.host", "smtp.gmail.com");    
         properties.put("mail.smtp.socketFactory.port", "465");    

@@ -117,6 +117,7 @@ public class Activity {
     }
 
     public void publish() {
+    	//default
     	new MailVerification().sendMail(eMail,id.toString());
     }
 }
