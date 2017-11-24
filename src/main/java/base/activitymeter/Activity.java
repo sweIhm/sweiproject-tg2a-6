@@ -73,7 +73,7 @@ public class Activity {
     public boolean isPublished() {
     	return published;
     }
-    
+    //H
     public void publish() {
     	boolean mailSent = new MailVerification().sendMail(eMail,id.toString());
     	if (mailSent == true) {

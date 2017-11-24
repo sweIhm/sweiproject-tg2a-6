@@ -37,6 +37,7 @@ public class MailVerification {
         						}    
         					});    
 
+        //H
         try {    
         	//creating a message with sender, receiver, subject and text
         	MimeMessage message = new MimeMessage(session);    
