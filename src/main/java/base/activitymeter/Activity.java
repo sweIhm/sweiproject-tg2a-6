@@ -14,6 +14,7 @@ public class Activity {
     private String text;
     private String tags;
     private String title;
+    private String eMail;
     private boolean published;
 
     public Activity (){};
@@ -62,6 +63,12 @@ public class Activity {
     }
     
     public void publish() {
-    	published = true;
+    	boolean mailSent = new MailVerification().sendMail(eMail,id.toString());
+    	if (mailSent == true) {
+    		//say sent successfully
+    	}
+    	else {
+    		//say error sending email
+    	}
     }
 }
