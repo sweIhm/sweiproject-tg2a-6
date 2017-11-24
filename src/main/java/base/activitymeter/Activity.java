@@ -119,8 +119,7 @@ public class Activity {
     	return published;
     }
 
-    public void publish() {
-    	//default
-    	new MailVerification().sendMail(eMail,id.toString());
+    public void verify() {
+       	new MailVerification(eMail,id.toString()).sendMail();
     }
 }
