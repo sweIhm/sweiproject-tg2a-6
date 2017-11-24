@@ -3,6 +3,8 @@ package base.activitymeter;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.util.Properties;
 
 public class MailVerification {
