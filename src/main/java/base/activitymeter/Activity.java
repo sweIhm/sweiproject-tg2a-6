@@ -36,7 +36,7 @@ public class Activity {
         }
         secretKey = sb.toString();
     }
-
+    //TEST
     public Long getId() {
         return id;
     }
