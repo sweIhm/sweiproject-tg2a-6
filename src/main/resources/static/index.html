@@ -41,7 +41,7 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
   
 		  
   	var addDialogOptions = {
-    	controller: 'AddActivityCtrl',
+    	controller: 'PostCtrl',
     	templateUrl: './activityAdd.html'
   	};
   	
@@ -125,6 +125,37 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
     	dialog.close();
   	};
 });
+
+
+app.controller('PostCtrl', function($scope, $http, dialog){
+  
+  	$scope.save = function(Activity) {
+  		var postRequest = {
+    	method : 'POST',
+       	url: 'post' ,
+       	data: {
+  				text: $scope.activity.text,
+  				tags: $scope.activity.tags,
+  				title: $scope.activity.title,
+  				eMail: $scope.activity.eMail,
+  				uni: $scope.activity.uni,
+  				faculty: $scope.activity.faculty
+			  }
+		}  
+		
+  		$http(postRequest).then(function (response) {
+  		    $scope.activities = response.data;
+  		}).then(function () {
+  			$scope.close();
+  		});
+  	};
+  
+  	$scope.close = function(){;
+    	dialog.close(undefined);
+  	};
+});
+
+
 </script>
 </head>
 <body>

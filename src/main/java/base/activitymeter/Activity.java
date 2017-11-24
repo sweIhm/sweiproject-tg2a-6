@@ -15,17 +15,17 @@ public class Activity {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String text;
-    private ArrayList<String> tags;
+    private String tags;
     private String title;
     private String eMail;
     private boolean published;
     private String secretKey;
     private String uni;
-    private int faculty;
+    private String faculty;
 
     public Activity (){};
 
-    public Activity(String text, ArrayList<String> tags, String title, String eMail, String uni, int faculty) {
+    public Activity(String text, String tags, String title, String eMail, String uni, String faculty) {
         this.text = text;
         this.tags = tags;
         this.title = title;
@@ -68,11 +68,11 @@ public class Activity {
 		this.uni = uni;
 	}
 
-	public int getFaculty() {
+	public String getFaculty() {
 		return faculty;
 	}
 
-	public void setFaculty(int faculty) {
+	public void setFaculty(String faculty) {
 		this.faculty = faculty;
 	}
 
@@ -96,11 +96,11 @@ public class Activity {
         this.text = text;
     }
     
-    public ArrayList<String> getTags() {
+    public String getTags() {
       return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(String tags) {
       this.tags = tags;
     }
 
