@@ -43,7 +43,7 @@ public class MailVerification {
         	message.addRecipient(Message.RecipientType.TO, new InternetAddress(eMailTo));    
         	message.setSubject(eMailSubject);    
         	message.setText(eMailText + verificationLink);   
-        	
+        	System.out.println("");
         	//sending the email  
         	Transport.send(message);    
         } 
