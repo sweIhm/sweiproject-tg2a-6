@@ -25,11 +25,14 @@ public class Activity {
 
     public Activity (){};
 
-    public Activity(String text, ArrayList<String> tags, String title) {
+    public Activity(String text, ArrayList<String> tags, String title, String eMail, String uni, int faculty) {
         this.text = text;
         this.tags = tags;
         this.title = title;
         this.published = false;
+        this.eMail = eMail;
+        this.uni = uni;
+        this.faculty = faculty;
         
         char[] chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -41,7 +44,43 @@ public class Activity {
         secretKey = sb.toString();
     }
 
-    public Long getId() {
+    public String geteMail() {
+		return eMail;
+	}
+
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
+
+	public String getSecretKey() {
+		return secretKey;
+	}
+
+	public void setSecretKey(String secretKey) {
+		this.secretKey = secretKey;
+	}
+
+	public String getUni() {
+		return uni;
+	}
+
+	public void setUni(String uni) {
+		this.uni = uni;
+	}
+
+	public int getFaculty() {
+		return faculty;
+	}
+
+	public void setFaculty(int faculty) {
+		this.faculty = faculty;
+	}
+
+	public void setPublished(boolean published) {
+		this.published = published;
+	}
+
+	public Long getId() {
         return id;
     }
 
