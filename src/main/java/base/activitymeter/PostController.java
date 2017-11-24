@@ -16,7 +16,7 @@ public class PostController {
 	  
 	  //Mail wird geschickt von hier
 	  
-      return activityRepository.save(new Activity(input.getText(), input.getTags(), input.getTitle(), input.geteMail(), input.getUni(), input.getFaculty()));
+      return activityRepository.save(new Activity(input.getText(), input.getTags(), input.getTitle(), input.geteMail(), input.getUni(), input.getFaculty(), input.getImage()));
   }
 
 }

@@ -1,6 +1,5 @@
 package base.activitymeter;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import javax.persistence.Column;
@@ -8,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Activity {
@@ -25,10 +25,13 @@ public class Activity {
     private String secretKey;
     private String uni;
     private String faculty;
+    
+    @Lob
+    private String image;
 
     public Activity (){};
 
-    public Activity(String text, String tags, String title, String eMail, String uni, String faculty) {
+    public Activity(String text, String tags, String title, String eMail, String uni, String faculty, String image) {
         this.text = text;
         this.tags = tags;
         this.title = title;
@@ -36,6 +39,7 @@ public class Activity {
         this.eMail = eMail;
         this.uni = uni;
         this.faculty = faculty;
+        this.image = image;
         
         char[] chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -47,7 +51,18 @@ public class Activity {
         secretKey = sb.toString();
     }
 
-    public String geteMail() {
+    
+
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String geteMail() {
 		return eMail;
 	}
 

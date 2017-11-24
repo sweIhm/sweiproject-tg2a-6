@@ -25,6 +25,8 @@
 
 <script>
 var app = angular.module('ActivityMeterApp', ['ui.bootstrap']);
+
+//$qProvider.errorOnUnhandledRejections(false);
     
 function loadActivities ($scope, $http){
 		$http({
@@ -133,7 +135,25 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 
 
 app.controller('PostCtrl', function($scope, $http, dialog){
-  
+
+	var imgData = null;
+
+	$scope.previewImage = function() {
+		var preview = document.querySelector('#postImgPreview');
+		var file = document.querySelector('#postImg').files[0];
+		var reader = new FileReader();
+
+  		reader.addEventListener("load", function () {
+    		preview.src = reader.result;
+    		imgData = reader.result;
+    		//imgData = imgData.substring(imgData.indexOf(',')+1, imgData.length);
+  		}, false);
+
+  		if (file) {
+    		reader.readAsDataURL(file);
+		}
+	}
+
   	$scope.save = function(Activity) {
   		var postRequest = {
     	method : 'POST',
@@ -144,13 +164,15 @@ app.controller('PostCtrl', function($scope, $http, dialog){
   				title: $scope.activity.title,
   				eMail: $scope.activity.eMail,
   				uni: $scope.activity.uni,
-  				faculty: $scope.activity.faculty
+  				faculty: $scope.activity.faculty,
+  				image: imgData
 			  }
 		}  
 		
   		$http(postRequest).then(function (response) {
   		    $scope.activities = response.data;
   		}).then(function () {
+  			imgData = null;
   			$scope.close();
   		});
   	};

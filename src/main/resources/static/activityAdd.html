@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h2>Add Activity to ActiviTracker</h2>
+	<h3>Add Activity to ActiviTracker</h3>
 </div>
 <div class="modal-body postDialog">
 	<p>
@@ -19,6 +19,11 @@
 	</p>
 	<p>
 		Your E-Mail Adress for verification<br><input ng-model="activity.eMail" size="255"/>
+	</p>
+	<p>
+		<input type="file" id="postImg" onchange="angular.element(this).scope().previewImage()" />
+		<br>
+		<img src="" id="postImgPreview">
 	</p>
 	
 </div>
