@@ -22,7 +22,9 @@ public class ActivityController {
 
   @GetMapping("{id}")
   public Activity find(@PathVariable Long id) {
-      return activityRepository.findOne(id);
+	  Activity a = activityRepository.findOne(id);
+	  a.setSecretKey("");
+      return a;
   }
 
   @PostMapping
