@@ -74,6 +74,8 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
   		//todo handle error
 	};
 });
+
+/* DARF NICHT MEHR VERWENDET WERDEN -> use PostCtrl
 app.controller('AddActivityCtrl', function($scope, $http, dialog){
   
   	$scope.save = function(Activity) {
@@ -98,6 +100,8 @@ app.controller('AddActivityCtrl', function($scope, $http, dialog){
     	dialog.close(undefined);
   	};
 });
+*/
+
 app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
   
 	$scope.activity = activity;

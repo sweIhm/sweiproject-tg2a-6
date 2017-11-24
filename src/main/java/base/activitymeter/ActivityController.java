@@ -27,10 +27,11 @@ public class ActivityController {
       return a;
   }
 
-  @PostMapping
+  //DARF MICHT MEHR VERWENDET WERDEN -> use PostController
+  /*@PostMapping 
   public Activity create(@RequestBody Activity input) {
       return activityRepository.save(new Activity(input.getText(), input.getTags(), input.getTitle(), input.geteMail(), input.getUni(), input.getFaculty()));
-  }
+  }*/
 
   @DeleteMapping("{id}")
   public void delete(@PathVariable Long id) {
