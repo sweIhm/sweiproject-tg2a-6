@@ -118,7 +118,7 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 			//todo handle error
 			$scope.close();
 		});
-  	};
+  	};	
   
   	$scope.close = function(){
   		loadActivities($scope, $http);
@@ -129,7 +129,7 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 </head>
 <body>
 	<div ng-controller="ActivityCtrl">
-		<h3>Welcome to the ActiviTracker!</h3>
+		<h3>Activities:</h3>
 		<table class="mdl-data-table">
 			<tr>
 				<td class="mdl-data-table__cell--non-numeric" colspan=3>&nbsp;</td>
@@ -140,10 +140,11 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.text}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.tags}}</td>
-				<td class="mdl-data-table__cell--non-numeric">
+				<td class="mdl-data-table__cell--non-numeric"><button
+						class="mdl-button" ng-click="edit(activity)">edit</button>
 					<button class="mdl-button" ng-click="delete(activity)">delete</button></td>
 			</tr>
 		</table>
 	</div>
 </body>
-</html>	
+</html>
