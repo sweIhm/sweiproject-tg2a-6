@@ -14,7 +14,7 @@ public class PostController {
   @PostMapping
   public Activity create(@RequestBody Activity input) {
 	  
-	  input.verify();
+	  //input.verify();
 	  
       return activityRepository.save(new Activity(input.getText(), input.getTags(), input.getTitle(), input.geteMail(), input.getUni(), input.getFaculty(), input.getImage()));
   }
