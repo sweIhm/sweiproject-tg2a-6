@@ -1,5 +1,6 @@
 package base.activitymeter;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.persistence.Entity;
@@ -14,15 +15,17 @@ public class Activity {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String text;
-    private String tags;
+    private ArrayList<String> tags;
     private String title;
     private String eMail;
     private boolean published;
     private String secretKey;
+    private String uni;
+    private int faculty;
 
     public Activity (){};
 
-    public Activity(String text, String tags, String title) {
+    public Activity(String text, ArrayList<String> tags, String title) {
         this.text = text;
         this.tags = tags;
         this.title = title;
@@ -37,7 +40,7 @@ public class Activity {
         }
         secretKey = sb.toString();
     }
-    //TEST
+
     public Long getId() {
         return id;
     }
@@ -54,11 +57,11 @@ public class Activity {
         this.text = text;
     }
     
-    public String getTags() {
+    public ArrayList<String> getTags() {
       return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(ArrayList<String> tags) {
       this.tags = tags;
     }
 
@@ -73,7 +76,7 @@ public class Activity {
     public boolean isPublished() {
     	return published;
     }
-    //H
+
     public void publish() {
     	boolean mailSent = new MailVerification().sendMail(eMail,id.toString());
     	if (mailSent == true) {
