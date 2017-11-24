@@ -9,7 +9,6 @@ import java.util.Properties;
 public class MailVerification {
 
 	private final static String eMailFrom = "activitrackerhm@gmail.com";
-	private final static String password = "geldschaufeln";
 	private final static String eMailSubject = "ActiviTracker Verification";
 	private final static String eMailText = "Attention! Do NOT answer on this eMail!\n\nPlease klick on the following link to post your activity: \n\n";
 	
@@ -34,7 +33,7 @@ public class MailVerification {
         Session session = Session.getDefaultInstance(properties,    
         					new javax.mail.Authenticator() {    
         						protected PasswordAuthentication getPasswordAuthentication() {    
-        							return new PasswordAuthentication(eMailFrom, password);  
+        							return new PasswordAuthentication(eMailFrom, "password");  
         						}    
         					});    
 
