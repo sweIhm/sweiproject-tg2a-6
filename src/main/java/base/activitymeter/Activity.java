@@ -137,6 +137,6 @@ public class Activity {
     }
 
     public void verify() {
-       	new MailVerification(eMail,id.toString()).sendMail();
+       	new MailVerification(eMail, secretKey).sendMail();
     }
 }
