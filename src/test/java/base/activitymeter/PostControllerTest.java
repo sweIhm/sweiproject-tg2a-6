@@ -1,6 +1,7 @@
 package base.activitymeter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,14 +23,22 @@ public class PostControllerTest {
     private MockMvc mockMvc;
     
     @Test
-    public void test1() {
-    	
+    public void ensurePostRequestWithoutJSONBodyFails() throws Exception {
+    	this.mockMvc.perform(post("/post")).andExpect(status().is4xxClientError());
     }
     
     @Test
-    public void test2() {
-    	
+    public void ensurePostRequestWithIncorrectJSONBodyFails() throws Exception {
+
     }
+    
+    @Test
+    public void ensurePostRequestWithCorrectJSONBodyWorks() throws Exception {
+
+    }
+    
+
+
 
 
     /*@Test
