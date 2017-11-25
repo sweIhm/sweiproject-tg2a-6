@@ -17,7 +17,10 @@ public class PostController {
 	  Activity activity = new Activity(input.getText(), input.getTags(), input.getTitle(), input.geteMail(), input.getUni(), input.getFaculty(), input.getImage());
 	  activity.verify();
 	  
-      return activityRepository.save(activity);
+	  Activity a = activityRepository.save(activity);
+	  a.setSecretKey("");
+	  a.seteMail("");
+      return a;
   }
 
 }
