@@ -137,6 +137,48 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 app.controller('PostCtrl', function($scope, $http, dialog){
 
 	var imgData = null;
+	
+	var emailIsValid = false;
+	
+	$scope.verifyPostForm = function() {
+		var title = document.getElementById('postTitle').value;
+		var text = document.getElementById('postText').value;
+		var tags = document.getElementById('postTags').value;
+		var university = document.getElementById('postUniversity').value;
+		var faculty = document.getElementById('postFaculty').value;
+		var email = document.getElementById('postEmail').value;
+		
+		/*console.log("changeed");
+		console.log(title);
+		console.log(text);
+		console.log(tags);
+		console.log(university);
+		console.log(faculty);
+		console.log(email);*/
+		
+		if(title.length > 0 && text.length > 0 && tags.length > 0 && university.length > 0 && faculty.length > 0 && email.length > 0 && emailIsValid) {
+			document.getElementById("postSubmit").disabled = false; 
+		} else {
+			document.getElementById("postSubmit").disabled = true; 
+		}
+	}
+	
+	$scope.checkEmail = function() {
+
+		var email = document.getElementById('postEmail').value;
+		
+		var hm = email.substring(email.length-7, email.length);
+		var cpp = email.substring(email.length-8, email.length);
+
+		if(hm == "@hm.edu" || cpp == "@cpp.edu") {
+			emailIsValid = true;
+			document.getElementById("mailHint").style.display = "none";
+		} else {
+			emailIsValid = false;
+			document.getElementById("mailHint").style.display = "block";
+		}
+		
+	}
 
 	$scope.previewImage = function() {
 		var preview = document.querySelector('#postImgPreview');
@@ -152,6 +194,9 @@ app.controller('PostCtrl', function($scope, $http, dialog){
   		if (file) {
     		reader.readAsDataURL(file);
 		}
+		
+		document.getElementById("postImgPreview").style.display = "block";
+		document.getElementById("postImgPreviewTxt").style.display = "block";
 	}
 
   	$scope.save = function(Activity) {

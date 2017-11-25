@@ -1,33 +1,38 @@
 <div class="modal-header">
-	<h3>Add Activity to ActiviTracker</h3>
+	<h3>Post Activity to ActiviTracker</h3>
 </div>
 <div class="modal-body postDialog">
 	<p>
-		Title<br><input ng-model="activity.title" size="255"/>
+		Title <span class="required">*</span><br><input id="postTitle" ng-model="activity.title" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		Text <textarea ng-model="activity.text" rows="5" maxlength="255"></textarea>
+		Text <span class="required">*</span><textarea id="postText" ng-model="activity.text" rows="5" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"></textarea>
 	</p>
 	<p>
-		Tags<br><input ng-model="activity.tags" size="255"/>
+		Tags <span class="required">*</span><br><input id="postTags" ng-model="activity.tags" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		University<br><input ng-model="activity.uni" size="255"/>
+		University <span class="required">*</span><br><input id="postUniversity" ng-model="activity.uni" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		Faculty<br><input ng-model="activity.faculty" size="255"/>
+		Faculty <span class="required">*</span><br><input id="postFaculty" ng-model="activity.faculty" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		Your E-Mail Adress for verification<br><input ng-model="activity.eMail" size="255"/>
+		Your E-Mail Adress for verification <span class="required">*</span><span id="mailHint" class="required">@hm.edu oder @cpp.edu required</span><input id="postEmail" ng-model="activity.eMail" size="255" onkeyup="angular.element(this).scope().checkEmail(); angular.element(this).scope().verifyPostForm();"/>
 	</p>
 	<p>
-		<input type="file" id="postImg" onchange="angular.element(this).scope().previewImage()" />
-		<br>
+		You can upload an image here:
+		<span id="postImgPreviewTxt">Preview:</span>
 		<img src="" id="postImgPreview">
+		<br>
+		<input type="file" id="postImg" onchange="angular.element(this).scope().previewImage()" />
+	</p>
+	<p>
+		<span class="required">* = required</span>
 	</p>
 	
 </div>
 <div class="modal-footer">
-	<button ng-click="save(activity)">Save</button>
+	<button id="postSubmit" ng-click="save(activity)" disabled>Save</button>
 	<button ng-click="close()">Close</button>
 </div>

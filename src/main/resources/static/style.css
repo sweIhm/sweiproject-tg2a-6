@@ -135,6 +135,25 @@ table tr:hover td {
 #postImgPreview
 {
 	height: 200px;
+	display: none;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
+#postImgPreviewTxt
+{
+	display: none;
+	margin-top: 5px;
+}
+
+.required
+{
+	color: #ff0000;
+}
+
+#mailHint
+{
+	display: none;
+	margin-bottom: 5px;
+}
 
