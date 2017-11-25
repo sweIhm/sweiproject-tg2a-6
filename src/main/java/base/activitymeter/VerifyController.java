@@ -21,27 +21,29 @@ public class VerifyController {
 	  public String publish(@PathVariable String key) {
 		  ArrayList<Activity> activities = new ArrayList<>();
 	      activityRepository.findAll().forEach(activity -> activities.add(activity));
-	      
 		  for (Activity activity : activities) {
 			  if (activity.getSecretKey().equals(key)) {
 				  activity.setPublished(true);
+				  activityRepository.save(activity);
+				  try {
+					  String indexHTML = "";
+					  BufferedReader getIndexHTML = new BufferedReader(
+							  							new InputStreamReader(
+							  									new FileInputStream("src/main/resources/static/verificationSuccess.html")));
+					  
+					  String line;
+					  while ((line = getIndexHTML.readLine()) != null) {
+						  indexHTML += line;
+					  }
+					  getIndexHTML.close();
+					  return indexHTML;
+				  } 
+				  catch (IOException e) {
+					  e.getStackTrace();
+					  return "Successfull Verification!";
+				  }
 			  }
 		  }
-		  String indexHTML = "";
-		  try {
-			  BufferedReader getIndexHTML = new BufferedReader(
-					  							new InputStreamReader(
-					  									new FileInputStream("src/main/resources/static/verificationSuccess.html")));
-			  
-			  String line;
-			  while ((line = getIndexHTML.readLine()) != null) {
-				  indexHTML += line;
-			  }
-			  getIndexHTML.close();
-		  } 
-		  catch (IOException e) {
-			  e.getStackTrace();
-		  }
-		  return indexHTML;
+		  return "Post-Verification failed! Please try again!";
 	  }
 }
