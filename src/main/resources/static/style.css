@@ -157,3 +157,7 @@ table tr:hover td {
 	margin-bottom: 5px;
 }
 
+#imgSizeHint, #imgTypeHint
+{
+	display: none;
+}

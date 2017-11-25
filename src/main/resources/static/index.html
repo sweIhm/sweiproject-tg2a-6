@@ -139,6 +139,8 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 	var imgData = null;
 	
 	var emailIsValid = false;
+	var imgValidSize = true;
+	var imgValidType = true;
 	
 	$scope.verifyPostForm = function() {
 		var title = document.getElementById('postTitle').value;
@@ -178,24 +180,84 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 		}
 		
 	}
+	
+	$scope.checkImageType = function(file) {
+
+		var ext = file.name.split('.').pop().toLowerCase();
+    	if(ext == "gif" || ext == "png" || ext == "jpg" || ext == "jpeg") {
+        	imgValidType = true;
+        	document.getElementById("imgTypeHint").style.display = "none";
+   		} else {
+   			imgValidType = false;
+   			document.getElementById("imgTypeHint").style.display = "block";
+   			document.getElementById("postImg").value = "";
+   			var preview = document.querySelector('#postImgPreview');
+   			preview.src = "";
+   			document.getElementById("postImgPreview").style.display = "none";
+			document.getElementById("postImgPreviewTxt").style.display = "none";
+   		}	
+	}
+
+	$scope.checkImageSize = function(file) {
+    	var maxSize = 1024 * 1000 * 1;
+    
+    	if(file.size > maxSize) {
+        	imgValidSize = false;
+        	document.getElementById("imgSizeHint").style.display = "block";
+        	document.getElementById("postImg").value = "";
+        	var preview = document.querySelector('#postImgPreview');
+   			preview.src = "";
+   			document.getElementById("postImgPreview").style.display = "none";
+			document.getElementById("postImgPreviewTxt").style.display = "none";
+    	} else {
+    		imgValidSize = true;
+    		document.getElementById("imgSizeHint").style.display = "none";
+		}
+		
+	}
+	
+	$scope.deleteImage = function() {
+
+        document.getElementById("postImg").value = "";
+        var preview = document.querySelector('#postImgPreview');
+   		preview.src = "";
+   		document.getElementById("postImgPreview").style.display = "none";
+		document.getElementById("postImgPreviewTxt").style.display = "none";
+		document.getElementById("deleteImage").disabled = true; 
+	
+		imgData = null;
+	}
 
 	$scope.previewImage = function() {
+	
+	
 		var preview = document.querySelector('#postImgPreview');
 		var file = document.querySelector('#postImg').files[0];
 		var reader = new FileReader();
-
-  		reader.addEventListener("load", function () {
-    		preview.src = reader.result;
-    		imgData = reader.result;
-    		//imgData = imgData.substring(imgData.indexOf(',')+1, imgData.length);
-  		}, false);
-
-  		if (file) {
-    		reader.readAsDataURL(file);
-		}
 		
-		document.getElementById("postImgPreview").style.display = "block";
-		document.getElementById("postImgPreviewTxt").style.display = "block";
+		$scope.checkImageType(file);
+		$scope.checkImageSize(file);
+		$scope.verifyPostForm();
+
+		if(imgValidType && imgValidSize)
+		{
+
+  			reader.addEventListener("load", function () {
+    			preview.src = reader.result;
+    			imgData = reader.result;
+    			//imgData = imgData.substring(imgData.indexOf(',')+1, imgData.length);
+  			}, false);
+
+  			if (file) {
+    			reader.readAsDataURL(file);
+			}
+		
+			document.getElementById("postImgPreview").style.display = "block";
+			document.getElementById("postImgPreviewTxt").style.display = "block";
+			
+			document.getElementById("deleteImage").disabled = false; 
+	
+		}
 	}
 
   	$scope.save = function(Activity) {

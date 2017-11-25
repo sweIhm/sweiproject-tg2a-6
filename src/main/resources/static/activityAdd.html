@@ -26,6 +26,9 @@
 		<img src="" id="postImgPreview">
 		<br>
 		<input type="file" id="postImg" onchange="angular.element(this).scope().previewImage()" />
+		<button id="deleteImage" ng-click="deleteImage()" disabled>Delete image</button>
+		<span id="imgSizeHint" class="required">File to large! Max 1MB.</span>
+		<span id="imgTypeHint" class="required">File must be image (png, gif, jpg, jpeg)!</span>
 	</p>
 	<p>
 		<span class="required">* = required</span>
