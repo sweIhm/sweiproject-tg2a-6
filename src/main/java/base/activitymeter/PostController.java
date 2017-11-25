@@ -14,10 +14,10 @@ public class PostController {
   @PostMapping
   public Activity create(@RequestBody Activity input) {
 	  
-	  input.verify();
-	  //BUG!!!!!!!! Posten nicht moeglich
+	  Activity activity = new Activity(input.getText(), input.getTags(), input.getTitle(), input.geteMail(), input.getUni(), input.getFaculty(), input.getImage());
+	  activity.verify();
 	  
-      return activityRepository.save(new Activity(input.getText(), input.getTags(), input.getTitle(), input.geteMail(), input.getUni(), input.getFaculty(), input.getImage()));
+      return activityRepository.save(activity);
   }
 
 }
