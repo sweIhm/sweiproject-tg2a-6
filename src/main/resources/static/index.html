@@ -159,9 +159,11 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 		console.log(email);*/
 		
 		if(title.length > 0 && text.length > 0 && tags.length > 0 && university.length > 0 && faculty.length > 0 && email.length > 0 && emailIsValid) {
-			document.getElementById("postSubmit").disabled = false; 
+			document.getElementById("postSubmit").disabled = false;
+			document.getElementById("postSubmit").classList.remove('buttonDisabled');
 		} else {
-			document.getElementById("postSubmit").disabled = true; 
+			document.getElementById("postSubmit").disabled = true;
+			document.getElementById("postSubmit").classList.add('buttonDisabled');
 		}
 	}
 	
@@ -190,11 +192,9 @@ app.controller('PostCtrl', function($scope, $http, dialog){
    		} else {
    			imgValidType = false;
    			document.getElementById("imgTypeHint").style.display = "block";
-   			document.getElementById("postImg").value = "";
-   			var preview = document.querySelector('#postImgPreview');
-   			preview.src = "";
-   			document.getElementById("postImgPreview").style.display = "none";
-			document.getElementById("postImgPreviewTxt").style.display = "none";
+
+			$scope.deleteImage();  	
+
    		}	
 	}
 
@@ -204,11 +204,9 @@ app.controller('PostCtrl', function($scope, $http, dialog){
     	if(file.size > maxSize) {
         	imgValidSize = false;
         	document.getElementById("imgSizeHint").style.display = "block";
-        	document.getElementById("postImg").value = "";
-        	var preview = document.querySelector('#postImgPreview');
-   			preview.src = "";
-   			document.getElementById("postImgPreview").style.display = "none";
-			document.getElementById("postImgPreviewTxt").style.display = "none";
+
+			$scope.deleteImage();  	
+
     	} else {
     		imgValidSize = true;
     		document.getElementById("imgSizeHint").style.display = "none";
@@ -223,7 +221,8 @@ app.controller('PostCtrl', function($scope, $http, dialog){
    		preview.src = "";
    		document.getElementById("postImgPreview").style.display = "none";
 		document.getElementById("postImgPreviewTxt").style.display = "none";
-		document.getElementById("deleteImage").disabled = true; 
+		document.getElementById("deleteImage").disabled = true;
+		document.getElementById("deleteImage").classList.add('buttonDisabled');
 	
 		imgData = null;
 	}
@@ -255,7 +254,9 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 			document.getElementById("postImgPreview").style.display = "block";
 			document.getElementById("postImgPreviewTxt").style.display = "block";
 			
-			document.getElementById("deleteImage").disabled = false; 
+			document.getElementById("deleteImage").disabled = false;
+			document.getElementById("deleteImage").classList.remove('buttonDisabled');
+ 
 	
 		}
 	}

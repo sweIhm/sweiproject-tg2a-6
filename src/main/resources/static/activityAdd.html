@@ -1,12 +1,12 @@
 <div class="modal-header">
-	<h3>Post Activity on ActiviTracker</h3>
+	<h3 class="center">Post Activity on ActiviTracker</h3>
 </div>
 <div class="modal-body postDialog">
 	<p>
 		Title <span class="required">*</span><br><input id="postTitle" ng-model="activity.title" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		Text <span class="required">*</span><textarea id="postText" ng-model="activity.text" rows="5" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"></textarea>
+		Text (max. 255 characters) <span class="required">*</span><textarea id="postText" ng-model="activity.text" rows="5" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"></textarea>
 	</p>
 	<p>
 		Tags <span class="required">*</span><br><input id="postTags" ng-model="activity.tags" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
@@ -26,16 +26,16 @@
 		<img src="" id="postImgPreview">
 		<br>
 		<input type="file" id="postImg" onchange="angular.element(this).scope().previewImage()" />
-		<button id="deleteImage" ng-click="deleteImage()" disabled>Delete image</button>
+		<button id="deleteImage" class="button buttonDisabled buttonRed" ng-click="deleteImage()" disabled>Delete image</button>
 		<span id="imgSizeHint" class="required">File to large! Max 1MB.</span>
 		<span id="imgTypeHint" class="required">File must be image (png, gif, jpg, jpeg)!</span>
 	</p>
 	<p>
-		<span class="required">* = required</span>
+		<span class="required">* = required, max. 255 characters</span>
 	</p>
 	
 </div>
 <div class="modal-footer">
-	<button id="postSubmit" ng-click="save(activity)" disabled>Save</button>
-	<button ng-click="close()">Close</button>
+	<button id="postSubmit" class="button buttonDisabled buttonGreen" ng-click="save(activity)" disabled>Save</button>
+	<button  class="button buttonRed" ng-click="close()">Close</button>
 </div>

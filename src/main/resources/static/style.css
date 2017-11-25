@@ -113,6 +113,62 @@ table tr:hover td {
 	background: -moz-linear-gradient(top, #f2f2f2, #f0f0f0);
 }
 
+.button
+{
+-webkit-border-radius: 25;
+-moz-border-radius: 25;
+border-radius: 25px;
+color: #000000;
+background-color: #ffffff;
+padding: 7px 17px 7px 17px;
+margin-top: 7px;
+margin-bottom: 7px;
+border: solid #4E4B4B 2px;
+text-decoration: none;
+}
+
+.buttonDisabled
+{
+color: #DCDCDC !important;
+border: solid #DCDCDC 2px !important;
+}
+
+.button:hover
+{
+color: #ffffff;
+background-color: #4E4B4B;
+}
+
+.buttonDisabled:hover
+{
+color: #DCDCDC !important;
+background-color: #ffffff !important;
+}
+
+
+.buttonGreen
+{
+border: solid #1CAE48 2px;
+}
+
+.buttonGreen:hover
+{
+color: #ffffff;
+border: solid #1CAE48 2px;
+background-color: #1CAE48;
+}
+
+.buttonRed
+{
+border: solid #EA3B3B 2px;
+}
+
+.buttonRed:hover
+{
+color: #ffffff;
+border: solid #EA3B3B 2px;
+background-color: #EA3B3B;
+}
 
 
 .postDialog textarea, .postDialog input
@@ -148,7 +204,7 @@ table tr:hover td {
 
 .required
 {
-	color: #ff0000;
+	color: #EA3B3B;
 }
 
 #mailHint
@@ -160,4 +216,9 @@ table tr:hover td {
 #imgSizeHint, #imgTypeHint
 {
 	display: none;
+}
+
+.center
+{
+	text-align: center;
 }
