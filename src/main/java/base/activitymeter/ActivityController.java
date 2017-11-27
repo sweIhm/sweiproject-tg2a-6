@@ -19,11 +19,15 @@ public class ActivityController {
   public ArrayList<Activity> listAll() {
       ArrayList<Activity> activities = new ArrayList<>();
       
-      activityRepository.findAll().forEach(activity -> activities.add(activity));
-      for (Activity a: activities) {
+      for(Activity a: activityRepository.findAll()) {
+    	  if (!a.isPublished()) {
+    		  continue;
+    	  }
     	  a.setSecretKey(fakeValue);
     	  a.seteMail(fakeValue);
+    	  activities.add(a);
       }
+      
       return activities;
   }
 
