@@ -18,7 +18,7 @@
 		Faculty <span class="required">*</span><br><input id="postFaculty" ng-model="activity.faculty" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		Your E-Mail Adress for verification <span class="required">*</span><span id="mailHint" class="required">@hm.edu oder @cpp.edu required</span><input id="postEmail" ng-model="activity.eMail" size="255" onkeyup="angular.element(this).scope().checkEmail(); angular.element(this).scope().verifyPostForm();"/>
+		Your E-Mail Adress for verification <span class="required">*</span><span id="mailHint" class="required">@hm.edu or @cpp.edu required</span><input id="postEmail" ng-model="activity.eMail" size="255" onkeyup="angular.element(this).scope().checkEmail(); angular.element(this).scope().verifyPostForm();"/>
 	</p>
 	<p>
 		You can upload an image here:
@@ -27,7 +27,7 @@
 		<br>
 		<input type="file" id="postImg" onchange="angular.element(this).scope().previewImage()" />
 		<button id="deleteImage" class="button buttonDisabled buttonRed" ng-click="deleteImage()" disabled>Delete image</button>
-		<span id="imgSizeHint" class="required">File to large! Max 1MB.</span>
+		<span id="imgSizeHint" class="required">File too large! Max 1MB.</span>
 		<span id="imgTypeHint" class="required">File must be image (png, gif, jpg, jpeg)!</span>
 	</p>
 	<p>
