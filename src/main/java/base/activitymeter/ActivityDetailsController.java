@@ -22,7 +22,7 @@ public class ActivityDetailsController
 	{
 		Activity ret =  activityRepository.findOne(activityID);
 		
-		if( ret.isPublished() )
+		if( ret != null && ret.isPublished() )
 		{
 			ret.setSecretKey( null );
 			ret.seteMail( null );

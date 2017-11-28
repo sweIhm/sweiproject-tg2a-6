@@ -63,6 +63,22 @@ public class ActivityDetailsControllerTest
 		.andExpect(jsonPath("$.faculty", is(FAC)))
 		.andExpect(jsonPath("$.image", is(IMG)));
 	}
+	
+	@Test
+	@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+	public void testNonExistingActivity() throws Exception
+	{	
+		Activity a = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		a.setPublished(true);
+		
+		a = activityRepository.save(a);
+		
+		mockMvc.perform(get("/details/" + a.getId() + 1 ))
+		.andExpect(status().isOk())
+		.andExpect(content().string(""));
+	}
+	
+	
 
 }
 
