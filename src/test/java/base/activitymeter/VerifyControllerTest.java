@@ -11,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class VerifyControllerTest {
@@ -40,7 +43,7 @@ public class VerifyControllerTest {
 	
 	@Test
 	public void ensureSuccesslessVerificationNotPublishes() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
@@ -52,13 +55,13 @@ public class VerifyControllerTest {
 				.andDo(print())
 				.andExpect(status().isOk());
 		
-		activity = activityRepository.findOne((long)4);
+		activity = activityRepository.findOne((long)1);
 		assertFalse(activity.isPublished());
 	}
 	
 	@Test
 	public void ensureSuccessfullVerificationPublishesActivity() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
@@ -66,14 +69,14 @@ public class VerifyControllerTest {
 				.andDo(print())
 				.andExpect(status().isOk());
 				
-		activity = activityRepository.findOne((long)5);
+		activity = activityRepository.findOne((long)1);
 		String key = activity.getSecretKey();
 		
 		this.mockMvc.perform(get("/verify/" + key))
 				.andDo(print())
 				.andExpect(status().isOk());
 		
-		activity = activityRepository.findOne((long)5);
+		activity = activityRepository.findOne((long)1);
 		assertTrue(activity.isPublished());
 	}
 	
