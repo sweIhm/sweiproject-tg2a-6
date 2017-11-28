@@ -11,7 +11,10 @@ import javax.persistence.Lob;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Activity {
 
     @Id
