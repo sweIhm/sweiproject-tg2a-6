@@ -21,6 +21,7 @@ public class MailVerification {
 	};
 	
 	public void sendMail() {
+
 		
 		String verificationLink = urlVerify + verificationID;
 		
@@ -39,14 +40,16 @@ public class MailVerification {
         															}    
         														});    
 
+        
+
         try {    
         	MimeMessage message = new MimeMessage(session);   
         	InternetAddress mailAdressReceiver = new InternetAddress(eMailTo);
         	message.addRecipient(Message.RecipientType.TO, mailAdressReceiver);    
         	message.setSubject(eMailSubject);    
         	message.setText(eMailBody + verificationLink);   
-        	
-        	Transport.send(message);    
+
+        	Transport.send(message);  
         } 
         catch (MessagingException e) {
         	e.getStackTrace();
