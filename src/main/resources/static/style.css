@@ -222,3 +222,26 @@ background-color: #EA3B3B;
 {
 	text-align: center;
 }
+
+
+.showBody {
+	max-height: none;
+	padding: 30px;
+	
+}
+
+.showText {
+	font-size: 24px;
+	white-space: pre-line;
+	text-align: justify;
+}
+
+.showTags {
+	font-size: 24px;
+	color: #19CF86;
+}
+
+.showBody p {
+	font-size: 16px;
+	color: #657786;
+}

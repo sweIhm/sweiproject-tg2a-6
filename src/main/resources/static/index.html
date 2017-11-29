@@ -76,6 +76,17 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
 		});
   		//todo handle error
 	};
+
+	var showDialogOptions = {
+	    controller: 'ShowActivityCtrl',
+	    templateUrl: './activityShow.html',
+	};
+
+	$scope.show = function(activity) {
+		$dialog.dialog(angular.extend(showDialogOptions, {resolve: {activity: angular.copy(activity)}})).open().then(function (){
+    	    loadActivities($scope, $http);
+        }) ;
+	}
 });
 
 /* DARF NICHT MEHR VERWENDET WERDEN -> use PostCtrl
@@ -131,6 +142,23 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
   		loadActivities($scope, $http);
     	dialog.close();
   	};
+});
+
+app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
+
+	console.log("ShowActivityCtrl");
+	console.log(dialog);
+	var getRequest = {
+		method: 'GET',
+		url: 'details/' + activity.id
+	}
+
+	$http(getRequest).then(function(response) {
+		$scope.activity = response.data;
+		console.log($scope.activity);
+		
+	});
+
 });
 
 
@@ -305,9 +333,12 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.text}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.tags}}</td>
-				<td class="mdl-data-table__cell--non-numeric"><button
-						class="mdl-button" ng-click="edit(activity)">edit</button>
-					<button class="mdl-button" ng-click="delete(activity)">delete</button></td>
+				<td class="mdl-data-table__cell--non-numeric">
+					<button class="mdl-button" ng-click="edit(activity)">edit</button>
+					<button class="mdl-button" ng-click="delete(activity)">delete</button>
+					<button class="mdl-button" ng-click="show(activity)">show</button>
+					
+				</td>
 			</tr>
 		</table>
 	</div>
