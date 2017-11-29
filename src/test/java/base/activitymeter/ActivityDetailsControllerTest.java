@@ -48,7 +48,7 @@ public class ActivityDetailsControllerTest
 		
 		a = activityRepository.save(a);
 		
-		mockMvc.perform(get("/details/" + a.getId() ))
+		mockMvc.perform(get("/details/" + 1 ))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.id", is(1)))
@@ -73,6 +73,19 @@ public class ActivityDetailsControllerTest
 		a = activityRepository.save(a);
 		
 		mockMvc.perform(get("/details/" + a.getId() + 1 ))
+		.andExpect(status().isOk())
+		.andExpect(content().string(""));
+	}
+	
+	@Test
+	@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+	public void testUnPublishedActivity() throws Exception
+	{	
+		Activity a = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		
+		a = activityRepository.save(a);
+		
+		mockMvc.perform(get("/details/" + a.getId() ))
 		.andExpect(status().isOk())
 		.andExpect(content().string(""));
 	}
