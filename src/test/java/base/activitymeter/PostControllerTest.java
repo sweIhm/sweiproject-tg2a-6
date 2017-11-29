@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -41,7 +42,6 @@ public class PostControllerTest {
 	//evtl. Exception expecten
 	
 	@Test
-	@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 	public void ensurePostRequestWithoutJSONBodyFails() throws Exception {
 		//Causes WARN, which is OK, as no JSON is sent.
 		this.mockMvc.perform(post("/post"))
@@ -50,7 +50,6 @@ public class PostControllerTest {
 	}
 
 	@Test
-	@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
     public void ensurePostRequestWithIncorrectJSONBodyFails() throws Exception {
 		//Causes WARN, which is OK, as wrong JSON is sent.
     	String JSON = "{\"title\":" + TITLE + "}";
@@ -63,7 +62,6 @@ public class PostControllerTest {
     }
 
 	@Test
-	@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 	public void ensurePostRequestWithCorrectJSONBodyWorksAndCheckJSONResponse() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
 		this.mockMvc.perform(post("/post")
@@ -83,7 +81,6 @@ public class PostControllerTest {
 	}
 
 	@Test
-	@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 	public void ensureActivityIsStoredCorrectly() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG);
 		this.mockMvc.perform(post("/post")
@@ -117,8 +114,7 @@ public class PostControllerTest {
 	}
 	
 	@Test
-	@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-	public void ensureSecretKeyAndEMailAreNotRevealedFromPostResponse() throws Exception {
+	public void ensureSecretKeyIsNotRevealedFromPostResponse() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -126,12 +122,10 @@ public class PostControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.secretKey").isEmpty())
-				.andExpect(jsonPath("$.eMail").isEmpty());
-
+				.andExpect(jsonPath("$.secretKey").isEmpty());
 	}
 	
-	/*
+	
 	@Test
 	public void ensureEmailIsNotRevealedFromPostResponse() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
@@ -142,7 +136,7 @@ public class PostControllerTest {
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.eMail").isEmpty());
-	}*/
+	}
 
 	public static String asJsonString(final Object obj) {
 		try {
