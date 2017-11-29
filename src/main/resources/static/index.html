@@ -148,8 +148,6 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 
 app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 
-	console.log("ShowActivityCtrl");
-	console.log(dialog);
 	var getRequest = {
 		method: 'GET',
 		url: 'details/' + activity.id
@@ -157,7 +155,6 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 
 	$http(getRequest).then(function(response) {
 		$scope.activity = response.data;
-		console.log($scope.activity);
 		
 	});
 
