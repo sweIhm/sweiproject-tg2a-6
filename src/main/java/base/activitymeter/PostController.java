@@ -18,8 +18,8 @@ public class PostController {
 	  activity.verify();
 	  
 	  Activity a = activityRepository.save(activity);
-	  a.setSecretKey("");
-	  a.seteMail("");
+	  a.setSecretKey(null);
+	  a.seteMail(null);
       return a;
   }
 
