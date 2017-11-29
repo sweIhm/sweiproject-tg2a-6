@@ -330,7 +330,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 			</tr>
 			<tr ng-repeat="activity in activities">
 				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
-				<td class="mdl-data-table__cell--non-numeric">{{activity.text}}</td>
+				<td class="mdl-data-table__cell--non-numeric">{{activity.uni}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.tags}}</td>
 				<td class="mdl-data-table__cell--non-numeric">
 					<button class="mdl-button" ng-click="edit(activity)">edit</button>
