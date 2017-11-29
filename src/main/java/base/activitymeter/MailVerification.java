@@ -10,8 +10,6 @@ public class MailVerification {
 	private String eMailTo;
 	private String verificationID;
 	
-	//später multilingual über ressourcen
-	private final static String urlVerify = "https://tg2a-6.herokuapp.com/verify/";
 	private final static String eMailSubject = "ActiviTracker Verification"; 
 	private final static String eMailBody = "Attention! Do NOT answer on this eMail!\n\nPlease klick on the following link to post your activity: \n\n";
 	
@@ -23,7 +21,7 @@ public class MailVerification {
 	public void sendMail() {
 
 		
-		String verificationLink = urlVerify + verificationID;
+		String verificationLink = System.getenv("URL_VERIFY") + verificationID;
 		
 		Properties properties = new Properties();    
         properties.put("mail.smtp.host", "smtp.gmail.com");    
