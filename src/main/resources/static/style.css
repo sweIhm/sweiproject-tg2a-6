@@ -245,3 +245,14 @@ background-color: #EA3B3B;
 	font-size: 16px;
 	color: #657786;
 }
+
+.showContainer {
+	position: relative;
+	width:700px;
+	margin-left: -350px;
+	left: 50%;
+	background-color: #FFFFFF;
+	border-radius: 6px;
+	margin-top: 60px;
+	margin-bottom: 60px;
+}

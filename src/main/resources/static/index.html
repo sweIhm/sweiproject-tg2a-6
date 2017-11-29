@@ -146,6 +146,12 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 
 app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 
+
+	$scope.close = function() {
+		document.getElementsByTagName("body")[0].style.position = "static";
+		dialog.close();
+	}
+
 	var getRequest = {
 		method: 'GET',
 		url: 'details/' + activity.id
@@ -153,8 +159,31 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 
 	$http(getRequest).then(function(response) {
 		$scope.activity = response.data;
+
+		var modal = document.getElementsByClassName("modal");
+		modal[0].style.top = "0%";
+		modal[0].style.left = "0%";
+		modal[0].style.marginLeft = "0";
+		modal[0].style.width = "100%";
+		modal[0].style.height = "100%";
+		modal[0].style.width = "100%";
+		modal[0].style.backgroundColor = "transparent";
+		modal[0].style.overflowY = "scroll";
+		
+		document.getElementsByTagName("body")[0].style.position = "fixed";
+
+		window.addEventListener('click', function(e){   
+  			if (!document.getElementById('showContainer').contains(e.target)){
+    			$scope.close();
+  			}
+		});
+
+		
 		
 	});
+
+	
+
 
 });
 

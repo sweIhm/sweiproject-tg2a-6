@@ -15,15 +15,15 @@ public class ActivityDetailsController
 	private ActivityRepository activityRepository;
 	  
 	@GetMapping
-	public Activity getActivityDetails(@PathVariable Long activityID) throws Exception
+	public Activity getActivityDetails( @PathVariable Long activityID ) throws Exception
 	{
-		Activity ret =  activityRepository.findOne(activityID);
+		Activity result =  activityRepository.findOne( activityID );
 		
-		if( ret != null && ret.isPublished() )
+		if( result != null && result.isPublished() )
 		{
-			ret.setSecretKey( null );
-			ret.seteMail( null );
-			return ret;
+			result.setSecretKey( null );
+			result.seteMail( null );
+			return result;
 		}
 		
 		return null;
