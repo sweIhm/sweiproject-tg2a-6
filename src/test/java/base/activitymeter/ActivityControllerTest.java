@@ -87,6 +87,29 @@ public class ActivityControllerTest {
 		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string("[]"));
 
 	}
+	
+	@Test
+	public void ensureThatActivitiesAreBeingUpdated() throws Exception {
+		Activity activityOld = new Activity(TEXT + TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity activitynew = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+
+		this.mockMvc.perform(post("/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activityOld))
+				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
+
+		activityOld = activityRepository.findOne((long) 1);
+		activityOld.setPublished(true);
+		activityRepository.save(activityOld);
+		
+		String expectedStringOld = "[{\"id\":1,\"text\":\"sampletxtsampletxt\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"7\",\"image\":\"data:image/jpeg;base64,someimgdata\"}]";
+		String expectedStringNew = "[{\"id\":1,\"text\":\"sampletxt\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"7\",\"image\":\"data:image/jpeg;base64,someimgdata\"}]";
+
+		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedStringOld));
+		mockMvc.perform(put("/activity/1").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activitynew))
+		.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());;
+		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedStringNew));
+
+		
+	}
 
 	public static String asJsonString(final Object obj) {
 		try {
