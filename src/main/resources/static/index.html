@@ -10,6 +10,8 @@
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.1.0/ui-bootstrap-tpls.js"></script>
+	
+<link rel="shortcut icon" type="image/png" href="favicon.png">
 
 <link
 	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"
@@ -348,7 +350,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 </head>
 <body>
 	<div ng-controller="ActivityCtrl">
-		<h3>Activities:</h3>
+		<p id="logo-container"><img id="logo" src="logo.svg"></p>
 		<table class="mdl-data-table">
 			<tr>
 				<td class="mdl-data-table__cell--non-numeric" colspan=3>&nbsp;</td>
@@ -357,7 +359,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 			</tr>
 			<tr ng-repeat="activity in activities">
 				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
-				<td class="mdl-data-table__cell--non-numeric">{{activity.text}}</td>
+				<td class="mdl-data-table__cell--non-numeric">{{activity.uni}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.tags}}</td>
 				<td class="mdl-data-table__cell--non-numeric">
 					<button class="mdl-button" ng-click="edit(activity)">edit</button>

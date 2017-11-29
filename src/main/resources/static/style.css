@@ -113,6 +113,27 @@ table tr:hover td {
 	background: -moz-linear-gradient(top, #f2f2f2, #f0f0f0);
 }
 
+body
+{
+	padding: 20px;
+}
+
+#logo
+{
+	width: 300px;
+}
+
+#logo-container
+{
+	text-align: center;
+}
+
+#logoPost
+{
+	height: 40px;
+	margin-left: 10px;
+}
+
 .button
 {
 -webkit-border-radius: 25;

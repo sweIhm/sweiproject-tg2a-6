@@ -122,7 +122,7 @@ public class PostControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.secretKey").isEmpty());
+				.andExpect(jsonPath("$.secretKey").doesNotExist());
 	}
 	
 	
@@ -135,7 +135,7 @@ public class PostControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.eMail").isEmpty());
+				.andExpect(jsonPath("$.eMail").doesNotExist());
 	}
 
 	public static String asJsonString(final Object obj) {
