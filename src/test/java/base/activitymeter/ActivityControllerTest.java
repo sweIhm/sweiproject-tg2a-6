@@ -70,6 +70,7 @@ public class ActivityControllerTest {
 
 	}
 	
+	/* Disabeld for sprint 1
 	@Test
 	public void ensureThatActivitiesAreBeingDeleted() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
@@ -110,6 +111,7 @@ public class ActivityControllerTest {
 
 		
 	}
+	*/
 
 	public static String asJsonString(final Object obj) {
 		try {

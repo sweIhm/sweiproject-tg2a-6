@@ -40,6 +40,7 @@ public class ActivityController {
   }
 
 
+  /* Disabeld for sprint 1
   @DeleteMapping("{id}")
   public void delete(@PathVariable Long id) {
       activityRepository.delete(id);
@@ -62,5 +63,6 @@ public class ActivityController {
           return activityRepository.save(activity);
       }
   }
+  */
 
 }
