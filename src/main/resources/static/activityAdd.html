@@ -3,22 +3,22 @@
 </div>
 <div class="modal-body postDialog">
 	<p>
-		Title <span class="required">*</span><br><input id="postTitle" ng-model="activity.title" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
+		Title <span class="required">*</span><br><input id="postTitle" ng-model="activity.title" size="255" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
 		Text (max. 255 characters) <span class="required">*</span><textarea id="postText" ng-model="activity.text" rows="5" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"></textarea>
 	</p>
 	<p>
-		Tags <span class="required">*</span><br><input id="postTags" ng-model="activity.tags" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
+		Tags <span class="required">*</span><br><input id="postTags" ng-model="activity.tags" size="255" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		University <span class="required">*</span><br><input id="postUniversity" ng-model="activity.uni" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
+		University <span class="required">*</span><br><input id="postUniversity" ng-model="activity.uni" size="255" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		Faculty <span class="required">*</span><br><input id="postFaculty" ng-model="activity.faculty" size="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
+		Faculty <span class="required">*</span><br><input id="postFaculty" ng-model="activity.faculty" size="255" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		Your E-Mail Adress for verification <span class="required">*</span><span id="mailHint" class="required">@hm.edu or @cpp.edu required</span><input id="postEmail" ng-model="activity.eMail" size="255" onkeyup="angular.element(this).scope().checkEmail(); angular.element(this).scope().verifyPostForm();"/>
+		Your E-Mail Adress for verification <span class="required">*</span><span id="mailHint" class="required">@hm.edu or @cpp.edu required</span><input id="postEmail" ng-model="activity.eMail" size="255" maxlength="255" onkeyup="angular.element(this).scope().checkEmail(); angular.element(this).scope().verifyPostForm();"/>
 	</p>
 	<p>
 		You can upload an image here:
