@@ -91,32 +91,6 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
 	}
 });
 
-/* DARF NICHT MEHR VERWENDET WERDEN -> use PostCtrl
-app.controller('AddActivityCtrl', function($scope, $http, dialog){
-  
-  	$scope.save = function(Activity) {
-  		var postRequest = {
-    	method : 'POST',
-       	url: 'activity' ,
-       	data: {
-  				text: $scope.activity.text,
-  				tags: $scope.activity.tags,
-  				title: $scope.activity.title
-			  }
-		}  
-		
-  		$http(postRequest).then(function (response) {
-  		    $scope.activities = response.data;
-  		}).then(function () {
-  			$scope.close();
-  		});
-  	};
-  
-  	$scope.close = function(){;
-    	dialog.close(undefined);
-  	};
-});
-*/
 
 app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
   
