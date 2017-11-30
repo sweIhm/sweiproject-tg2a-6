@@ -149,7 +149,7 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		document.getElementsByTagName("body")[0].style.position = "fixed";
 
 		window.addEventListener('click', function(e){   
-  			if (!document.getElementById('showContainer').contains(e.target)){
+  			if (!document.getElementById('showContainer').contains(e.target) || document.getElementBYID('showClose').contains(e.target)){
     			$scope.close();
   			}
 		});

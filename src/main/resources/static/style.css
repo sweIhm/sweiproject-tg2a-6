@@ -277,3 +277,16 @@ background-color: #EA3B3B;
 	margin-top: 60px;
 	margin-bottom: 60px;
 }
+
+#showClose {
+	position: fixed;
+	top: 0px;
+	right: 16px;
+	width:20px;
+	height:20px;
+	padding: 10px;
+	color: #FFFFFF;
+	cursor:pointer;
+	font-size: 30px;
+	text-align:right;
+}
