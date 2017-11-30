@@ -31,7 +31,7 @@ public class VerifyControllerTest {
 	static final String TAG = "#tag, #tag2";
 	static final String TITLE = "sampletitle1";
 	static final String TITLE2 = "sampletitle2";
-	static final String EMAIL = "a@b.de";
+	static final String EMAIL = "a@hm.edu";
 	static final String UNI = "hm";
 	static final String FAC = "7";
 	static final String IMG = "data:image/jpeg;base64,someimgdata";

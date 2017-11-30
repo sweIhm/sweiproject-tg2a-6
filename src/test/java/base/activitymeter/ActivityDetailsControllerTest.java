@@ -27,7 +27,7 @@ public class ActivityDetailsControllerTest {
 	static final String TEXT = "sampletxt";
 	static final String TAG = "#tag, #tag2";
 	static final String TITLE = "sampletitle";
-	static final String EMAIL = "a@b.de";
+	static final String EMAIL = "a@hm.edu";
 	static final boolean PUBLISHED = true;
 	static final String UNI = "hm";
 	static final String FAC = "7";

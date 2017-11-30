@@ -31,7 +31,7 @@ public class PostControllerTest {
 	static final String TAG = "#tag, #tag2";
 	static final String TITLE = "sampletitle1";
 	static final String TITLE2 = "sampletitle2";
-	static final String EMAIL = "a@b.de";
+	static final String EMAIL = "a@hm.edu";
 	static final String UNI = "hm";
 	static final String FAC = "7";
 	static final String IMG = "data:image/jpeg;base64,someimgdata";
@@ -138,6 +138,18 @@ public class PostControllerTest {
 				.andExpect(jsonPath("$.eMail").doesNotExist());
 	}
 
+	@Test
+	public void ensureActivityIsNotStoredIfWrongEmail() throws Exception {
+		Activity activity = new Activity(TEXT, TAG, TITLE, "a@b.de", UNI, FAC, IMG);
+		this.mockMvc.perform(post("/post")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(activity))
+				.accept(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().string(""));
+	}
+	
 	public static String asJsonString(final Object obj) {
 		try {
 			final ObjectMapper mapper = new ObjectMapper();
