@@ -64,7 +64,7 @@ public class ActivityControllerTest {
 		activity = activityRepository.findOne((long) 1);
 		activity.setPublished(true);
 		activityRepository.save(activity);
-		String expectedString = "[{\"id\":1,\"text\":\"sampletxt\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"7\",\"image\":\"data:image/jpeg;base64,someimgdata\"}]";
+		String expectedString = "[{\"id\":1,\"text\":\"\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"\",\"image\":\"\"}]";
 
 		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedString));
 

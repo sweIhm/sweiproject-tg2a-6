@@ -25,6 +25,12 @@ public class ActivityController {
     	  }
     	  a.setSecretKey(fakeValue);
     	  a.seteMail(fakeValue);
+    	  
+    	  a.setText("");
+    	  a.setImage("");
+    	  a.setFaculty("");
+    	  
+    	  
     	  activities.add(a);
       }
       
