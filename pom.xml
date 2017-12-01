@@ -4,7 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.springframework</groupId>
-	<artifactId>activity-meter</artifactId>
+	<artifactId>activitytracker_tg2a-6</artifactId>
+	<name>ActiviTracker</name>
 	<version>0.1.0</version>
 
 	<parent>
