@@ -25,11 +25,10 @@ public class VerifyController {
 			  if (activity.getSecretKey().equals(key)) {
 				  activity.setPublished(true);
 				  activityRepository.save(activity);
-				  try {
-					  String indexHTML = "";
-					  BufferedReader getIndexHTML = new BufferedReader(
+				  try (BufferedReader getIndexHTML = new BufferedReader(
 							  							new InputStreamReader(
-							  									new FileInputStream("src/main/resources/static/verificationSuccess.html")));
+							  									new FileInputStream("src/main/resources/static/verificationSuccess.html")));){
+					  String indexHTML = "";
 					  
 					  String line;
 					  while ((line = getIndexHTML.readLine()) != null) {
