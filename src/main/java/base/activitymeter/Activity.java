@@ -29,13 +29,14 @@ public class Activity {
     private String secretKey;
     private String uni;
     private String faculty;
+    private String zipcode;
     
     @Lob
     private String image;
 
     public Activity (){};
 
-    public Activity(String text, String tags, String title, String eMail, String uni, String faculty, String image) {
+    public Activity(String text, String tags, String title, String eMail, String uni, String faculty, String image, String zipcode) {
         this.text = text;
         this.tags = tags;
         this.title = title;
@@ -44,6 +45,7 @@ public class Activity {
         this.uni = uni;
         this.faculty = faculty;
         this.image = image;
+        this.zipcode = zipcode;
         
         char[] chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -57,6 +59,14 @@ public class Activity {
 
     
 
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
 
 	public String getImage() {
 		return image;

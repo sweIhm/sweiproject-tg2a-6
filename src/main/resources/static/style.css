@@ -115,7 +115,9 @@ table tr:hover td {
 
 body
 {
-	padding: 20px;
+	padding: 20px !important;
+	width: calc(100% - 40px) !important;
+	height: calc(100% - 40px) !important;
 }
 
 #logo
@@ -197,6 +199,13 @@ background-color: #EA3B3B;
 	width: 100%;
 }
 
+.postDialog input[type="radio"] {
+	width: auto;
+	margin: 0;
+	margin-bottom: 4px;
+	margin-right: 10px;
+}
+
 .postDialog p
 {
 	width: calc(100% - 40px);
@@ -228,10 +237,15 @@ background-color: #EA3B3B;
 	color: #EA3B3B;
 }
 
-#mailHint
+#mailHint, #ZIPHintGerman, #ZIPHintUS
 {
 	display: none;
 	margin-bottom: 5px;
+}
+
+#postZIPtxtUS
+{
+	display: none;
 }
 
 #imgSizeHint, #imgTypeHint
@@ -290,3 +304,9 @@ background-color: #EA3B3B;
 	font-size: 30px;
 	text-align:right;
 }
+
+.map {
+	width: 100%;
+	height: 600px;
+}
+

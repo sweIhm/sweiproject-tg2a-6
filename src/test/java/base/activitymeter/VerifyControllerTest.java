@@ -36,6 +36,8 @@ public class VerifyControllerTest {
 	static final String FAC = "7";
 	static final String IMG = "data:image/jpeg;base64,someimgdata";
 	static final String FAKE_KEY = "XXXX3333";
+	static final String ZIPCODE ="80331";
+
 	
 	@Autowired
 	private ActivityRepository activityRepository;
@@ -43,7 +45,7 @@ public class VerifyControllerTest {
 	
 	@Test
 	public void ensureSuccesslessVerificationNotPublishes() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
@@ -61,7 +63,7 @@ public class VerifyControllerTest {
 	
 	@Test
 	public void ensureSuccessfullVerificationPublishesActivity() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))

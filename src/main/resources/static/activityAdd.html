@@ -12,13 +12,24 @@
 		Tags <span class="required">*</span><br><input id="postTags" ng-model="activity.tags" size="255" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
-		University <span class="required">*</span><br><input id="postUniversity" ng-model="activity.uni" size="255" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
+		University <span class="required">*</span><br>
+  		<label>
+    		<input id="postUniversity" name="postUniversity" type="radio" ng-model="activity.uni" value="MUAS" onclick="angular.element(this).scope().checkUni(); angular.element(this).scope().verifyPostForm();">
+    		MUAS
+  		</label>
+  		<label>
+    		<input id="postUniversity" name="postUniversity" type="radio" ng-model="activity.uni" value="CalPoly" onclick="angular.element(this).scope().checkUni(); angular.element(this).scope().verifyPostForm();">
+    		CalPoly
+  		</label>
 	</p>
 	<p>
 		Faculty <span class="required">*</span><br><input id="postFaculty" ng-model="activity.faculty" size="255" maxlength="255" onkeyup="angular.element(this).scope().verifyPostForm()"/>
 	</p>
 	<p>
 		Your E-Mail Adress for verification <span class="required">*</span><span id="mailHint" class="required">@hm.edu or @cpp.edu required</span><input id="postEmail" ng-model="activity.eMail" size="255" maxlength="255" onkeyup="angular.element(this).scope().checkEmail(); angular.element(this).scope().verifyPostForm();"/>
+	</p>
+	<p>
+		<span id="postZIPtxtGerman">ZIP code<span class="required"> *</span></span><span id="postZIPtxtUS">Adress<span class="required"> *</span></span><span id="ZIPHintGerman" class="required">invalid German ZIP Code!</span><span id="ZIPHintUS" class="required">invalid US Adress!</span><input id="postZIPCode" ng-model="activity.ZIPCode" size="255" maxlength="255" onkeyup="angular.element(this).scope().checkZIP(); angular.element(this).scope().verifyPostForm();"/>
 	</p>
 	<p>
 		You can upload an image here:

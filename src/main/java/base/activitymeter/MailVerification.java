@@ -23,6 +23,8 @@ public class MailVerification {
 		
 		String verificationLink = System.getenv("URL_VERIFY") + verificationID;
 		
+		System.out.println(verificationID);
+		
 		Properties properties = new Properties();    
         properties.put("mail.smtp.host", "smtp.gmail.com");    
         properties.put("mail.smtp.socketFactory.port", "465");    

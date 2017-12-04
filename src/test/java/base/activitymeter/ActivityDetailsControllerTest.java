@@ -32,13 +32,15 @@ public class ActivityDetailsControllerTest {
 	static final String UNI = "hm";
 	static final String FAC = "7";
 	static final String IMG = "data:image/jpeg;base64,someimgdata";
+	static final String ZIPCODE ="80331";
+
 
 	@Autowired
 	private ActivityRepository activityRepository;
 
 	@Test
 	public void testExistingActivity() throws Exception {
-		Activity a = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity a = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		a.setPublished(true);
 
 		a = activityRepository.save(a);
@@ -53,7 +55,7 @@ public class ActivityDetailsControllerTest {
 
 	@Test
 	public void testNonExistingActivity() throws Exception {
-		Activity a = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity a = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		a.setPublished(true);
 
 		a = activityRepository.save(a);
@@ -63,7 +65,7 @@ public class ActivityDetailsControllerTest {
 
 	@Test
 	public void testUnPublishedActivity() throws Exception {
-		Activity a = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity a = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 
 		a = activityRepository.save(a);
 

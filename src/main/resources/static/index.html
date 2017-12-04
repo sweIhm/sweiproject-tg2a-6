@@ -25,10 +25,44 @@
 	href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
+
+
 <script>
+
+var geocoder;
+var map;
+
+function initializeMaps() {
+
+	var centerData;
+	var address = "Lothstraße 64, 80335 München";
+	geocoder = new google.maps.Geocoder();
+
+	geocoder.geocode({
+		'address': address
+	}, function(results, status) {
+		if (status == 'OK') {
+			centerData = results[0].geometry.location;
+		} else {
+			alert('Geocode was not successful for the following reason: ' + status);
+		}
+	});
+      
+	var mapOptions = {
+		zoom: 9,
+		center: centerData
+	}
+	
+	map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	
+	console.log("maps init finished");
+}
+
+
 var app = angular.module('ActivityMeterApp', ['ui.bootstrap']);
 
 //$qProvider.errorOnUnhandledRejections(false);
+
     
 function loadActivities ($scope, $http){
 		$http({
@@ -36,14 +70,61 @@ function loadActivities ($scope, $http){
              url: 'activity'
                     
     		}).then(function (response) {
-     			 $scope.activities = response.data;
+     			 $scope.activities = response.data;  			 
   		});
-  	}
+  		
+  		loadMUASActivitiesForGMap ($scope, $http);
+}
+
+
+function loadMUASActivitiesForGMap ($scope, $http){
+		$http({
+       		 method : 'GET',
+             url: 'mapdata/MUAS'
+                    
+    		}).then(function (response) {
+     			 $scope.HMActivitiesForGMap = response.data;    
+     			   		
+  			//ALLE MARKER LÖSCHEN NICHT VERGESSEN
+  		
+  		    angular.forEach($scope.HMActivitiesForGMap,function(value,index){
+                console.log(value.zipcode);
+      			geocoder.geocode({
+          			'address': value.zipcode + " Germany"
+      			}, function(results, status) {
+          			if (status == 'OK') {
+              			map.setCenter(results[0].geometry.location);
+              			var marker = new google.maps.Marker({
+                  			map: map,
+                  			position: results[0].geometry.location
+              			});
+              
+                		marker.addListener('click', function() {
+							$scope.show(value);
+  						});
+              		} else {
+              			alert('Geocode was not successful for the following reason: ' + status);
+          			}
+      			}); 
+            })	  			 
+  		});
+}
+
+
+app.controller('GMapsCtrl', function ($scope, $http, $dialog) {
+
+	
+
+});
+
   	
 app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
   	
   	loadActivities($scope, $http);
-  
+  	
+  	$scope.getActivities = function(){
+		return $scope.activities;
+  	};
 		  
   	var addDialogOptions = {
     	controller: 'PostCtrl',
@@ -149,7 +230,7 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		document.getElementsByTagName("body")[0].style.position = "fixed";
 
 		window.addEventListener('click', function(e){   
-  			if (!document.getElementById('showContainer').contains(e.target) || document.getElementBYID('showClose').contains(e.target)){
+  			if (!document.getElementById('showContainer').contains(e.target) || document.getElementById('showClose').contains(e.target)){
     			$scope.close();
   			}
 		});
@@ -169,18 +250,21 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 	var imgData = null;
 	
 	var emailIsValid = false;
+	var ZIPIsValid = false;
 	var imgValidSize = true;
 	var imgValidType = true;
+	
+	var zipNotYetEntered = true;
 	
 	$scope.verifyPostForm = function() {
 		var title = document.getElementById('postTitle').value;
 		var text = document.getElementById('postText').value;
 		var tags = document.getElementById('postTags').value;
-		var university = document.getElementById('postUniversity').value;
+		var university = document.querySelector('input[name = "postUniversity"]:checked').value;
 		var faculty = document.getElementById('postFaculty').value;
 		var email = document.getElementById('postEmail').value;
 		
-		/*console.log("changeed");
+		/*console.log("changed");
 		console.log(title);
 		console.log(text);
 		console.log(tags);
@@ -188,13 +272,59 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 		console.log(faculty);
 		console.log(email);*/
 		
-		if(title.length > 0 && text.length > 0 && tags.length > 0 && university.length > 0 && faculty.length > 0 && email.length > 0 && emailIsValid) {
+		if(title.length > 0 && text.length > 0 && tags.length > 0 && university.length > 0 && faculty.length > 0 && email.length > 0 && emailIsValid && ZIPIsValid) {
 			document.getElementById("postSubmit").disabled = false;
 			document.getElementById("postSubmit").classList.remove('buttonDisabled');
 		} else {
 			document.getElementById("postSubmit").disabled = true;
 			document.getElementById("postSubmit").classList.add('buttonDisabled');
 		}
+	}
+	
+	$scope.checkUni = function() {
+	
+		var uni = document.querySelector('input[name = "postUniversity"]:checked').value;
+
+		if(uni == "MUAS") {
+			document.getElementById("postZIPtxtUS").style.display = "none";
+			document.getElementById("postZIPtxtGerman").style.display = "block";
+		} else if(uni == "CalPoly") {
+			document.getElementById("postZIPtxtGerman").style.display = "none";
+			document.getElementById("postZIPtxtUS").style.display = "block";
+		}
+
+		if(!zipNotYetEntered)
+			$scope.checkZIP();
+		
+	}
+	
+	$scope.checkZIP = function() {
+
+		var zip = document.getElementById('postZIPCode').value;
+		var uni = document.querySelector('input[name = "postUniversity"]:checked').value;
+
+		if(uni == "MUAS") {
+			document.getElementById("ZIPHintUS").style.display = "none";
+			if(zip.length == 5 && !isNaN(parseInt(zip)) && parseInt(zip).toString().length == 5) {
+				ZIPIsValid = true;
+				document.getElementById("ZIPHintGerman").style.display = "none";
+			} else {
+				ZIPIsValid = false;
+				document.getElementById("ZIPHintGerman").style.display = "block";
+			}
+		} else if (uni == "CalPoly") {
+			document.getElementById("ZIPHintGerman").style.display = "none";
+			if(isNaN(parseInt(zip)) && zip.length > 0) {
+				ZIPIsValid = true;
+				document.getElementById("ZIPHintUS").style.display = "none";
+			} else {
+				ZIPIsValid = false;
+				document.getElementById("ZIPHintUS").style.display = "block";
+			}
+		}
+		
+		
+		zipNotYetEntered = false;
 	}
 	
 	$scope.checkEmail = function() {
@@ -302,7 +432,8 @@ app.controller('PostCtrl', function($scope, $http, dialog){
   				eMail: $scope.activity.eMail,
   				uni: $scope.activity.uni,
   				faculty: $scope.activity.faculty,
-  				image: imgData
+  				image: imgData,
+  				zipcode: $scope.activity.ZIPCode
 			  }
 		}  
 		
@@ -320,11 +451,28 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 });
 
 
+
+
 </script>
 </head>
 <body>
+
+
+
+
 	<div ng-controller="ActivityCtrl">
+	
+	
+
+	
 		<p id="logo-container"><img id="logo" src="logo.svg"></p>
+		
+		<div>
+			part of sprint 2: map showing activities from MUAS
+			<div id="map" class="map"></div>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsrHbQSVfjOxEgQ7btb-1yM6PpHX-gmEM&callback=initializeMaps" async defer></script>
+		</div>
+		
 		<table class="mdl-data-table">
 			<tr>
 				<td class="mdl-data-table__cell--non-numeric" colspan=3>&nbsp;</td>
@@ -342,13 +490,13 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 					<button class="mdl-button" ng-click="show(activity)">show</button>
 					
 				</td>
+				
+
+				
+				
 			</tr>
 		</table>
 	</div>
-	<div>
-		<div id="map" style="width: 100%; height: 550px;"></div>
-		<script src="map.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsrHbQSVfjOxEgQ7btb-1yM6PpHX-gmEM&callback=codeAddress" async defer></script>
-	</div>
+	
 </body>
 </html>

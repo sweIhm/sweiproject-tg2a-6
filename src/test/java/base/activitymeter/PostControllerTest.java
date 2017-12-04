@@ -35,6 +35,7 @@ public class PostControllerTest {
 	static final String UNI = "hm";
 	static final String FAC = "7";
 	static final String IMG = "data:image/jpeg;base64,someimgdata";
+	static final String ZIPCODE ="80331";
 	
 	@Autowired
 	private ActivityRepository activityRepository;
@@ -63,7 +64,7 @@ public class PostControllerTest {
 
 	@Test
 	public void ensurePostRequestWithCorrectJSONBodyWorksAndCheckJSONResponse() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
@@ -77,12 +78,14 @@ public class PostControllerTest {
 				.andExpect(jsonPath("$.faculty").value(FAC))
 				.andExpect(jsonPath("$.image").value(IMG))
 				.andExpect(jsonPath("$.published").value("false"))
-				.andExpect(jsonPath("$.id").value("1"));
+				.andExpect(jsonPath("$.id").value("1"))
+				.andExpect(jsonPath("$.zipcode").value(ZIPCODE));
+
 	}
 
 	@Test
 	public void ensureActivityIsStoredCorrectly() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
@@ -96,7 +99,9 @@ public class PostControllerTest {
 				.andExpect(jsonPath("$.faculty").value(FAC))
 				.andExpect(jsonPath("$.image").value(IMG))
 				.andExpect(jsonPath("$.published").value("false"))
-				.andExpect(jsonPath("$.id").value("1"));
+				.andExpect(jsonPath("$.id").value("1"))
+				.andExpect(jsonPath("$.zipcode").value(ZIPCODE));
+
 
 		Activity a = activityRepository.findOne((long)1);
 
@@ -110,12 +115,14 @@ public class PostControllerTest {
 		assertEquals(a.isPublished(), false);
 		assertEquals(String.valueOf(a.getId()), "1");
 		assertEquals(a.getSecretKey().length(), 60);
+		assertEquals(a.getZipcode(), ZIPCODE);
+
 		
 	}
 	
 	@Test
 	public void ensureSecretKeyIsNotRevealedFromPostResponse() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
@@ -128,7 +135,7 @@ public class PostControllerTest {
 	
 	@Test
 	public void ensureEmailIsNotRevealedFromPostResponse() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
@@ -140,7 +147,7 @@ public class PostControllerTest {
 
 	@Test
 	public void ensureActivityIsNotStoredIfWrongEmail() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE, "a@b.de", UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE, "a@b.de", UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))

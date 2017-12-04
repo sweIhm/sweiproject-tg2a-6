@@ -38,13 +38,14 @@ public class ActivityControllerTest {
 	static final String UNI = "hm";
 	static final String FAC = "7";
 	static final String IMG = "data:image/jpeg;base64,someimgdata";
+	static final String ZIPCODE ="80331";
 
 	@Autowired
 	private ActivityRepository activityRepository;
 
 	@Test
 	public void ensureThatUnpublishedActivitiesAreNotShown() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 
@@ -54,7 +55,7 @@ public class ActivityControllerTest {
 
 	@Test
 	public void ensureThatPublishedActivitiesAreShown() throws Exception {
-		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 
 		this.mockMvc.perform(post("/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
@@ -62,7 +63,7 @@ public class ActivityControllerTest {
 		activity = activityRepository.findOne((long) 1);
 		activity.setPublished(true);
 		activityRepository.save(activity);
-		String expectedString = "[{\"id\":1,\"text\":\"\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"\",\"image\":\"\"}]";
+		String expectedString = "[{\"id\":1,\"text\":\"\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"\",\"zipcode\":\"80331\",\"image\":\"\"}]";
 
 		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedString));
 

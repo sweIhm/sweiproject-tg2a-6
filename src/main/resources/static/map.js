@@ -47,9 +47,7 @@
                   position: results[0].geometry.location
               });
               
-                marker.addListener('click', function() {
-					console.log(angular.element(this).scope().activities);
-  				});
+              
               
           } else {
               alert('Geocode was not successful for the following reason: ' + status);
