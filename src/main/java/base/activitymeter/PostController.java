@@ -30,7 +30,7 @@ public class PostController {
 		}
 
 		Activity activity = new Activity(input.getText(), input.getTags(), input.getTitle(), input.geteMail(),
-				input.getUni(), input.getFaculty(), input.getImage());
+				input.getUni(), input.getFaculty(), input.getImage(), input.getZipcode());
 
 		if (activity.geteMail().endsWith("@hm.edu") || activity.geteMail().endsWith("@cpp.edu")) {
 			activity.verify();
