@@ -11,6 +11,8 @@ import base.admin.EMailRepository;
 @RestController
 @RequestMapping("/post")
 public class PostController {
+	
+	//test
 
 	@Autowired
 	private ActivityRepository activityRepository;
