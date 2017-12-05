@@ -125,7 +125,8 @@ body
 #menu-container
 {
 	background: #23AD4A;
-	padding: 10px;	
+	padding: 10px;
+	padding-left: 20px;
 }
 
 #menu-container > div
