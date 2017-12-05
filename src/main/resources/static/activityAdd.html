@@ -1,3 +1,4 @@
+<div id="post-dialog-container">
 <div class="modal-header">
 	<h3 class="center">Post Activity on <img id="logoPost" src="logo.svg"></h3>
 </div>
@@ -29,7 +30,7 @@
 		Your E-Mail Adress for verification <span class="required">*</span><span id="mailHint" class="required">@hm.edu or @cpp.edu required</span><input id="postEmail" ng-model="activity.eMail" size="255" maxlength="255" onkeyup="angular.element(this).scope().checkEmail(); angular.element(this).scope().verifyPostForm();"/>
 	</p>
 	<p>
-		<span id="postZIPtxtGerman">ZIP code<span class="required"> *</span></span><span id="postZIPtxtUS">Adress<span class="required"> *</span></span><span id="ZIPHintGerman" class="required">invalid German ZIP Code!</span><span id="ZIPHintUS" class="required">invalid US Adress!</span><input id="postZIPCode" ng-model="activity.ZIPCode" size="255" maxlength="255" onkeyup="angular.element(this).scope().checkZIP(); angular.element(this).scope().verifyPostForm();"/>
+		<span id="postZIPtxtGerman">ZIP code<span class="required"> *</span></span><span id="postZIPtxtUS">City<span class="required"> *</span></span><span id="ZIPHintGerman" class="required">invalid German ZIP code!</span><span id="ZIPHintUS" class="required">invalid US city!</span><input id="postZIPCode" ng-model="activity.ZIPCode" size="255" maxlength="255" onkeyup="angular.element(this).scope().checkZIP(); angular.element(this).scope().verifyPostForm();"/>
 	</p>
 	<p>
 		You can upload an image here:
@@ -49,4 +50,5 @@
 <div class="modal-footer">
 	<button id="postSubmit" class="button buttonDisabled buttonGreen" ng-click="save(activity)" disabled>Save</button>
 	<button  class="button buttonRed" ng-click="close()">Close</button>
+</div>
 </div>

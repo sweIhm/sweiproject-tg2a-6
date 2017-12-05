@@ -115,20 +115,76 @@ table tr:hover td {
 
 body
 {
-	padding: 20px !important;
-	width: calc(100% - 40px) !important;
-	height: calc(100% - 40px) !important;
+	padding: 0px !important;
+	width: 100% !important;
+	min-width: 900px;
+	height: 100% !important;
+	font-family: 'Open Sans', sans-serif !important;
 }
 
-#logo
+#menu-container
 {
-	width: 300px;
+	background: #23AD4A;
+	padding: 10px;	
+}
+
+#menu-container > div
+{
+	display: inline-block;
+}
+
+#menu > div
+{
+	display: inline-block;
+}
+
+
+#logo, #logo-container, #menu
+{
+	height: 50px;
 }
 
 #logo-container
 {
-	text-align: center;
+
 }
+
+#menu
+{
+	vertical-align: top;
+}
+
+
+
+
+
+.menu-item
+{
+	margin-top: 8px;
+	margin-left: 40px;
+	padding: 7px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+	color: #ffffff;
+	font-weight: bold;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.menu-item:hover
+{
+	background: #259445;
+}
+
+
+.current-menu-item
+{
+	background: #259445;
+}
+
+
 
 #logoPost
 {
@@ -307,6 +363,21 @@ background-color: #EA3B3B;
 
 .map {
 	width: 100%;
-	height: 600px;
+	height: calc(100vh - 70px);
 }
 
+#map, #map2
+{
+	display: none;
+}
+
+#post-dialog-container h3, #post-dialog-container span, #post-dialog-container p, #post-dialog-container input, #post-dialog-container button
+{
+	font-family: 'Open Sans', sans-serif !important;
+}
+
+.table-head
+{
+	font-weight: bold;
+	color: #23AD4A;
+}
