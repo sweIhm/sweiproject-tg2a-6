@@ -450,7 +450,8 @@ function loadMUASActivitiesForGMap ($scope, $http){
               			currCenter = map.getCenter();
               			var marker = new google.maps.Marker({
                   			map: map,
-                  			position: results[0].geometry.location
+                  			position: results[0].geometry.location,
+                  			icon: 'flag.png'
               			});
               
                 		marker.addListener('click', function() {
@@ -484,7 +485,8 @@ function loadCalPolyActivitiesForGMap ($scope, $http){
               			currCenter2 = map2.getCenter();
               			var marker = new google.maps.Marker({
                   			map: map2,
-                  			position: results[0].geometry.location
+                  			position: results[0].geometry.location,
+                  			icon: 'flag.png'
               			});
               
                 		marker.addListener('click', function() {
