@@ -46,7 +46,7 @@ public class PostControllerTest {
 	@Test
 	public void ensurePostRequestWithoutJSONBodyFails() throws Exception {
 		//Causes WARN, which is OK, as no JSON is sent.
-		this.mockMvc.perform(post("/post"))
+		this.mockMvc.perform(post("/rest/post"))
 				.andDo(print())
 				.andExpect(status().is4xxClientError());
 	}
@@ -55,7 +55,7 @@ public class PostControllerTest {
     public void ensurePostRequestWithIncorrectJSONBodyFails() throws Exception {
 		//Causes WARN, which is OK, as wrong JSON is sent.
     	String JSON = "{\"title\":" + TITLE + "}";
-    	this.mockMvc.perform(post("/post")
+    	this.mockMvc.perform(post("/rest/post")
     			.contentType(MediaType.APPLICATION_JSON)
                 .content(JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -66,7 +66,7 @@ public class PostControllerTest {
 	@Test
 	public void ensurePostRequestWithCorrectJSONBodyWorksAndCheckJSONResponse() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))
@@ -87,7 +87,7 @@ public class PostControllerTest {
 	@Test
 	public void ensureActivityIsStoredCorrectly() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))
@@ -124,7 +124,7 @@ public class PostControllerTest {
 	@Test
 	public void ensureSecretKeyIsNotRevealedFromPostResponse() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))
@@ -137,7 +137,7 @@ public class PostControllerTest {
 	@Test
 	public void ensureEmailIsNotRevealedFromPostResponse() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))
@@ -149,7 +149,7 @@ public class PostControllerTest {
 	@Test
 	public void ensureActivityIsNotStoredIfWrongEmail() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, "a@b.de", UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))
@@ -161,7 +161,7 @@ public class PostControllerTest {
 	@Test
 	public void ensureHMEmailIsAccepted() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))
@@ -181,7 +181,7 @@ public class PostControllerTest {
 	@Test
 	public void ensureCPPEmailIsAccepted() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL2, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))

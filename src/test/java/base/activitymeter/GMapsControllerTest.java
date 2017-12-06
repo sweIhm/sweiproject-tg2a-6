@@ -45,30 +45,30 @@ public class GMapsControllerTest {
 	@Test
 	public void ensureGetRequestReturnsCorrectJSONIfRequestedUniExists() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity)));
 	 
 		activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI2, FAC, IMG, ZIPCODE2);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity)));
 		
 		activity = activityRepository.findOne((long)1);
 		String key = activity.getSecretKey();
-		this.mockMvc.perform(get("/verify/" + key)
+		this.mockMvc.perform(get("/rest/verify/" + key)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 		
 		activity = activityRepository.findOne((long)2);
 		key = activity.getSecretKey();
-		this.mockMvc.perform(get("/verify/" + key)
+		this.mockMvc.perform(get("/rest/verify/" + key)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 		
-		this.mockMvc.perform(get("/mapdata/" + UNI))
+		this.mockMvc.perform(get("/rest/mapdata/" + UNI))
 				.andDo(print())
 				.andExpect(jsonPath("$[0].id").value("1"))
 				.andExpect(jsonPath("$[0].published").value(true))
@@ -79,18 +79,18 @@ public class GMapsControllerTest {
 	@Test
 	public void ensureGetRequestReturnsCorrectJSONIfRequestedUniDoesNotExist() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI2, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity)));
 		
 		activity = activityRepository.findOne((long)1);
 		String key = activity.getSecretKey();
-		this.mockMvc.perform(get("/verify/" + key)
+		this.mockMvc.perform(get("/rest/verify/" + key)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 		
-		this.mockMvc.perform(get("/mapdata/" + UNI))
+		this.mockMvc.perform(get("/rest/mapdata/" + UNI))
 				.andDo(print())
 				.andExpect(content().string("[]"));
 	}
@@ -98,11 +98,11 @@ public class GMapsControllerTest {
 	@Test
 	public void ensureGetRequestDoesNotReturnUnpublishedActivities() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity)));
 		
-		this.mockMvc.perform(get("/mapdata/" + UNI))
+		this.mockMvc.perform(get("/rest/mapdata/" + UNI))
 				.andDo(print())
 				.andExpect(content().string("[]"));
 	}

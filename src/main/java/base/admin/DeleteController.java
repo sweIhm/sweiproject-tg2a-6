@@ -10,7 +10,7 @@ import base.activitymeter.Activity;
 import base.activitymeter.ActivityRepository;
 
 @RestController
-@RequestMapping("/delete/{activityID}")
+@RequestMapping("/rest/delete/{activityID}")
 public class DeleteController {
 
 	@Autowired

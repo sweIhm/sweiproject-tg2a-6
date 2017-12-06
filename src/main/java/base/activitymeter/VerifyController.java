@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/verify")
+@RequestMapping("/rest/verify")
 public class VerifyController {
 		
 	  @Autowired

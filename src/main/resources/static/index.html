@@ -421,7 +421,7 @@ var app = angular.module('ActivityMeterApp', ['ui.bootstrap']);
 function loadActivities ($scope, $http){
 		$http({
        		 method : 'GET',
-             url: 'activity'
+             url: 'rest/activity'
                     
     		}).then(function (response) {
      			 $scope.activities = response.data;  			 
@@ -435,7 +435,7 @@ function loadActivities ($scope, $http){
 function loadMUASActivitiesForGMap ($scope, $http){
 		$http({
        		 method : 'GET',
-             url: 'mapdata/MUAS'
+             url: 'rest/mapdata/MUAS'
                     
     		}).then(function (response) {
      			 $scope.HMActivitiesForGMap = response.data;    
@@ -468,7 +468,7 @@ function loadMUASActivitiesForGMap ($scope, $http){
 function loadCalPolyActivitiesForGMap ($scope, $http){
 		$http({
        		 method : 'GET',
-             url: 'mapdata/CalPoly'
+             url: 'rest/mapdata/CalPoly'
                     
     		}).then(function (response) {
      			 $scope.CalPolyActivitiesForGMap = response.data;    
@@ -568,7 +568,7 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
 	$scope.delete = function(activity) {
 		var deleteRequest = {
 			method : 'DELETE',
-			url: 'activity/' + activity.id
+			url: 'rest/activity/' + activity.id
 		};
 		
   		$http(deleteRequest).then(function() {
@@ -596,7 +596,7 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
   	$scope.save = function($activity) {
   	    var putRequest = {
     	method : 'PUT',
-       	url: 'activity/' + $scope.activity.id,
+       	url: 'rest/activity/' + $scope.activity.id,
        	data: {
   				text: $scope.activity.text,
   				tags: $scope.activity.tags,
@@ -628,7 +628,7 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 
 	var getRequest = {
 		method: 'GET',
-		url: 'details/' + activity.id
+		url: 'rest/details/' + activity.id
 	}
 
 	$http(getRequest).then(function(response) {
@@ -841,7 +841,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
   	$scope.save = function(Activity) {
   		var postRequest = {
     	method : 'POST',
-       	url: 'post' ,
+       	url: 'rest/post' ,
        	data: {
   				text: $scope.activity.text,
   				tags: $scope.activity.tags,

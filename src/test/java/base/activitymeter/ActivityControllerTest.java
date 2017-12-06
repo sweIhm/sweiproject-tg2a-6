@@ -46,10 +46,10 @@ public class ActivityControllerTest {
 	@Test
 	public void ensureThatUnpublishedActivitiesAreNotShown() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
+		this.mockMvc.perform(post("/rest/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 
-		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string("[]"));
+		mockMvc.perform(get("/rest/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string("[]"));
 
 	}
 
@@ -57,7 +57,7 @@ public class ActivityControllerTest {
 	public void ensureThatPublishedActivitiesAreShown() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 
-		this.mockMvc.perform(post("/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
+		this.mockMvc.perform(post("/rest/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 
 		activity = activityRepository.findOne((long) 1);
@@ -65,7 +65,7 @@ public class ActivityControllerTest {
 		activityRepository.save(activity);
 		String expectedString = "[{\"id\":1,\"text\":\"\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"\",\"zipcode\":\"80331\",\"image\":\"\"}]";
 
-		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedString));
+		mockMvc.perform(get("/rest/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedString));
 
 	}
 	
@@ -74,7 +74,7 @@ public class ActivityControllerTest {
 	public void ensureThatActivitiesAreBeingDeleted() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
 
-		this.mockMvc.perform(post("/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
+		this.mockMvc.perform(post("/rest/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 
 		activity = activityRepository.findOne((long) 1);
@@ -82,9 +82,9 @@ public class ActivityControllerTest {
 		activityRepository.save(activity);
 		String expectedString = "[{\"id\":1,\"text\":\"sampletxt\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"7\",\"image\":\"data:image/jpeg;base64,someimgdata\"}]";
 
-		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedString));
-		mockMvc.perform(delete("/activity/1"));
-		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string("[]"));
+		mockMvc.perform(get("/rest/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedString));
+		mockMvc.perform(delete("/rest/activity/1"));
+		mockMvc.perform(get("/rest/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string("[]"));
 
 	}
 	
@@ -93,7 +93,7 @@ public class ActivityControllerTest {
 		Activity activityOld = new Activity(TEXT + TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
 		Activity activitynew = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG);
 
-		this.mockMvc.perform(post("/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activityOld))
+		this.mockMvc.perform(post("/rest/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activityOld))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 
 		activityOld = activityRepository.findOne((long) 1);
@@ -103,10 +103,10 @@ public class ActivityControllerTest {
 		String expectedStringOld = "[{\"id\":1,\"text\":\"sampletxtsampletxt\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"7\",\"image\":\"data:image/jpeg;base64,someimgdata\"}]";
 		String expectedStringNew = "[{\"id\":1,\"text\":\"sampletxt\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"published\":true,\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"7\",\"image\":\"data:image/jpeg;base64,someimgdata\"}]";
 
-		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedStringOld));
-		mockMvc.perform(put("/activity/1").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activitynew))
+		mockMvc.perform(get("/rest/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedStringOld));
+		mockMvc.perform(put("/rest/activity/1").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activitynew))
 		.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());;
-		mockMvc.perform(get("/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedStringNew));
+		mockMvc.perform(get("/rest/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedStringNew));
 
 		
 	}

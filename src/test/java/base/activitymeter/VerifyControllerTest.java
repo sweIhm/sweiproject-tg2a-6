@@ -46,14 +46,14 @@ public class VerifyControllerTest {
 	@Test
 	public void ensureSuccesslessVerificationNotPublishes() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk());
 		
-		this.mockMvc.perform(get("/verify/" + FAKE_KEY))
+		this.mockMvc.perform(get("/rest/verify/" + FAKE_KEY))
 				.andDo(print())
 				.andExpect(status().isOk());
 		
@@ -64,7 +64,7 @@ public class VerifyControllerTest {
 	@Test
 	public void ensureSuccessfullVerificationPublishesActivity() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE2, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/post")
+		this.mockMvc.perform(post("/rest/post")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON))
@@ -74,7 +74,7 @@ public class VerifyControllerTest {
 		activity = activityRepository.findOne((long)1);
 		String key = activity.getSecretKey();
 		
-		this.mockMvc.perform(get("/verify/" + key))
+		this.mockMvc.perform(get("/rest/verify/" + key))
 				.andDo(print())
 				.andExpect(status().isOk());
 		

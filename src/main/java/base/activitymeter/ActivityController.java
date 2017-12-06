@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/activity")
+@RequestMapping("/rest/activity")
 public class ActivityController {
   private final String fakeValue = "nope";
 	

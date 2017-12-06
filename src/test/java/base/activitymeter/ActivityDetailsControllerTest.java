@@ -44,8 +44,7 @@ public class ActivityDetailsControllerTest {
 		a.setPublished(true);
 
 		a = activityRepository.save(a);
-
-		mockMvc.perform(get("/details/" + 1)).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+		mockMvc.perform(get("/rest/details/" + a.getId())).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is(1))).andExpect(jsonPath("$.text", is(TEXT)))
 				.andExpect(jsonPath("$.tags", is(TAG))).andExpect(jsonPath("$.title", is(TITLE)))
 				.andExpect(jsonPath("$.eMail").doesNotExist()).andExpect(jsonPath("$.published", is(true)))
@@ -60,7 +59,7 @@ public class ActivityDetailsControllerTest {
 
 		a = activityRepository.save(a);
 
-		mockMvc.perform(get("/details/" + a.getId() + 1)).andExpect(status().isOk()).andExpect(content().string(""));
+		mockMvc.perform(get("/rest/details/" + a.getId() + 1)).andExpect(status().isOk()).andExpect(content().string(""));
 	}
 
 	@Test
@@ -69,7 +68,7 @@ public class ActivityDetailsControllerTest {
 
 		a = activityRepository.save(a);
 
-		mockMvc.perform(get("/details/" + a.getId())).andExpect(status().isOk()).andExpect(content().string(""));
+		mockMvc.perform(get("/rest/details/" + a.getId())).andExpect(status().isOk()).andExpect(content().string(""));
 	}
 
 }

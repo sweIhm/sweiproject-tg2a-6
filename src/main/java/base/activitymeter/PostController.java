@@ -9,7 +9,7 @@ import base.admin.EMail;
 import base.admin.EMailRepository;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/rest/post")
 public class PostController {
 	
 
