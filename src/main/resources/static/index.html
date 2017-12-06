@@ -42,7 +42,7 @@ function initializeMaps() {
 
 	var centerData;
 	var centerData2;
-	var address = "Lothstraße 64, 80335 München";
+	var address = "Lothstrasse 64, 80335 Muenchen";
 	var address2 = "1 Grand Avenue, San Luis Obispo, CA 93407";
 	geocoder = new google.maps.Geocoder();
 
@@ -439,9 +439,7 @@ function loadMUASActivitiesForGMap ($scope, $http){
                     
     		}).then(function (response) {
      			 $scope.HMActivitiesForGMap = response.data;    
-     			   		
-  			//ALLE MARKER LÖSCHEN NICHT VERGESSEN
-  		
+     			   		  		
   		    angular.forEach($scope.HMActivitiesForGMap,function(value,index){
                 console.log(value.zipcode);
       			geocoder.geocode({
@@ -474,9 +472,7 @@ function loadCalPolyActivitiesForGMap ($scope, $http){
                     
     		}).then(function (response) {
      			 $scope.CalPolyActivitiesForGMap = response.data;    
-     			   		
-  			//ALLE MARKER LÖSCHEN NICHT VERGESSEN
-  		
+     			   		  		
   		    angular.forEach($scope.CalPolyActivitiesForGMap,function(value,index){
                 console.log(value.zipcode);
       			geocoder.geocode({
