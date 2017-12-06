@@ -32,6 +32,7 @@ public class PostControllerTest {
 	static final String TITLE = "sampletitle1";
 	static final String TITLE2 = "sampletitle2";
 	static final String EMAIL = "a@hm.edu";
+	static final String EMAIL2 = "a@cpp.edu";
 	static final String UNI = "hm";
 	static final String FAC = "7";
 	static final String IMG = "data:image/jpeg;base64,someimgdata";
@@ -155,6 +156,46 @@ public class PostControllerTest {
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(content().string(""));
+	}
+	
+	@Test
+	public void ensureHMEmailIsAccepted() throws Exception {
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
+		this.mockMvc.perform(post("/post")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(activity))
+				.accept(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.text").value(TEXT))
+				.andExpect(jsonPath("$.tags").value(TAG))
+				.andExpect(jsonPath("$.title").value(TITLE))
+				.andExpect(jsonPath("$.uni").value(UNI))
+				.andExpect(jsonPath("$.faculty").value(FAC))
+				.andExpect(jsonPath("$.image").value(IMG))
+				.andExpect(jsonPath("$.published").value("false"))
+				.andExpect(jsonPath("$.id").value("1"))
+				.andExpect(jsonPath("$.zipcode").value(ZIPCODE));
+	}
+	
+	@Test
+	public void ensureCPPEmailIsAccepted() throws Exception {
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL2, UNI, FAC, IMG, ZIPCODE);
+		this.mockMvc.perform(post("/post")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(activity))
+				.accept(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.text").value(TEXT))
+				.andExpect(jsonPath("$.tags").value(TAG))
+				.andExpect(jsonPath("$.title").value(TITLE))
+				.andExpect(jsonPath("$.uni").value(UNI))
+				.andExpect(jsonPath("$.faculty").value(FAC))
+				.andExpect(jsonPath("$.image").value(IMG))
+				.andExpect(jsonPath("$.published").value("false"))
+				.andExpect(jsonPath("$.id").value("1"))
+				.andExpect(jsonPath("$.zipcode").value(ZIPCODE));
 	}
 	
 	public static String asJsonString(final Object obj) {
