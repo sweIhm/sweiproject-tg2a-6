@@ -105,17 +105,17 @@ public class PostControllerTest {
 
 		Activity a = activityRepository.findOne((long)1);
 
-		assertEquals(a.getText(), TEXT);
-		assertEquals(a.getTags(), TAG);
-		assertEquals(a.getTitle(), TITLE2);
-		assertEquals(a.geteMail(), EMAIL);
-		assertEquals(a.getUni(), UNI);
-		assertEquals(a.getFaculty(), FAC);
-		assertEquals(a.getImage(), IMG);
-		assertEquals(a.isPublished(), false);
-		assertEquals(String.valueOf(a.getId()), "1");
-		assertEquals(a.getSecretKey().length(), 60);
-		assertEquals(a.getZipcode(), ZIPCODE);
+		assertEquals(TEXT, a.getText());
+		assertEquals(TAG, a.getTags());
+		assertEquals(TITLE2, a.getTitle());
+		assertEquals(EMAIL, a.geteMail());
+		assertEquals(UNI, a.getUni());
+		assertEquals(FAC, a.getFaculty());
+		assertEquals(IMG, a.getImage());
+		assertEquals(false, a.isPublished());
+		assertEquals("1", String.valueOf(a.getId()));
+		assertEquals(60, a.getSecretKey().length());
+		assertEquals(ZIPCODE, a.getZipcode());
 
 		
 	}
