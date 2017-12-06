@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/mapdata")
@@ -13,7 +14,7 @@ public class GMapsController {
 	private ActivityRepository activityRepository;
 
 	@GetMapping("{uni}")
-	public ArrayList<Activity> find(@PathVariable String uni) {
+	public List<Activity> find(@PathVariable String uni) {
 		ArrayList<Activity> activities = new ArrayList<>();
 
 		for (Activity a : activityRepository.findAll()) {
