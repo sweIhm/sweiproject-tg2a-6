@@ -501,6 +501,22 @@ function loadCalPolyActivitiesForGMap ($scope, $http){
 
 app.controller('MenuCtrl', function ($scope, $http, $dialog) {
 
+	$scope.getView = function() {
+		var strParam = window.location.search.substring(1);
+		var arrParam = strParam.split("&");
+		var objParam = {};
+		for(var i = 0; i < arrParam.length; i++) {
+			var splitParam = arrParam[i].split("=");
+			objParam[splitParam[0]] = splitParam[1];
+		}
+		
+		if(objParam.map == "muas")
+			this.showMap1();
+		else if(objParam.map == "calpoly")
+			this.showMap2();
+		
+	}
+
 	$scope.showMap1 = function() {
 		document.getElementById("map2").style.display = "none";
 		document.getElementById("menu-item-map2").classList.remove("current-menu-item");
@@ -872,7 +888,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 
 </script>
 </head>
-<body>
+<body onload="angular.element(document.querySelector('#menu-container')).scope().getView();">
 
 
 
