@@ -35,9 +35,18 @@
 		
 		<div class="loginBox">
 			<div class="loginLabel">Admin</div>
-			<div class="eMailDiv"><input/></div>
-			<div class="passDiv"><input/></div>
-			<div class="buttonDiv"><button id="loginButton" class="button buttonGreen">Login</button></div>
+			<div class="eMailDiv"><input name="email" class="loginInput"/></div>
+			<div class="passDiv"><input type="password" name="pass" class="loginInput"/></div>
+			<div class="buttonDiv"><button id="loginButton" class="loginButton">Login</button></div>
+			<div class="loginAdditional">
+				<label class="remember loginFooter" for="remember">
+					<input type="checkbox" class="checkBox" name="remember" id="remember">
+					Remember Me
+				</label>
+				<label class="forgotPass loginFooter" onclick="alert('Your problem');">
+					Forgot password?
+				</label>
+			</div>
 		</div>
 	</body>
 </html>
