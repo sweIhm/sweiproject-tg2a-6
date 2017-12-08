@@ -44,6 +44,13 @@ public class ActivityController {
 	  a.seteMail(fakeValue);
       return a;
   }
+  
+  @GetMapping("{id}")	
+  public void report(@PathVariable Long id) {
+	  Activity activity = activityRepository.findOne(id);
+	  activity.setReported(true);
+	  activityRepository.save(activity);
+  }
 
 
   /* Disabeld for sprint 1
