@@ -30,7 +30,7 @@ public class Activity {
     private String faculty;
     private String zipcode;
     private boolean published;
-    private boolean isReported;
+    private boolean isReported = false;
     
     @Lob
     private String image;
