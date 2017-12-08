@@ -35,8 +35,8 @@ var geocoder;
 var map;
 var map2;
 
-var bounds;
-var bounds2;
+var currCenter;
+var currCenter2;
 
 function initializeMaps() {
 
@@ -67,7 +67,6 @@ function initializeMaps() {
       
 	var mapOptions = {
 		zoom: 11,
-		maxZoom: 14,
 		center: centerData,
 		disableDefaultUI: true,
 		styles: [
@@ -233,7 +232,6 @@ function initializeMaps() {
 	}
 	var mapOptions2 = {
 		zoom: 9,
-		maxZoom: 14,
 		center: centerData2,
 		disableDefaultUI: true,
 		styles: [
@@ -401,27 +399,18 @@ function initializeMaps() {
 	map = new google.maps.Map(document.getElementById('map'), mapOptions);
 	map2 = new google.maps.Map(document.getElementById('map2'), mapOptions2);
 	
-	//currCenter = map.getCenter();
-	//currCenter2 = map2.getCenter();
+	currCenter = map.getCenter();
+	currCenter2 = map2.getCenter();
 	
 	window.onresize = function(event) {
-  		google.maps.event.trigger(map, 'resize');
-  		map.fitBounds(bounds);
-		map.panToBounds(bounds);
+		google.maps.event.trigger(map, 'resize');
+		map.setCenter(currCenter);
 		google.maps.event.trigger(map2, 'resize');
-		map2.fitBounds(bounds2);
-		map2.panToBounds(bounds2);
+		map2.setCenter(currCenter2);
 	};
 	
 	console.log("maps init finished");
 }
-
-
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsrHbQSVfjOxEgQ7btb-1yM6PpHX-gmEM&callback=initializeMaps" defer></script>
-
-<script>
 
 
 var app = angular.module('ActivityMeterApp', ['ui.bootstrap']);
@@ -432,7 +421,7 @@ var app = angular.module('ActivityMeterApp', ['ui.bootstrap']);
 function loadActivities ($scope, $http){
 		$http({
        		 method : 'GET',
-             url: 'rest/activity'
+             url: 'rest/activity/reported'
                     
     		}).then(function (response) {
      			 $scope.activities = response.data;  			 
@@ -444,9 +433,6 @@ function loadActivities ($scope, $http){
 
 
 function loadMUASActivitiesForGMap ($scope, $http){
-
-		bounds = new google.maps.LatLngBounds();
-
 		$http({
        		 method : 'GET',
              url: 'rest/mapdata/MUAS'
@@ -460,18 +446,13 @@ function loadMUASActivitiesForGMap ($scope, $http){
           			'address': value.zipcode + " Germany"
       			}, function(results, status) {
           			if (status == 'OK') {
-              			
+              			map.setCenter(results[0].geometry.location);
+              			currCenter = map.getCenter();
               			var marker = new google.maps.Marker({
                   			map: map,
                   			position: results[0].geometry.location,
                   			icon: 'flag.png'
               			});
-              			
-              			var loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-              			bounds.extend(loc);
-              
-						map.fitBounds(bounds);
-						map.panToBounds(bounds);
               
                 		marker.addListener('click', function() {
 							$scope.show(value);
@@ -485,9 +466,6 @@ function loadMUASActivitiesForGMap ($scope, $http){
 }
 
 function loadCalPolyActivitiesForGMap ($scope, $http){
-
-		bounds2 = new google.maps.LatLngBounds();
-
 		$http({
        		 method : 'GET',
              url: 'rest/mapdata/CalPoly'
@@ -501,18 +479,13 @@ function loadCalPolyActivitiesForGMap ($scope, $http){
           			'address': value.zipcode + " USA"
       			}, function(results, status) {
           			if (status == 'OK') {
-
+              			map2.setCenter(results[0].geometry.location);
+              			currCenter2 = map2.getCenter();
               			var marker = new google.maps.Marker({
                   			map: map2,
                   			position: results[0].geometry.location,
                   			icon: 'flag.png'
               			});
-              			
-              			var loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-              			bounds2.extend(loc);
-              			
-              			map2.fitBounds(bounds2);
-						map2.panToBounds(bounds2);
               
                 		marker.addListener('click', function() {
 							$scope.show(value);
@@ -552,8 +525,8 @@ app.controller('MenuCtrl', function ($scope, $http, $dialog) {
 		document.getElementById("map").style.display = "block";
 		document.getElementById("menu-item-map").classList.add("current-menu-item");
 		google.maps.event.trigger(map, 'resize');
-		map.fitBounds(bounds);
-		map.panToBounds(bounds);	}
+		map.setCenter(currCenter);
+	}
 	
 	$scope.showMap2 = function() {
 		document.getElementById("map").style.display = "none";
@@ -563,8 +536,7 @@ app.controller('MenuCtrl', function ($scope, $http, $dialog) {
 		document.getElementById("map2").style.display = "block";
 		document.getElementById("menu-item-map2").classList.add("current-menu-item");
 		google.maps.event.trigger(map2, 'resize');
-		map2.fitBounds(bounds2);
-		map2.panToBounds(bounds2);
+		map2.setCenter(currCenter2);
 	}
 	
 	$scope.showList = function() {
@@ -929,16 +901,18 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 		<div id="menu-container" ng-controller="MenuCtrl">
 			<div id="logo-container"><img id="logo" src="logo_white.svg"></div>
 			<div id="menu">
-				<div class="menu-item" id="menu-item-map" onclick="angular.element(this).scope().showMap1()">Map MUAS</div>
-				<div class="menu-item" id="menu-item-map2"onclick="angular.element(this).scope().showMap2()">Map CalPoly</div>
-				<div class="menu-item current-menu-item" id="menu-item-activities-table" onclick="angular.element(this).scope().showList()">List</div>
-				<div class="menu-item" ng-click="add()">Add Activity</div>
+				<!--<div class="menu-item" id="menu-item-map" onclick="angular.element(this).scope().showMap1()">Map MUAS (sprint2)</div>
+				<div class="menu-item" id="menu-item-map2"onclick="angular.element(this).scope().showMap2()">Map CalPoly (sprint2)</div>
+				-->
+				<div class="menu-item">Reported Activities</div>
+				<!--<div class="menu-item" ng-click="add()">Add Activity</div> -->
 			</div>
 		</div>
 		
 		<div>
 			<div id="map" class="map"></div>
 			<div id="map2" class="map"></div>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsrHbQSVfjOxEgQ7btb-1yM6PpHX-gmEM&callback=initializeMaps" async defer></script>
 		</div>
 		
 		<div id="activities-table">
@@ -955,9 +929,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 				<td class="mdl-data-table__cell--non-numeric">{{activity.uni}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.tags}}</td>
 				<td class="mdl-data-table__cell--non-numeric">
-				<!-- Disabeld for sprint 1
-					<button class="mdl-button" ng-click="edit(activity)">edit</button>
-					<button class="mdl-button" ng-click="delete(activity)">delete</button> -->
+					<button class="mdl-button" ng-click="delete(activity)">delete</button>
 					<button class="mdl-button" ng-click="show(activity)">show</button>
 					
 				</td>
