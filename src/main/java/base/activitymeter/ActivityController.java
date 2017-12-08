@@ -8,74 +8,82 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/rest/activity")
 public class ActivityController {
-  private final String fakeValue = "nope";
-	
-  @Autowired
-  private ActivityRepository activityRepository;
-  
-  
-  
-  @GetMapping
-  public ArrayList<Activity> listAll() {
-      ArrayList<Activity> activities = new ArrayList<>();
-      
-      for(Activity a: activityRepository.findAll()) {
-    	  if (!a.isPublished()) {
-    		  continue;
-    	  }
-    	  a.setSecretKey(fakeValue);
-    	  a.seteMail(fakeValue);
-    	  
-    	  a.setText("");
-    	  a.setImage("");
-    	  a.setFaculty("");
-    	  
-    	  
-    	  activities.add(a);
-      }
-      
-      return activities;
-  }
+	private final String fakeValue = "nope";
 
-  @GetMapping("{id}")
-  public Activity find(@PathVariable Long id) {
-	  Activity a = activityRepository.findOne(id);
-	  a.setSecretKey(fakeValue);
-	  a.seteMail(fakeValue);
-      return a;
-  }
-  
-  @GetMapping("/report/{id}")	
-  public void report(@PathVariable Long id) {
-	  Activity activity = activityRepository.findOne(id);
-	  activity.setReported(true);
-	  activityRepository.save(activity);
-  }
+	@Autowired
+	private ActivityRepository activityRepository;
 
+	@GetMapping
+	public ArrayList<Activity> listAll() {
+		ArrayList<Activity> activities = new ArrayList<>();
 
-  /* Disabeld for sprint 1
-  @DeleteMapping("{id}")
-  public void delete(@PathVariable Long id) {
-      activityRepository.delete(id);
-  }
+		for (Activity a : activityRepository.findAll()) {
+			if (!a.isPublished()) {
+				continue;
+			}
+			a.setSecretKey(fakeValue);
+			a.seteMail(fakeValue);
 
-  @PutMapping("{id}")
-  public Activity update(@PathVariable Long id, @RequestBody Activity input) {
-      Activity activity = activityRepository.findOne(id);
-      if (activity == null) {
-          return null;
-      } else {
-          activity.setText(input.getText());
-          activity.setTags(input.getTags());
-          activity.setTitle(input.getTitle());
-          activity.seteMail(input.geteMail());
-          activity.setUni(input.getUni());
-          activity.setFaculty(input.getFaculty());
+			a.setText("");
+			a.setImage("");
+			a.setFaculty("");
 
+			activities.add(a);
+		}
 
-          return activityRepository.save(activity);
-      }
-  }
-  */
+		return activities;
+	}
+
+	@GetMapping("{id}")
+	public Activity find(@PathVariable Long id) {
+		
+		Activity a = activityRepository.findOne(id);
+		a.setSecretKey(fakeValue);
+		a.seteMail(fakeValue);
+		return a;
+	}
+
+	@GetMapping("/report/{id}")
+	public void report(@PathVariable Long id) {
+		Activity activity = activityRepository.findOne(id);
+		activity.setReported(true);
+		activityRepository.save(activity);
+	}
+
+	@GetMapping("/reported")
+	public void listAllreportedActivities() {
+		ArrayList<Activity> activities = new ArrayList<>();
+
+		for (Activity a : activityRepository.findAll()) {
+			if (!a.isReported()) {
+				continue;
+			}
+			a.setSecretKey(fakeValue);
+			a.seteMail(fakeValue);
+
+			a.setText("");
+			a.setImage("");
+			a.setFaculty("");
+
+			activities.add(a);
+		}
+	}
+
+	/*
+	 * Disabeld for sprint 1
+	 * 
+	 * @DeleteMapping("{id}") public void delete(@PathVariable Long id) {
+	 * activityRepository.delete(id); }
+	 * 
+	 * @PutMapping("{id}") public Activity update(@PathVariable Long
+	 * id, @RequestBody Activity input) { Activity activity =
+	 * activityRepository.findOne(id); if (activity == null) { return null; } else {
+	 * activity.setText(input.getText()); activity.setTags(input.getTags());
+	 * activity.setTitle(input.getTitle()); activity.seteMail(input.geteMail());
+	 * activity.setUni(input.getUni()); activity.setFaculty(input.getFaculty());
+	 * 
+	 * 
+	 * return activityRepository.save(activity); } }
+	 */
 
 }
