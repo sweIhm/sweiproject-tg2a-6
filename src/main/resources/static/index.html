@@ -670,6 +670,14 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		dialog.close();
 	}
 
+	$scope.report = function(activity) {
+		var getRequestReport = {
+			method: 'GET',
+			url: 'rest/activity/report/' + activity.id
+		}
+		$http(getRequestReport);
+	}
+	
 	var getRequest = {
 		method: 'GET',
 		url: 'rest/details/' + activity.id
