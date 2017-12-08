@@ -44,10 +44,13 @@ public class ActivityController {
 	}
 
 	@GetMapping("/report/{id}")
-	public void report(@PathVariable Long id) {
+	public Activity report(@PathVariable Long id) {
 		Activity activity = activityRepository.findOne(id);
 		activity.setReported(true);
 		activityRepository.save(activity);
+		activity.setSecretKey(fakeValue);
+		activity.seteMail(fakeValue);
+		return activity;
 	}
 
 	@GetMapping("/reported")
