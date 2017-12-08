@@ -25,11 +25,12 @@ public class Activity {
     private String tags;
     private String title;
     private String eMail;
-    private boolean published;
     private String secretKey;
     private String uni;
     private String faculty;
     private String zipcode;
+    private boolean published;
+    private boolean isReported;
     
     @Lob
     private String image;
@@ -148,7 +149,16 @@ public class Activity {
     	return published;
     }
 
-    public void verify() {
+    public boolean isReported() {
+		return isReported;
+	}
+
+	public void setReported(boolean isReported) {
+		this.isReported = isReported;
+	}
+	
+
+	public void verify() {
        	new MailVerification(eMail, secretKey).sendMail();
     }
 }
