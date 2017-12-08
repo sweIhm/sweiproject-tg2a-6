@@ -30,7 +30,7 @@ public class Activity {
     private String faculty;
     private String zipcode;
     private boolean published;
-    private boolean isReported = false;
+    private boolean isReported;
     
     @Lob
     private String image;
@@ -47,6 +47,7 @@ public class Activity {
         this.faculty = faculty;
         this.image = image;
         this.zipcode = zipcode;
+        this.isReported = false;
         
         char[] chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb = new StringBuilder();
