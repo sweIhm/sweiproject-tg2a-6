@@ -51,7 +51,7 @@ public class ActivityController {
 	}
 
 	@GetMapping("/reported")
-	public void listAllreportedActivities() {
+	public ArrayList<Activity> listAllreportedActivities() {
 		ArrayList<Activity> activities = new ArrayList<>();
 
 		for (Activity a : activityRepository.findAll()) {
@@ -67,6 +67,7 @@ public class ActivityController {
 
 			activities.add(a);
 		}
+		return activities;
 	}
 
 	/*
