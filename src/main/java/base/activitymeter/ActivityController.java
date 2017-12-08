@@ -45,7 +45,7 @@ public class ActivityController {
       return a;
   }
   
-  @GetMapping("{id}")	
+  @GetMapping("/report/{id}")	
   public void report(@PathVariable Long id) {
 	  Activity activity = activityRepository.findOne(id);
 	  activity.setReported(true);
