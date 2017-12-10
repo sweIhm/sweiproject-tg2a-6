@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,13 +51,13 @@ public class AdminController
 		return null;
 	}
 	@PostMapping
-	public Boolean login( @RequestBody String json , HttpSession session)
+	public ResponseEntity<Boolean> login( @RequestBody String json , HttpSession session, HttpServletResponse response)
 	{
 		
 		tempFillDataBase();
 		
 		if( session.getAttribute("login") != null && (Boolean)session.getAttribute("login") == true )
-			return false;
+			return new ResponseEntity<>(false, HttpStatus.OK);
 		
 		try {
 			Map<String, Object> jsonMap = new ObjectMapper().readValue(json, Map.class);
@@ -67,17 +72,23 @@ public class AdminController
 					{
 						session.setAttribute("login", true);
 						session.setAttribute("adminId", a.getId());
-						return true;
+						if(forever)
+						{
+							Cookie c = new Cookie("JSESSIONID", session.getId());
+							c.setMaxAge(Integer.MAX_VALUE);
+							response.addCookie(c);
+						}
+						return new ResponseEntity<>(true, HttpStatus.OK);
 					}
 				}
 			}
 			
 			
 		} catch (IOException e) {
-			return false;
+			return new ResponseEntity<>(false, HttpStatus.OK);
 		}
 
-		return false;
+		return new ResponseEntity<>(false, HttpStatus.OK);
 		
 		
 	}

@@ -34,7 +34,7 @@ public class Admin
     {
     	try {
 			SecretKeyFactory s = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );
-			PBEKeySpec spec = new PBEKeySpec( pass, salt, 1000, 256 );
+			PBEKeySpec spec = new PBEKeySpec( pass, salt, 100, 256 );
 			SecretKey key = s.generateSecret( spec );
 			return key.getEncoded();
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
