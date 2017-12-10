@@ -211,6 +211,11 @@ border: solid #4E4B4B 2px;
 text-decoration: none;
 }
 
+.buttonSmall
+{
+	padding: 4px 13px 4px 13px;
+}
+
 .buttonDisabled
 {
 color: #DCDCDC !important;
@@ -527,4 +532,10 @@ background-color: #EA3B3B;
 .checkBox:checked:before
 {
 	display: block;
+}
+
+#reportMessage
+{
+	display: none;
+	color: #1CAE48;
 }

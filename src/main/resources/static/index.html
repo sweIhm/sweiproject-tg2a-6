@@ -676,6 +676,8 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 			url: 'rest/activity/report/' + activity.id
 		}
 		$http(getRequestReport);
+		document.getElementById("reportButton").style.display = "none";
+		document.getElementById("reportMessage").style.display = "block";
 	}
 	
 	var getRequest = {
@@ -703,8 +705,6 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
     			$scope.close();
   			}
 		});
-
-		
 		
 	});
 

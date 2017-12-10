@@ -9,7 +9,8 @@
         <div class ="showTags">{{activity.tags}}</div><br/>
         <img src="{{activity.image}}"/>
         <p>University: {{activity.uni}} - {{activity.faculty}}</p>
-        <input type="button" class="button buttonRed" value="Report" ng-click="report(activity)" />
+        <input type="button" id="reportButton" class="button buttonSmall buttonRed" value="Report" ng-click="report(activity)" />
+        <span id="reportMessage">Successfully Reported!</span>
     </div>
 
 </div>
