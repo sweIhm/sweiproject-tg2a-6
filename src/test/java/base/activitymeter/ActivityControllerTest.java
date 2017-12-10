@@ -1,6 +1,7 @@
 package base.activitymeter;
 
 
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -67,6 +68,21 @@ public class ActivityControllerTest {
 
 		mockMvc.perform(get("/rest/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedString));
 
+	}
+	
+	@Test
+	public void testReportingActivity() throws Exception {
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
+		activity = activityRepository.save(activity);
+		
+		activity = activityRepository.findOne((long)1);
+		assertFalse(activity.isReported());
+		
+		long id = activity.getId();
+		mockMvc.perform(get("/rest/activity/report/" + id)).andDo(print()).andExpect(status().isOk());
+		
+		activity = activityRepository.findOne(id);
+		assertTrue(activity.isReported());
 	}
 	
 	/* Disabeld for sprint 1

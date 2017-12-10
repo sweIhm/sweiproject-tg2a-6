@@ -25,7 +25,6 @@ public class DeleteController {
 		
 		String eMail = activityToDelete.geteMail();
 		emailRepository.save(new EMail(eMail));
-		
 		activityRepository.delete(activityToDelete);
 	}
 }

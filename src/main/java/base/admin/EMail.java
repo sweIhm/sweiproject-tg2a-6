@@ -1,5 +1,6 @@
 package base.admin;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,17 +16,28 @@ public class EMail {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
    
-    private String eMail;
+    @Column(columnDefinition="TEXT")
+    private String eMailAddress;
     
-    public EMail (String eMail) {
-    	this.eMail = eMail;
+    public EMail(){};
+    
+    public EMail(String eMail) {
+    	this.eMailAddress = eMail;
     }
     
-    public long getId() {
+    public void seteMailAddress(String eMail) {
+    	this.eMailAddress = eMail;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Long getId() {
     	return id;
     }
 
-	public String geteMail() {
-		return eMail;
+	public String geteMailAddress() {
+		return eMailAddress;
 	}
 }
