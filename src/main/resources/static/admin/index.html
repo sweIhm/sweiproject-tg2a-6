@@ -31,10 +31,15 @@
 		</div>
 		
 		<div class="loginBox" ng-controller="LoginCtrl">
+			<div id="messageBox">
+					
+			</div>
 			<div class="loginLabel">Admin</div>
+			<form>
 			<div class="eMailDiv"><input name="email" id="loginEmail"  placeholder="Username" onfocus="this.placeholder=''" onfocusout="this.placeholder='Username'" ng-model="user.name" ng-init="user.name=''"/></div>
-			<div class="passDiv"><input type="password" name="pass" placeholder="Password" id="loginPass" onfocus="this.placeholder=''" onfocusout="this.placeholder='Password'"  ng-model="user.password" ng-init="user.password=''"/></div>
-			<div class="buttonDiv"><button id="loginButton" class="loginButton" ng-click="login(user)">Login</button></div>
+				<div class="passDiv"><input type="password" name="pass" placeholder="Password" id="loginPass" onfocus="this.placeholder=''" onfocusout="this.placeholder='Password'"  ng-model="user.password" ng-init="user.password=''"/></div>
+				<div class="buttonDiv"><button id="loginButton" class="loginButton" ng-click="login(user)">Login</button></div>
+			</form>
 			<div class="loginAdditional">
 				<label class="remember loginFooter" for="remember">
 					<input type="checkbox" class="checkBox" name="remember" id="remember"  ng-model="user.forever" ng-init="user.forever=false">
@@ -52,18 +57,48 @@
 			{
 				$scope.login = function(user) 
 				{
-					var postRequest = 
+					if(user.name == "")
 					{
-    					method : 'POST',
-       					url: 'rest/admin' ,
-       					data: user
-					}  
-		
-					$http(postRequest).then(function (response) {
-						console.log(response);
-					}).then(function () {
-						console.log("last");
-					});
+						messageBox = document.getElementById("messageBox");
+						messageBox.style.display = "block";
+						messageBox.style.bottom = "70px";
+						messageBox.className = "errorBorder";
+						messageBox.innerHTML = "Please enter a username";
+					}
+					else if(user.password == "")
+					{
+						messageBox = document.getElementById("messageBox");
+						messageBox.style.display = "block";
+						messageBox.style.bottom = "70px";
+						messageBox.className = "errorBorder";
+						messageBox.innerHTML = "Please enter a password";
+					}
+					else
+					{
+
+						
+						var postRequest = 
+						{
+							method : 'POST',
+							url: 'rest/admin' ,
+							data: user
+						}  
+			
+						$http(postRequest).then(function (response) {
+							if( response.data == true )
+							{
+								window.location.href='../';
+							}
+							else
+							{
+								messageBox = document.getElementById("messageBox");
+								messageBox.style.display = "block";
+								messageBox.style.bottom = "90px";
+								messageBox.className = "errorBorder";
+								messageBox.innerHTML = "Invalid username or password.<br/>Please try again.";
+							}
+						});
+					}
 				}
 				
 			});
