@@ -8,6 +8,7 @@ import java.util.Arrays;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Admin
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
+    @Column(unique=true)
     private String name;
     
     private byte[] salt;

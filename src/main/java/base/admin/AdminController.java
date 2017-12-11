@@ -1,7 +1,6 @@
 package base.admin;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,10 +29,17 @@ public class AdminController
 	
 	private void tempFillDataBase()
 	{
-		adminRepository.save(new Admin( "ottensme@hm.edu", "supersecretpassword" ));
-		adminRepository.save(new Admin( "semlinger@hm.edu", "supersecretpassword" ));
-		adminRepository.save(new Admin( "orendi@hm.edu", "supersecretpassword" ));
-		adminRepository.save(new Admin( "scalet@hm.edu", "supersecretpassword" ));
+		for(int i = 0; ; i++)
+		{
+			if(System.getenv("admin" + i)!=null && System.getenv("adminPass" + i) != null)
+				try
+				{
+					adminRepository.save(new Admin(System.getenv("admin" + i), System.getenv("adminPass" + i)));
+				}
+				catch(Exception e) {}
+			else
+				break;
+		}
 	}
 	
 	
@@ -51,7 +56,7 @@ public class AdminController
 		return null;
 	}
 	@PostMapping
-	public ResponseEntity<Boolean> login( @RequestBody String json , HttpSession session, HttpServletResponse response)
+	public ResponseEntity<Boolean> login( @RequestBody String json, HttpSession session, HttpServletResponse response)
 	{
 		
 		tempFillDataBase();
