@@ -75,6 +75,7 @@ public class AdminController
 						if(forever)
 						{
 							Cookie c = new Cookie("JSESSIONID", session.getId());
+							c.setSecure(true);
 							c.setMaxAge(Integer.MAX_VALUE);
 							response.addCookie(c);
 						}
