@@ -18,6 +18,8 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,7 +35,7 @@ public class HomeControllerTest {
 		String indexHTML = "";
 
 		try (BufferedReader getIndexHTML = new BufferedReader(
-				new InputStreamReader(new FileInputStream("src/main/resources/static/index.html")));) {
+				new InputStreamReader(new FileInputStream("src/main/resources/META-INF/resources/WEB-INF/jsp/index.jsp")));) {
 			String line;
 			while ((line = getIndexHTML.readLine()) != null) {
 				indexHTML += line;
@@ -45,9 +47,8 @@ public class HomeControllerTest {
 			e.printStackTrace();
 		}
 		
-		this.mockMvc.perform(get("/")).andExpect(status().isOk()).andExpect(forwardedUrl("index.html"));
+		this.mockMvc.perform(get("/")).andExpect(status().isOk()).andExpect(forwardedUrl("/WEB-INF/jsp/index.jsp"));
 
-		this.mockMvc.perform(get("/index.html")).andExpect(status().isOk()).andExpect(content().string(indexHTML));
 
 	}
 

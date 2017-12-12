@@ -10,7 +10,7 @@ public class AdminPageController {
 
     @GetMapping
     public String index() { 
-    	return "admin/index.html"; 
+    	return "admin/index"; 
     }
 
 }
