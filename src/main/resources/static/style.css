@@ -178,10 +178,14 @@ body
 	cursor: pointer;
 }
 
+
+
 .menu-item:hover
 {
 	background: #259445;
 }
+
+
 
 
 .current-menu-item
@@ -563,4 +567,42 @@ background-color: #EA3B3B;
 {
 	display: none;
 	color: #1CAE48;
+}
+
+#adminLogoMenu
+{
+	padding:7px;
+	border-radius: 4px;
+}
+
+
+#adminLogoMenu:hover
+{
+	background: #259445;
+}
+
+.menu-item-admin
+{
+	width:	46px;
+	height: 46px;
+	position: absolute;
+	right: 12px;
+	top: 12px;
+	cursor: pointer;
+}
+
+#userBox
+{
+	box-sizing: border-box;
+	width: 250px;
+	background-color: #1B6B32;
+	right: 192px;
+	top: 12px;
+	position: relative;
+	padding: 10px 30px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 15px;
+	color: #FFFFFF;
+	text-align: right;
+	line-height: 30px;
 }

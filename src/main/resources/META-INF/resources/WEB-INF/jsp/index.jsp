@@ -926,9 +926,6 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 </head>
 <body onload="angular.element(document.querySelector('#menu-container')).scope().getView();">
 
-
-
-
 	<div ng-controller="ActivityCtrl">
 	
 	
@@ -941,8 +938,21 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 				<div class="menu-item" id="menu-item-map2"onclick="angular.element(this).scope().showMap2()">Map CalPoly</div>
 				<div class="menu-item current-menu-item" id="menu-item-activities-table" onclick="angular.element(this).scope().showList()">List</div>
 				<div class="menu-item" ng-click="add()">Add Activity</div>
+				
+				<% if(request.getAttribute("login") != null && request.getAttribute("login").equals((Boolean)true)) { %>
+				<div class="menu-item-admin">
+					<img id="adminLogoMenu" src="user32.png" onclick="(document.getElementById('userBox').style.display == 'none') ? document.getElementById('userBox').style.display = 'block' : document.getElementById('userBox').style.display = 'none';"/>
+					<div id="userBox" style="display:none">
+						<strong>${admin.name}</strong><br/>
+						Logout
+					</div>
+				</div>
+				<% } %>
 			</div>
+
+
 		</div>
+
 		
 		<div>
 			<div id="map" class="map"></div>
@@ -969,8 +979,6 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 					<button class="mdl-button" ng-click="show(activity)">show</button>
 					
 				</td>
-				
-
 				
 				
 			</tr>

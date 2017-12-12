@@ -41,8 +41,7 @@ public class AdminController
 				break;
 		}
 	}
-	
-	
+
 	@GetMapping
 	public Admin getAdmin(HttpSession session)
 	{
@@ -55,6 +54,7 @@ public class AdminController
 		}
 		return null;
 	}
+	
 	@PostMapping
 	public ResponseEntity<Boolean> login( @RequestBody String json, HttpSession session, HttpServletResponse response)
 	{
