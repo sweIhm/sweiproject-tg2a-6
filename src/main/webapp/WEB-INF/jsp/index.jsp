@@ -576,6 +576,7 @@ app.controller('MenuCtrl', function ($scope, $http, $dialog) {
 		document.getElementById("menu-item-activities-table").classList.add("current-menu-item");
 	}
 
+
 });
 
   	
@@ -631,6 +632,18 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
     	    loadActivities($scope, $http);
         }) ;
 	}
+
+	<% if(request.getAttribute("login") != null && request.getAttribute("login").equals((Boolean)true)) { %>
+	$scope.logout = function() {
+		var deleteRequest = 
+						{
+							method : 'DELETE',
+							url: 'rest/admin' ,
+						}  
+			
+						$http(deleteRequest).then(function (response) {window.location.href='/admin?logout=true';});
+	}
+	<% } %>
 });
 
 
@@ -944,7 +957,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 					<img id="adminLogoMenu" src="user32.png" onclick="(document.getElementById('userBox').style.display == 'none') ? document.getElementById('userBox').style.display = 'block' : document.getElementById('userBox').style.display = 'none';"/>
 					<div id="userBox" style="display:none">
 						<strong>${admin.name}</strong><br/>
-						<span  class="logoutButton">Logout</span>
+						<span  class="logoutButton" ng-click="logout()">Logout</span>
 					</div>
 				</div>
 				<% } %>

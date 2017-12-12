@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,6 +66,7 @@ public class AdminController
 			return new ResponseEntity<>(false, HttpStatus.OK);
 		
 		try {
+			@SuppressWarnings("unchecked")
 			Map<String, Object> jsonMap = new ObjectMapper().readValue(json, Map.class);
 			String name = (String)jsonMap.get("name");
 			String pass = (String)jsonMap.get("password");
@@ -95,7 +97,16 @@ public class AdminController
 		}
 
 		return new ResponseEntity<>(false, HttpStatus.OK);
-		
+	}
+	
+	@DeleteMapping
+	public void logout(HttpSession session,HttpServletResponse response)
+	{
+		Cookie c = new Cookie("JSESSIONID", null);
+		c.setSecure(true);
+		c.setMaxAge(0);
+		response.addCookie(c);
+		session.invalidate();
 		
 	}
 }
