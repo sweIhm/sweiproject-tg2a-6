@@ -35,7 +35,7 @@ public class HomeControllerTest {
 		String indexHTML = "";
 
 		try (BufferedReader getIndexHTML = new BufferedReader(
-				new InputStreamReader(new FileInputStream("src/main/resources/META-INF/resources/WEB-INF/jsp/index.jsp")));) {
+				new InputStreamReader(new FileInputStream("src/main/webapp/WEB-INF/jsp/index.jsp")));) {
 			String line;
 			while ((line = getIndexHTML.readLine()) != null) {
 				indexHTML += line;
