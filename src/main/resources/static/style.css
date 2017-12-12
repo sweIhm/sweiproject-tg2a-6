@@ -605,4 +605,16 @@ background-color: #EA3B3B;
 	color: #FFFFFF;
 	text-align: right;
 	line-height: 30px;
+	cursor: default;
+}
+
+.logoutButton
+{
+	cursor: pointer;
+}
+
+.logoutButton:hover
+{
+	text-decoration: underline;
+	
 }

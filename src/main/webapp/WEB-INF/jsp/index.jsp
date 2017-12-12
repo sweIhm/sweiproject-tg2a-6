@@ -935,7 +935,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 			<div id="logo-container"><img id="logo" src="logo_white.svg"></div>
 			<div id="menu">
 				<div class="menu-item" id="menu-item-map" onclick="angular.element(this).scope().showMap1()">Map MUAS</div>
-				<div class="menu-item" id="menu-item-map2"onclick="angular.element(this).scope().showMap2()">Map CalPoly</div>
+				<div class="menu-item" id="menu-item-map2" onclick="angular.element(this).scope().showMap2()">Map CalPoly</div>
 				<div class="menu-item current-menu-item" id="menu-item-activities-table" onclick="angular.element(this).scope().showList()">List</div>
 				<div class="menu-item" ng-click="add()">Add Activity</div>
 				
@@ -944,7 +944,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 					<img id="adminLogoMenu" src="user32.png" onclick="(document.getElementById('userBox').style.display == 'none') ? document.getElementById('userBox').style.display = 'block' : document.getElementById('userBox').style.display = 'none';"/>
 					<div id="userBox" style="display:none">
 						<strong>${admin.name}</strong><br/>
-						Logout
+						<span  class="logoutButton">Logout</span>
 					</div>
 				</div>
 				<% } %>
