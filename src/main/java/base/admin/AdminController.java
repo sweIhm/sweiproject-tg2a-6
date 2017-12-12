@@ -29,10 +29,17 @@ public class AdminController
 	
 	private void tempFillDataBase()
 	{
-		adminRepository.save(new Admin( "ottensme@hm.edu", "supersecretpassword" ));
-		adminRepository.save(new Admin( "semlinger@hm.edu", "supersecretpassword" ));
-		adminRepository.save(new Admin( "orendi@hm.edu", "supersecretpassword" ));
-		adminRepository.save(new Admin( "scalet@hm.edu", "supersecretpassword" ));
+		for(int i = 0; ; i++)
+		{
+			if(System.getenv("admin" + i)!=null && System.getenv("adminPass" + i) != null)
+				try
+				{
+					adminRepository.save(new Admin(System.getenv("admin" + i), System.getenv("adminPass" + i)));
+				}
+				catch(Exception e) {}
+			else
+				break;
+		}
 	}
 	
 	
@@ -49,7 +56,7 @@ public class AdminController
 		return null;
 	}
 	@PostMapping
-	public ResponseEntity<Boolean> login( @RequestBody String json , HttpSession session, HttpServletResponse response)
+	public ResponseEntity<Boolean> login( @RequestBody String json, HttpSession session, HttpServletResponse response)
 	{
 		
 		tempFillDataBase();
@@ -73,6 +80,7 @@ public class AdminController
 						if(forever)
 						{
 							Cookie c = new Cookie("JSESSIONID", session.getId());
+							c.setSecure(true);
 							c.setMaxAge(Integer.MAX_VALUE);
 							response.addCookie(c);
 						}

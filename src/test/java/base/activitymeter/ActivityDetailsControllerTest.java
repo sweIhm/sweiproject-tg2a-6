@@ -70,5 +70,4 @@ public class ActivityDetailsControllerTest {
 
 		mockMvc.perform(get("/rest/details/" + a.getId())).andExpect(status().isOk()).andExpect(content().string(""));
 	}
-
 }

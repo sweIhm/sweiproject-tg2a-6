@@ -25,7 +25,7 @@ public class PostController {
 		ArrayList<EMail> eMails = new ArrayList<>();
 	    emailRepository.findAll().forEach(eMail -> eMails.add(eMail));
 		for (EMail eMail : eMails) {
-			if (input.geteMail().equals(eMail.geteMail())) {
+			if (input.geteMail().equals(eMail.geteMailAddress())) {
 				return null;
 			}
 		}
