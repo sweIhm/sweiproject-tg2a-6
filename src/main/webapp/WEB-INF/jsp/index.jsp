@@ -1060,7 +1060,7 @@ $(document).ready(function () {
 		<table class="mdl-data-table">
 
 			<tr class="table-head">
-				<td class="mdl-data-table__cell--non-numeric">RTitle</td>
+				<td class="mdl-data-table__cell--non-numeric">Title</td>
 				<td class="mdl-data-table__cell--non-numeric">University</td>
 				<td class="mdl-data-table__cell--non-numeric">Tags</td>
 				<td class="mdl-data-table__cell--non-numeric"></td>
