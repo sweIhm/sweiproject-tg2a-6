@@ -65,10 +65,8 @@ import base.activitymeter.ActivityRepository;
 public class AdminControllerTest
 {
 
-	static final String ADMIN_NAME_0 = "admin";
-	static final String ADMIN_PASS_0 = "admin";
-	static final String ADMIN_NAME_1 = "admin2";
-	static final String ADMIN_PASS_1 = "admin2";
+	static final String ADMIN_NAME = "admin";
+	static final String ADMIN_PASS = "admin";
 	
 	static final String WRONG_ADMIN_NAME = "wrongadmin";
 	static final String WRONG_ADMIN__PASS = "wrongadmin";
@@ -89,9 +87,9 @@ public class AdminControllerTest
 	@Test
 	public void testCorrectPostLoginDataWithoutForever() throws Exception
 	{
-		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		Admin a =  new Admin( ADMIN_NAME, ADMIN_PASS );
 		adminRepository.save( a );
-		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + SESSION_ONLY +"}";
+		String login = "{\"name\":\""+ ADMIN_NAME +"\",\"password\":\"" + ADMIN_PASS + "\",\"forever\":" + SESSION_ONLY +"}";
 		this.mockMvc.perform(post("/rest/admin")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(login)
@@ -106,9 +104,9 @@ public class AdminControllerTest
 	@Test
 	public void testWrongPassword() throws Exception
 	{
-		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		Admin a =  new Admin( ADMIN_NAME, ADMIN_PASS );
 		adminRepository.save( a );
-		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + WRONG_ADMIN_NAME + "\",\"forever\":" + SESSION_ONLY +"}";
+		String login = "{\"name\":\""+ ADMIN_NAME +"\",\"password\":\"" + WRONG_ADMIN_NAME + "\",\"forever\":" + SESSION_ONLY +"}";
 		this.mockMvc.perform(post("/rest/admin")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(login)
@@ -123,9 +121,9 @@ public class AdminControllerTest
 	@Test
 	public void testWrongUser() throws Exception
 	{
-		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		Admin a =  new Admin( ADMIN_NAME, ADMIN_PASS );
 		adminRepository.save( a );
-		String login = "{\"name\":\""+ WRONG_ADMIN_NAME +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + SESSION_ONLY +"}";
+		String login = "{\"name\":\""+ WRONG_ADMIN_NAME +"\",\"password\":\"" + ADMIN_PASS + "\",\"forever\":" + SESSION_ONLY +"}";
 		this.mockMvc.perform(post("/rest/admin")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(login)
@@ -139,9 +137,9 @@ public class AdminControllerTest
 	@Test
 	public void testCorrectPostLoginDataWithForever() throws Exception
 	{
-		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		Admin a =  new Admin( ADMIN_NAME, ADMIN_PASS );
 		adminRepository.save( a );
-		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + FOREVER +"}";
+		String login = "{\"name\":\""+ ADMIN_NAME +"\",\"password\":\"" + ADMIN_PASS + "\",\"forever\":" + FOREVER +"}";
 		this.mockMvc.perform(post("/rest/admin")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(login)
@@ -159,10 +157,9 @@ public class AdminControllerTest
 	@Test
 	public void testLogout() throws Exception
 	{
-		System.out.println("bookmark");
-		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		Admin a =  new Admin( ADMIN_NAME, ADMIN_PASS );
 		adminRepository.save( a );
-		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + FOREVER +"}";
+		String login = "{\"name\":\""+ ADMIN_NAME +"\",\"password\":\"" + ADMIN_PASS + "\",\"forever\":" + FOREVER +"}";
 		this.mockMvc.perform(post("/rest/admin").contentType(MediaType.APPLICATION_JSON)
 				.content(login)
 				.session(mockSession)
@@ -173,6 +170,30 @@ public class AdminControllerTest
 		.andExpect(cookie().value("JSESSIONID", ""))
 		.andExpect(cookie().maxAge("JSESSIONID", 0));;
 		assertTrue(mockSession.isInvalid());
+		
+	}
+	
+	@Test
+	public void testGetWithoutSession() throws Exception
+	{
+		this.mockMvc.perform(get("/rest/admin")).andExpect(content().string(""));
+	}
+	
+	@Test
+	public void testGetWithSession() throws Exception
+	{
+		Admin a =  new Admin( ADMIN_NAME, ADMIN_PASS );
+		adminRepository.save( a );
+		String login = "{\"name\":\""+ ADMIN_NAME +"\",\"password\":\"" + ADMIN_PASS + "\",\"forever\":" + FOREVER +"}";
+		this.mockMvc.perform(post("/rest/admin").contentType(MediaType.APPLICATION_JSON)
+				.content(login)
+				.session(mockSession)
+				.accept(MediaType.APPLICATION_JSON));
+		
+		this.mockMvc.perform(get("/rest/admin").session(mockSession))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.name").value(ADMIN_NAME))
+		.andExpect(jsonPath("$.id").value(mockSession.getAttribute("adminId")));
 		
 	}
 }
