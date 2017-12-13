@@ -20,7 +20,7 @@
 
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
 	</head>
-	<body ng-app="LoginApp">
+	<body ng-app="LoginApp" onload="checkOrigin();">
 		<div id="menu-container" >
 			<div id="logo-container"><img id="logo" src="../logo_white.svg"></div>
 			<div id="menu">
@@ -61,7 +61,8 @@
 					{
 						messageBox = document.getElementById("messageBox");
 						messageBox.style.display = "block";
-						messageBox.style.bottom = "70px";
+						messageBox.style.top = "-70px";
+						messageBox.style.height = "40px";
 						messageBox.className = "errorBorder";
 						messageBox.innerHTML = "Please enter a username";
 					}
@@ -69,7 +70,8 @@
 					{
 						messageBox = document.getElementById("messageBox");
 						messageBox.style.display = "block";
-						messageBox.style.bottom = "70px";
+						messageBox.style.top = "-70px";
+						messageBox.style.height = "40px";
 						messageBox.className = "errorBorder";
 						messageBox.innerHTML = "Please enter a password";
 					}
@@ -93,7 +95,9 @@
 							{
 								messageBox = document.getElementById("messageBox");
 								messageBox.style.display = "block";
-								messageBox.style.bottom = "90px";
+								messageBox.style.top = "-90px";
+
+								messageBox.style.height = "60px";
 								messageBox.className = "errorBorder";
 								messageBox.innerHTML = "Invalid username or password.<br/>Please try again.";
 							}
@@ -102,6 +106,28 @@
 				}
 				
 			});
+
+			checkOrigin = function()
+			{
+				var strParam = window.location.search.substring(1);
+				var arrParam = strParam.split("&");
+				var objParam = {};
+				for(var i = 0; i < arrParam.length; i++) {
+					var splitParam = arrParam[i].split("=");
+					objParam[splitParam[0]] = splitParam[1];
+				}
+
+				if(objParam.logout=='true')
+				{
+					messageBox = document.getElementById("messageBox");
+					messageBox.style.display = "block";
+					messageBox.style.top = "-70px";
+					messageBox.style.height = "40px";
+					messageBox.className = "notificationBorder";
+					messageBox.innerHTML = "You have been logged out successfully";
+				}
+					
+			}
 	
 		</script>
 	</body>

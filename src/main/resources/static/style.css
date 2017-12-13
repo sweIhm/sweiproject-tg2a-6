@@ -401,7 +401,7 @@ background-color: #EA3B3B;
 {
 	position: absolute;
 	width: 350px;
-	top: 35%;
+	top: 300px;
 	left: 50%;
 	margin-left: -200px;
 	margin-top: -100px;
@@ -425,14 +425,18 @@ background-color: #EA3B3B;
 {
 	border-left-style: solid;
 	border-left-width: 5px;
-	position: relative;
+	position: absolute;
 	width: 410px;
-	left: -30px;
+	top: -90px;
+	left: 50%;
+	margin-left: -205px;
+	margin-top: 0;
 	background-color: #FFFFFF;
 	box-shadow: 0px 1px 3px #C6C6C6;
 	padding: 10px;
 	box-sizing: border-box;
 	text-align: left;
+	height: 60px;
 	display: none;
 }
 
