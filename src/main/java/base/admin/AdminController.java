@@ -102,7 +102,7 @@ public class AdminController
 	@DeleteMapping
 	public void logout(HttpSession session,HttpServletResponse response)
 	{
-		Cookie c = new Cookie("JSESSIONID", null);
+		Cookie c = new Cookie("JSESSIONID", "");
 		c.setSecure(true);
 		c.setMaxAge(0);
 		response.addCookie(c);

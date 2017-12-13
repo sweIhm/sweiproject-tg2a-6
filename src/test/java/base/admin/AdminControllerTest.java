@@ -139,7 +139,6 @@ public class AdminControllerTest
 	@Test
 	public void testCorrectPostLoginDataWithForever() throws Exception
 	{
-		System.out.println("bookmark");
 		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
 		adminRepository.save( a );
 		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + FOREVER +"}";
@@ -155,5 +154,25 @@ public class AdminControllerTest
 		
 		assertTrue( ((Boolean) mockSession.getAttribute("login")).booleanValue() );
 		assertEquals( mockSession.getAttribute("adminId"), a.getId() );
+	}
+	
+	@Test
+	public void testLogout() throws Exception
+	{
+		System.out.println("bookmark");
+		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		adminRepository.save( a );
+		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + FOREVER +"}";
+		this.mockMvc.perform(post("/rest/admin").contentType(MediaType.APPLICATION_JSON)
+				.content(login)
+				.session(mockSession)
+				.accept(MediaType.APPLICATION_JSON));
+		
+		this.mockMvc.perform(delete("/rest/admin").session(mockSession))
+		.andExpect(cookie().exists("JSESSIONID"))
+		.andExpect(cookie().value("JSESSIONID", ""))
+		.andExpect(cookie().maxAge("JSESSIONID", 0));;
+		assertTrue(mockSession.isInvalid());
+		
 	}
 }
