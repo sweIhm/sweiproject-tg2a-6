@@ -24,6 +24,7 @@
 <link rel="stylesheet"
 	href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
 
@@ -943,6 +944,26 @@ app.controller('PostCtrl', function($scope, $http, dialog){
   	};
 });
 
+document.getElementById('table-chooser').onchange = function() {
+    var i = 1;
+    var myDiv = document.getElementById(i);
+    while(myDiv) {
+        myDiv.style.display = 'none';
+        myDiv = document.getElementById(++i);
+    }
+    document.getElementById(this.value).style.display = 'block';
+};
+
+$(document).ready(function () {
+  $('.group').hide();
+  $('#activities-table"').show();
+  $('#table-chooser').change(function () {
+    $('.group').hide();
+    $('#'+$(this).val()).show();
+  })
+});
+
+
 
 
 
@@ -1015,7 +1036,37 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 		<% if(request.getAttribute("login") != null && request.getAttribute("login").equals((Boolean)true)) { %>
 		
 		<!-- admin view -->
-		<div id="activities-table">
+		<select name="options" id="table-chooser">
+		  <option value="activities-table">Normal View</option>
+		  <option value="report-table">Report Handling</option>
+		</select>
+		
+		
+		
+		<div id="activities-table" class="group">
+		<table class="mdl-data-table">
+
+			<tr class="table-head">
+				<td class="mdl-data-table__cell--non-numeric">Title</td>
+				<td class="mdl-data-table__cell--non-numeric">University</td>
+				<td class="mdl-data-table__cell--non-numeric">Tags</td>
+				<td class="mdl-data-table__cell--non-numeric"></td>
+			</tr>
+			<tr ng-repeat="activity in activities">
+				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
+				<td class="mdl-data-table__cell--non-numeric">{{activity.uni}}</td>
+				<td class="mdl-data-table__cell--non-numeric">{{activity.tags}}</td>
+				<td class="mdl-data-table__cell--non-numeric">
+				<!-- Disabeld for sprint 1
+					<button class="mdl-button" ng-click="edit(activity)">edit</button>
+					<button class="mdl-button" ng-click="delete(activity)">delete</button> -->
+					<button class="mdl-button" ng-click="show(activity)">show</button>
+				</td>
+			</tr>
+		</table>
+		</div>
+		
+		<div id="report-table" class="group">
 		<table class="mdl-data-table">
 
 			<tr class="table-head">
