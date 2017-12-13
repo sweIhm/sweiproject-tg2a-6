@@ -66,7 +66,12 @@ public class AdminControllerTest
 {
 
 	static final String ADMIN_NAME_0 = "admin";
-	static final String ADMIN__PASS_0 = "admin";
+	static final String ADMIN_PASS_0 = "admin";
+	static final String ADMIN_NAME_1 = "admin2";
+	static final String ADMIN_PASS_1 = "admin2";
+	
+	static final String WRONG_ADMIN_NAME = "wrongadmin";
+	static final String WRONG_ADMIN__PASS = "wrongadmin";
 	static final String FOREVER = "true";
 	static final String SESSION_ONLY = "false";
 	
@@ -84,11 +89,9 @@ public class AdminControllerTest
 	@Test
 	public void testCorrectPostLoginDataWithoutForever() throws Exception
 	{
-		
-		System.out.println("bookmark");
-		Admin a =  new Admin( ADMIN_NAME_0, ADMIN__PASS_0 );
+		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
 		adminRepository.save( a );
-		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + ADMIN__PASS_0 + "\",\"forever\":" + SESSION_ONLY +"}";
+		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + SESSION_ONLY +"}";
 		this.mockMvc.perform(post("/rest/admin")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(login)
@@ -97,7 +100,60 @@ public class AdminControllerTest
 				.andExpect(content().string("true"));
 		
 		assertTrue( ((Boolean) mockSession.getAttribute("login")).booleanValue() );
-		assertEquals( mockSession.getAttribute("adminId"), a.getId() ) ;
+		assertEquals( mockSession.getAttribute("adminId"), a.getId() );
+	}
+	
+	@Test
+	public void testWrongPassword() throws Exception
+	{
+		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		adminRepository.save( a );
+		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + WRONG_ADMIN_NAME + "\",\"forever\":" + SESSION_ONLY +"}";
+		this.mockMvc.perform(post("/rest/admin")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(login)
+				.session(mockSession)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(content().string("false"));
 		
+		assertEquals( mockSession.getAttribute("login"), null );
+		
+	}
+	
+	@Test
+	public void testWrongUser() throws Exception
+	{
+		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		adminRepository.save( a );
+		String login = "{\"name\":\""+ WRONG_ADMIN_NAME +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + SESSION_ONLY +"}";
+		this.mockMvc.perform(post("/rest/admin")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(login)
+				.session(mockSession)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(content().string("false"));
+		
+		assertEquals( mockSession.getAttribute("login"), null );
+	}
+	
+	@Test
+	public void testCorrectPostLoginDataWithForever() throws Exception
+	{
+		System.out.println("bookmark");
+		Admin a =  new Admin( ADMIN_NAME_0, ADMIN_PASS_0 );
+		adminRepository.save( a );
+		String login = "{\"name\":\""+ ADMIN_NAME_0 +"\",\"password\":\"" + ADMIN_PASS_0 + "\",\"forever\":" + FOREVER +"}";
+		this.mockMvc.perform(post("/rest/admin")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(login)
+				.session(mockSession)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(content().string("true"))
+				.andExpect(cookie().exists("JSESSIONID"))
+				.andExpect(cookie().value("JSESSIONID", mockSession.getId()))
+				.andExpect(cookie().maxAge("JSESSIONID", Integer.MAX_VALUE));
+		
+		assertTrue( ((Boolean) mockSession.getAttribute("login")).booleanValue() );
+		assertEquals( mockSession.getAttribute("adminId"), a.getId() );
 	}
 }
