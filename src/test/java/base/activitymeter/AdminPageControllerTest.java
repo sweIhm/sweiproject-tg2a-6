@@ -1,0 +1,55 @@
+package base.activitymeter;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+public class AdminPageControllerTest {
+
+	@Autowired
+	private MockMvc mockMvc;
+
+	@Test
+	public void ensureIndexIsReturned() throws Exception {
+
+		String indexHTML = "";
+
+		try (BufferedReader getIndexHTML = new BufferedReader(
+				new InputStreamReader(new FileInputStream("src/main/webapp/WEB-INF/jsp/index.jsp")));) {
+			String line;
+			while ((line = getIndexHTML.readLine()) != null) {
+				indexHTML += line;
+				indexHTML += "\r\n";
+			}
+			getIndexHTML.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		this.mockMvc.perform(get("/admin")).andExpect(status().isOk()).andExpect(forwardedUrl("/WEB-INF/jsp/admin/index.jsp"));
+
+
+	}
+
+}

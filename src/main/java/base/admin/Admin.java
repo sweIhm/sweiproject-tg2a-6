@@ -65,7 +65,6 @@ public class Admin
 		return id;
 	}
 
-
 	public String getName() {
 		return name;
 	}
