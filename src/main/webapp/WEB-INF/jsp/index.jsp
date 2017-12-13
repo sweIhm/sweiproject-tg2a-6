@@ -1063,12 +1063,14 @@ $(document).ready(function () {
 				<td class="mdl-data-table__cell--non-numeric">Title</td>
 				<td class="mdl-data-table__cell--non-numeric">University</td>
 				<td class="mdl-data-table__cell--non-numeric">Tags</td>
+				<td class="mdl-data-table__cell--non-numeric">Report#</td>
 				<td class="mdl-data-table__cell--non-numeric"></td>
 			</tr>
 			<tr ng-repeat="reportedActivity in reportedActivities">
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.title}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.uni}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.tags}}</td>
+				<td class="mdl-data-table__cell--numeric">{{reportedActivity.reportCounter}}</td>
 				<td class="mdl-data-table__cell--non-numeric">
 				<!-- Disabeld for sprint 1
 					<button class="mdl-button" ng-click="edit(activity)">edit</button> -->
