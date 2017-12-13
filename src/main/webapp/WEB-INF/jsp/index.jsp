@@ -944,19 +944,9 @@ app.controller('PostCtrl', function($scope, $http, dialog){
   	};
 });
 
-document.getElementById('table-chooser').onchange = function() {
-    var i = 1;
-    var myDiv = document.getElementById(i);
-    while(myDiv) {
-        myDiv.style.display = 'none';
-        myDiv = document.getElementById(++i);
-    }
-    document.getElementById(this.value).style.display = 'block';
-};
-
 $(document).ready(function () {
   $('.group').hide();
-  $('#activities-table"').show();
+  $('#activities-table').show();
   $('#table-chooser').change(function () {
     $('.group').hide();
     $('#'+$(this).val()).show();
@@ -1036,7 +1026,7 @@ $(document).ready(function () {
 		<% if(request.getAttribute("login") != null && request.getAttribute("login").equals((Boolean)true)) { %>
 		
 		<!-- admin view -->
-		<select name="options" id="table-chooser">
+		<select id="table-chooser">
 		  <option value="activities-table">Normal View</option>
 		  <option value="report-table">Report Handling</option>
 		</select>
@@ -1070,7 +1060,7 @@ $(document).ready(function () {
 		<table class="mdl-data-table">
 
 			<tr class="table-head">
-				<td class="mdl-data-table__cell--non-numeric">Title</td>
+				<td class="mdl-data-table__cell--non-numeric">RTitle</td>
 				<td class="mdl-data-table__cell--non-numeric">University</td>
 				<td class="mdl-data-table__cell--non-numeric">Tags</td>
 				<td class="mdl-data-table__cell--non-numeric"></td>
