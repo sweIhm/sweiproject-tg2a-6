@@ -15,6 +15,7 @@ import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.test.impl.GetterTester;
 
+import static org.junit.Assert.*;
 
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 @RunWith(SpringRunner.class)
@@ -22,6 +23,18 @@ import com.openpojo.validation.test.impl.GetterTester;
 @AutoConfigureMockMvc
 public class AdminTest
 {
+
+	static final String ADMIN_NAME_1 = "admin1";
+	static final String ADMIN_NAME_2 = "admin2";
+	static final String ADMIN_NAME_3 = "admin3";
+	
+	static final String ADMIN_PASS_1 = "admin1";
+	static final String ADMIN_PASS_2 = "admin2";
+	
+	
+	static final String WRONG_ADMIN_NAME = "wrongadmin";
+	static final String WRONG_ADMIN_PASS = "wrongadmin";
+	
 	@Test
 	public void validateSettersAndGetters()
 	{
@@ -34,5 +47,32 @@ public class AdminTest
 				.with(new GetterTester()).build();
 		// Start the Test
 		validator.validate(adminPojo);
+	}
+	
+	@Test
+	public void ensureCorrectPasswordIsAccepted()
+	{
+		Admin admin = new Admin( ADMIN_NAME_1, ADMIN_PASS_1 );
+		assertTrue( admin.checkPassword( ADMIN_PASS_1 ) );
+	}
+	
+	@Test
+	public void ensureWrongPasswordIsRejected()
+	{
+		Admin admin = new Admin( ADMIN_NAME_1, ADMIN_PASS_1 );
+		assertFalse( admin.checkPassword( WRONG_ADMIN_PASS ) );
+	}
+	
+	@Test
+	public void ensureNoPassHashIsStoredTwice()
+	{
+		Admin admin1 = new Admin( ADMIN_NAME_1, ADMIN_PASS_1 );
+		Admin admin2 = new Admin( ADMIN_NAME_2, ADMIN_PASS_1 );
+		Admin admin3 = new Admin( ADMIN_NAME_3, ADMIN_PASS_2 );
+
+		assertFalse(admin1.getPassHash().equals(admin2.getPassHash()));
+		assertFalse(admin2.getPassHash().equals(admin3.getPassHash()));
+		assertFalse(admin1.getPassHash().equals(admin3.getPassHash()));
+		
 	}
 }
