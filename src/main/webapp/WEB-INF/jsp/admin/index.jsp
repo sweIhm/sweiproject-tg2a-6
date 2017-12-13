@@ -24,8 +24,8 @@
 		<div id="menu-container" >
 			<div id="logo-container"><img id="logo" src="../logo_white.svg"></div>
 			<div id="menu">
-				<div class="menu-item" id="menu-item-map" onclick="window.location.href='../?map=muas';">Map MUAS (sprint2)</div>
-				<div class="menu-item" id="menu-item-map2"onclick="window.location.href='../?map=calpoly';">Map CalPoly (sprint2)</div>
+				<div class="menu-item" id="menu-item-map" onclick="window.location.href='../?map=muas';">Map MUAS</div>
+				<div class="menu-item" id="menu-item-map2"onclick="window.location.href='../?map=calpoly';">Map CalPoly</div>
 				<div class="menu-item" id="menu-item-activities-table" onclick="window.location.href='../';">List</div>
 			</div>
 		</div>
