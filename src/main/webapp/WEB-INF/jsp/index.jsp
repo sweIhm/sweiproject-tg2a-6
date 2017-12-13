@@ -442,6 +442,16 @@ function loadActivities ($scope, $http){
   		loadCalPolyActivitiesForGMap($scope, $http);
 }
 
+function loadReportedActivities ($scope, $http){
+		$http({
+       		 method : 'GET',
+             url: 'rest/report/1'
+                    
+    		}).then(function (response) {
+     			 $scope.reportedActivities = response.data;  			 
+  		});
+}
+
 
 function loadMUASActivitiesForGMap ($scope, $http){
 
@@ -583,6 +593,7 @@ app.controller('MenuCtrl', function ($scope, $http, $dialog) {
 app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
   	
   	loadActivities($scope, $http);
+  	loadReportedActivities($scope, $http);
   	
   	$scope.getActivities = function(){
 		return $scope.activities;
@@ -972,6 +983,10 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 			<div id="map2" class="map"></div>
 		</div>
 		
+		<% //user is not admin %>
+		<% if(!(request.getAttribute("login") != null && request.getAttribute("login").equals((Boolean)true))) { %>
+		
+		<!-- normal user view -->
 		<div id="activities-table">
 		<table class="mdl-data-table">
 
@@ -990,13 +1005,41 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 					<button class="mdl-button" ng-click="edit(activity)">edit</button>
 					<button class="mdl-button" ng-click="delete(activity)">delete</button> -->
 					<button class="mdl-button" ng-click="show(activity)">show</button>
-					
 				</td>
-				
-				
 			</tr>
 		</table>
 		</div>
+		
+		<% } %>
+		<% //user is admin %>
+		<% if(request.getAttribute("login") != null && request.getAttribute("login").equals((Boolean)true)) { %>
+		
+		<!-- admin view -->
+		<div id="activities-table">
+		<table class="mdl-data-table">
+
+			<tr class="table-head">
+				<td class="mdl-data-table__cell--non-numeric">Title</td>
+				<td class="mdl-data-table__cell--non-numeric">University</td>
+				<td class="mdl-data-table__cell--non-numeric">Tags</td>
+				<td class="mdl-data-table__cell--non-numeric"></td>
+			</tr>
+			<tr ng-repeat="reportedActivity in reportedActivities">
+				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.title}}</td>
+				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.uni}}</td>
+				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.tags}}</td>
+				<td class="mdl-data-table__cell--non-numeric">
+				<!-- Disabeld for sprint 1
+					<button class="mdl-button" ng-click="edit(activity)">edit</button> -->
+					<button class="mdl-button" ng-click="delete(activity)">delete</button>
+					<button class="mdl-button" ng-click="show(activity)">show</button>				
+				</td>
+			</tr>
+		</table>
+		</div>
+		
+		<% } %>
+		
 	</div>
 	
 </body>

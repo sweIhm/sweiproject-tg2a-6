@@ -53,26 +53,7 @@ public class ActivityController {
 		return activity;
 	}
 
-	@GetMapping("/reported")
-	public ArrayList<Activity> listAllreportedActivities() {
-		ArrayList<Activity> activities = new ArrayList<>();
-
-		for (Activity a : activityRepository.findAll()) {
-			//if (!a.isReported()) { ->>das war deins vorher
-			if (a.getReportCounter() > 0) {
-				continue;
-			}
-			a.setSecretKey(fakeValue);
-			a.seteMail(fakeValue);
-
-			a.setText("");
-			a.setImage("");
-			a.setFaculty("");
-
-			activities.add(a);
-		}
-		return activities;
-	}
+		
 
 	/*
 	 * Disabeld for sprint 1
