@@ -46,7 +46,7 @@ public class ActivityController {
 	@GetMapping("/report/{id}")
 	public Activity report(@PathVariable Long id) {
 		Activity activity = activityRepository.findOne(id);
-		activity.setReported(true);
+		activity.setReportCounter(activity.getReportCounter() + 1);
 		activityRepository.save(activity);
 		activity.setSecretKey(fakeValue);
 		activity.seteMail(fakeValue);
@@ -58,7 +58,8 @@ public class ActivityController {
 		ArrayList<Activity> activities = new ArrayList<>();
 
 		for (Activity a : activityRepository.findAll()) {
-			if (!a.isReported()) {
+			//if (!a.isReported()) { ->>das war deins vorher
+			if (a.getReportCounter() > 0) {
 				continue;
 			}
 			a.setSecretKey(fakeValue);

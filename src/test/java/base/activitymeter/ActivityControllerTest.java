@@ -64,7 +64,7 @@ public class ActivityControllerTest {
 		activity = activityRepository.findOne((long) 1);
 		activity.setPublished(true);
 		activityRepository.save(activity);
-		String expectedString = "[{\"id\":1,\"text\":\"\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"\",\"zipcode\":\"80331\",\"published\":true,\"image\":\"\",\"reported\":false}]";
+		String expectedString = "[{\"id\":1,\"text\":\"\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"nope\",\"secretKey\":\"nope\",\"uni\":\"hm\",\"faculty\":\"\",\"zipcode\":\"80331\",\"published\":true,\"reportCounter\":0,\"image\":\"\"}]";
 
 		mockMvc.perform(get("/rest/activity")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(expectedString));
 
@@ -76,13 +76,13 @@ public class ActivityControllerTest {
 		activity = activityRepository.save(activity);
 		
 		activity = activityRepository.findOne((long)1);
-		assertFalse(activity.isReported());
+		assertEquals(activity.getReportCounter(), 0);
 		
 		long id = activity.getId();
 		mockMvc.perform(get("/rest/activity/report/" + id)).andDo(print()).andExpect(status().isOk());
 		
 		activity = activityRepository.findOne(id);
-		assertTrue(activity.isReported());
+		assertEquals(activity.getReportCounter(), 1);
 	}
 	
 	/* Disabeld for sprint 1

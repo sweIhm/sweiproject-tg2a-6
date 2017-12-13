@@ -59,7 +59,7 @@ public class DeleteControllerTest {
 				.andExpect(status().isOk());
 		
 		activity = activityRepository.findOne((long)1);
-		activity.setReported(true);
+		activity.setReportCounter(activity.getReportCounter() + 1);
 		long id = activity.getId();
 		String eMailAddress = activity.geteMail();
 		activityRepository.save(activity);

@@ -30,7 +30,7 @@ public class Activity {
     private String faculty;
     private String zipcode;
     private boolean published;
-    private boolean isReported;
+    private int reportCounter;
     
     @Lob
     private String image;
@@ -47,7 +47,7 @@ public class Activity {
         this.faculty = faculty;
         this.image = image;
         this.zipcode = zipcode;
-        this.isReported = false;
+        this.reportCounter = 0;
         
         char[] chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -150,12 +150,12 @@ public class Activity {
     	return published;
     }
 
-    public boolean isReported() {
-		return isReported;
+    public int getReportCounter() {
+		return reportCounter;
 	}
 
-	public void setReported(boolean isReported) {
-		this.isReported = isReported;
+	public void setReportCounter(int isReported) {
+		this.reportCounter = isReported;
 	}
 	
 
