@@ -1075,7 +1075,7 @@ $(document).ready(function () {
 				<!-- Disabeld for sprint 1
 					<button class="mdl-button" ng-click="edit(activity)">edit</button> -->
 					<button class="mdl-button" ng-click="delete(activity)">delete</button>
-					<button class="mdl-button" ng-click="show(activity)">show</button>				
+					<button class="mdl-button" ng-click="show(reportedActivity)">show</button>				
 				</td>
 			</tr>
 		</table>
