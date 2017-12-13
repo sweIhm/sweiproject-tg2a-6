@@ -1074,7 +1074,7 @@ $(document).ready(function () {
 				<td class="mdl-data-table__cell--non-numeric">
 				<!-- Disabeld for sprint 1
 					<button class="mdl-button" ng-click="edit(activity)">edit</button> -->
-					<button class="mdl-button" ng-click="delete(activity)">delete</button>
+					<button class="mdl-button" ng-click="delete(reportedActivity)">delete</button>
 					<button class="mdl-button" ng-click="show(reportedActivity)">show</button>				
 				</td>
 			</tr>
