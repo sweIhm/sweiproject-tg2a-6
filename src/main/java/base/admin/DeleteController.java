@@ -3,7 +3,7 @@ package base.admin;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +22,7 @@ public class DeleteController {
 	@Autowired
 	private ActivityRepository activityRepository;
 	
-	@GetMapping
+	@DeleteMapping
 	public void deleteActivityBlockEmail(@PathVariable Long activityID, HttpSession session) {
 		
 		if(session.getAttribute("login") != null && session.getAttribute("login").equals((Boolean)true)) {
