@@ -446,7 +446,7 @@ function loadActivities ($scope, $http){
 function loadReportedActivities ($scope, $http){
 		$http({
        		 method : 'GET',
-             url: 'rest/report/1'
+             url: 'rest/report/0'
                     
     		}).then(function (response) {
      			 $scope.reportedActivities = response.data;  			 
