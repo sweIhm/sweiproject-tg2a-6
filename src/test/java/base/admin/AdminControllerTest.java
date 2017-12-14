@@ -42,7 +42,7 @@ public class AdminControllerTest
 	private MockMvc mockMvc;
 	
 	@Autowired
-	MockHttpSession mockSession;
+	private MockHttpSession mockSession;
 	
 
 	@Autowired

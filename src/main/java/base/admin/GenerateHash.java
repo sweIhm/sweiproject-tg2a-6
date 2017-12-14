@@ -1,22 +1,24 @@
 package base.admin;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+
 public class GenerateHash {
 
 	public static String getHash(String toEncode) {
-
-		int length = toEncode.length();
-		char[] encoded = new char[length];
 		
-		String salt = System.getenv("SHA_SALT");
-		salt = salt.substring(0, length);
+		byte[] hash = new byte[toEncode.length()];
 		
-		char[] charSalt = salt.toCharArray();
-		char[] encoding = toEncode.toCharArray();
-		
-		for(int i = 0; i < encoding.length; i++) {
-			encoded[i] = (char) (charSalt[i] ^ encoding[i]);
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			hash = digest.digest(toEncode.getBytes(StandardCharsets.UTF_8));
+		} 
+		catch (NoSuchAlgorithmException e) {
+			e.getStackTrace();
+			return null;
 		}
-		
-		return String.valueOf(encoded);
+		return Arrays.toString(hash);
 	}
 }
