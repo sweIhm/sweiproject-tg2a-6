@@ -58,7 +58,7 @@ public class ReportControllerTest {
 	@Test
 	public void ensureThatUnreportedActivitiesAreNotShownAsc() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/rest/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
+		this.mockMvc.perform(post("/rest/post").session(mockSession).contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 
 		mockMvc.perform(get("/rest/report/0")).andDo(print()).andExpect(status().isOk())
@@ -69,8 +69,9 @@ public class ReportControllerTest {
 	// test for descending ordering
 	@Test
 	public void ensureThatUnreportedActivitiesAreNotShownDesc() throws Exception {
+		loginAsAdmin();
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
-		this.mockMvc.perform(post("/rest/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
+		this.mockMvc.perform(post("/rest/post").session(mockSession).contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 
 		mockMvc.perform(get("/rest/report/1")).andDo(print()).andExpect(status().isOk())
@@ -99,6 +100,29 @@ public class ReportControllerTest {
 				.andExpect(content().string(expect));
 
 	}
+	
+	@Test
+	public void ensureThatReportedActivitiesAreNotShownWhenNotAdminAscDesc() throws Exception {
+		// do not login as admin...
+		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
+		this.mockMvc.perform(post("/rest/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
+				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
+		activity = activityRepository.findOne((long) 1);
+		activity.setReportCounter(1);
+		activityRepository.save(activity);
+
+		String expect = "[]";
+		
+		loginAsAdmin();
+
+		mockMvc.perform(get("/rest/report/1")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(expect));
+
+		mockMvc.perform(get("/rest/report/0")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(expect));
+
+	}
+
 
 	public static String asJsonString(final Object obj) {
 		try {
