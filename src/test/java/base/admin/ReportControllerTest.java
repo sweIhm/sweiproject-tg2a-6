@@ -1,4 +1,4 @@
-package base.activitymeter;
+package base.admin;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -18,6 +18,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import base.activitymeter.Activity;
+import base.activitymeter.ActivityRepository;
 
 @RunWith(SpringRunner.class)
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
