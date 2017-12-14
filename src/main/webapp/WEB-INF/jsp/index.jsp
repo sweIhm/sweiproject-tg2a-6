@@ -633,6 +633,7 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
 		
   		$http(deleteRequest).then(function() {
 			loadActivities($scope, $http);
+			loadReportedActivities($scope, $http);
 		});
   		//todo handle error
 	};
@@ -1103,7 +1104,7 @@ $(document).ready(function () {
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.tags}}</td>
 				<td class="mdl-data-table__cell--numeric">{{reportedActivity.reportCounter}}</td>
 				<td class="mdl-data-table__cell--non-numeric">
-				<!-- Disabeld for sprint 1
+				<!-- Disabeld for sprint 2
 					<button class="mdl-button" ng-click="edit(activity)">edit</button> -->
 					<button class="mdl-button" ng-click="delete(reportedActivity)">delete</button>
 					<button class="mdl-button" ng-click="show(reportedActivity)">show</button>				
