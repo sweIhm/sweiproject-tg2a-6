@@ -85,7 +85,7 @@ public class DeleteControllerTest {
 		String eMailAddress = activity.geteMail();
 		activityRepository.save(activity);
 		
-		this.mockMvc.perform(get("/rest/delete/" + id)				
+		this.mockMvc.perform(delete("/rest/delete/" + id)				
 				.session(mockSession))
 				.andDo(print())
 				.andExpect(status().isOk());
