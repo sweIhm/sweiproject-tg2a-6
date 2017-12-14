@@ -416,6 +416,9 @@ function initializeMaps() {
 	
 	console.log("maps init finished");
 }
+function reverseOrder() {
+		
+}
 
 
 </script>
@@ -1028,7 +1031,8 @@ $(document).ready(function () {
 		<!-- admin view -->
 		<select id="table-chooser">
 		  <option value="activities-table">Normal View</option>
-		  <option value="report-table">Report Handling</option>
+		  <option value="report-table-asc">Report Handling Ascending</option>
+		  <option value="report-table-desc">Report Handling Descending</option>
 		</select>
 		
 		
@@ -1056,7 +1060,7 @@ $(document).ready(function () {
 		</table>
 		</div>
 		
-		<div id="report-table" class="group">
+		<div id="report-table-asc" class="group">
 		<table class="mdl-data-table">
 
 			<tr class="table-head">
@@ -1066,7 +1070,34 @@ $(document).ready(function () {
 				<td class="mdl-data-table__cell--non-numeric">Report#</td>
 				<td class="mdl-data-table__cell--non-numeric"></td>
 			</tr>
+			<!-- | orderBy:'+':true reverses ng-repeat-->
 			<tr ng-repeat="reportedActivity in reportedActivities">
+				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.title}}</td>
+				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.uni}}</td>
+				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.tags}}</td>
+				<td class="mdl-data-table__cell--numeric">{{reportedActivity.reportCounter}}</td>
+				<td class="mdl-data-table__cell--non-numeric">
+				<!-- Disabeld for sprint 1
+					<button class="mdl-button" ng-click="edit(activity)">edit</button> -->
+					<button class="mdl-button" ng-click="delete(reportedActivity)">delete</button>
+					<button class="mdl-button" ng-click="show(reportedActivity)">show</button>				
+				</td>
+			</tr>
+		</table>
+		</div>
+		
+		<div id="report-table-desc" class="group">
+		<table class="mdl-data-table">
+
+			<tr class="table-head">
+				<td class="mdl-data-table__cell--non-numeric">Title</td>
+				<td class="mdl-data-table__cell--non-numeric">University</td>
+				<td class="mdl-data-table__cell--non-numeric">Tags</td>
+				<td class="mdl-data-table__cell--non-numeric">Report#</td>
+				<td class="mdl-data-table__cell--non-numeric"></td>
+			</tr>
+			<!-- | orderBy:'+':true reverses ng-repeat-->
+			<tr ng-repeat="reportedActivity in reportedActivities | orderBy:'+':true">
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.title}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.uni}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.tags}}</td>
