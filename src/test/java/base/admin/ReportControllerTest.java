@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,10 +30,15 @@ import base.activitymeter.ActivityRepository;
 public class ReportControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@Autowired
 	private ActivityRepository activityRepository;
 
+	@Autowired
+	private AdminRepository adminRepository;
+
+	@Autowired
+	private MockHttpSession mockSession;
 
 	static final String TEXT = "sampletxt";
 	static final String TAG = "#tag, #tag2";
@@ -43,6 +49,10 @@ public class ReportControllerTest {
 	static final String FAC = "7";
 	static final String IMG = "data:image/jpeg;base64,someimgdata";
 	static final String ZIPCODE = "80331";
+
+	private static final String ADMIN_NAME = "admin";
+	private static final String ADMIN_PASS = "admin";
+	private static final String SESSION_ONLY = "false";
 
 	// test for ascending ordering
 	@Test
@@ -67,25 +77,28 @@ public class ReportControllerTest {
 				.andExpect(content().string("[]"));
 
 	}
-	
+
 	// ensure that reported activities are shown, both asc and desc
 	@Test
-	public void ensureThatReportedActivitiesAreNotShownAscDesc() throws Exception {
+	public void ensureThatReportedActivitiesAreShownAscDesc() throws Exception {
 		Activity activity = new Activity(TEXT, TAG, TITLE, EMAIL, UNI, FAC, IMG, ZIPCODE);
 		this.mockMvc.perform(post("/rest/post").contentType(MediaType.APPLICATION_JSON).content(asJsonString(activity))
 				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 		activity = activityRepository.findOne((long) 1);
 		activity.setReportCounter(1);
 		activityRepository.save(activity);
+
 		String expect = "[{\"id\":1,\"text\":\"\",\"tags\":\"#tag, #tag2\",\"title\":\"sampletitle1\",\"eMail\":\"\",\"secretKey\":\"\",\"uni\":\"hm\",\"faculty\":\"\",\"zipcode\":\"80331\",\"published\":false,\"reportCounter\":1,\"image\":\"\"}]";
-		mockMvc.perform(get("/rest/report/1")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(expect));
 		
-		mockMvc.perform(get("/rest/report/0")).andDo(print()).andExpect(status().isOk())
-		.andExpect(content().string(expect));
+		loginAsAdmin();
+
+		mockMvc.perform(get("/rest/report/1").session(mockSession)).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(expect));
+
+		mockMvc.perform(get("/rest/report/0").session(mockSession)).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(expect));
 
 	}
-	
 
 	public static String asJsonString(final Object obj) {
 		try {
@@ -95,6 +108,15 @@ public class ReportControllerTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public void loginAsAdmin() throws Exception {
+		Admin a = new Admin(ADMIN_NAME, ADMIN_PASS);
+		adminRepository.save(a);
+		String login = "{\"name\":\"" + ADMIN_NAME + "\",\"password\":\"" + ADMIN_PASS + "\",\"forever\":"
+				+ SESSION_ONLY + "}";
+		this.mockMvc.perform(post("/rest/admin").contentType(MediaType.APPLICATION_JSON).content(login)
+				.session(mockSession).accept(MediaType.APPLICATION_JSON)).andExpect(content().string("true"));
 	}
 
 }
