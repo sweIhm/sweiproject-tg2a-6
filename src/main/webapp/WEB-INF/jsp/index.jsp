@@ -625,7 +625,7 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
 	$scope.delete = function(activity) {
 		var deleteRequest = {
 			method : 'DELETE',
-			url: 'rest/activity/' + activity.id
+			url: 'rest/delete/' + activity.id
 		};
 		
   		$http(deleteRequest).then(function() {

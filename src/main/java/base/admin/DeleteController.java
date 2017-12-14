@@ -23,8 +23,9 @@ public class DeleteController {
 	public void deleteActivityBlockEmail(@PathVariable Long activityID) {
 		Activity activityToDelete = activityRepository.findOne(activityID);
 		
-		String eMail = activityToDelete.geteMail();
-		emailRepository.save(new EMail(eMail));
+		String hash = GenerateHash.getHash(activityToDelete.geteMail());
+		
+		emailRepository.save(new EMail(hash));
 		activityRepository.delete(activityToDelete);
 	}
 }

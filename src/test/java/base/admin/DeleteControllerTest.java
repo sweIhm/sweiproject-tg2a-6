@@ -71,8 +71,10 @@ public class DeleteControllerTest {
 		EMail email = emailRepository.findOne((long)1);
 		String eMailBlocked = email.geteMailAddress();
 		
+		String hash = GenerateHash.getHash(eMailAddress);
+		
 		assertEquals(activity, null);
-		assertEquals(eMailAddress, eMailBlocked);
+		assertEquals(hash, eMailBlocked);
 	}
 	
 	
