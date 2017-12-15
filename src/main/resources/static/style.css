@@ -623,3 +623,20 @@ background-color: #EA3B3B;
 	
 }
 
+#commentInput
+{   width: 680px;
+	height: 20px;
+    resize: none;
+    margin: 0px -30px;
+    border-radius: 0px;
+    padding: 10px;
+	border-width: 1px 0;
+	
+	background-color: #EEEEEE;
+	overflow: hidden;
+}
+
+#commentSubmit
+{
+	display: none;
+}

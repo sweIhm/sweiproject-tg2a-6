@@ -11,6 +11,9 @@
         <p>University: {{activity.uni}} - {{activity.faculty}}</p>
         <input type="button" id="reportButton" class="button buttonSmall buttonRed" value="Report" ng-click="report(activity)" />
         <span id="reportMessage">Successfully Reported!</span>
+        <textarea id="commentInput" placeholder="Comment..." oninput="resizeComment(this)" onfocus="focusComment(this)" onblur="unfocusComment(this)"></textarea>
+        <button id="commentSubmit" class="button buttonGreen">Save</button>
+	
     </div>
 
 </div>

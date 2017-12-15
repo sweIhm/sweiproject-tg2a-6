@@ -23,7 +23,7 @@ public class MailVerification {
 		
 		String verificationLink = System.getenv("URL_VERIFY") + verificationID;
 		
-		System.out.println(verificationID);
+		System.out.println("/rest/verify/" + verificationID);
 		
 		Properties properties = new Properties();    
         properties.put("mail.smtp.host", "smtp.gmail.com");    

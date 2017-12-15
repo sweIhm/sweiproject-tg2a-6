@@ -444,6 +444,7 @@ function loadActivities ($scope, $http){
   		
   		loadMUASActivitiesForGMap($scope, $http);
   		loadCalPolyActivitiesForGMap($scope, $http);
+			
 }
 
 function loadReportedActivities ($scope, $http){
@@ -709,6 +710,8 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		document.getElementById("reportMessage").style.display = "block";
 	}
 	
+
+	
 	var getRequest = {
 		method: 'GET',
 		url: 'rest/details/' + activity.id
@@ -956,6 +959,39 @@ $(document).ready(function () {
     $('#'+$(this).val()).show();
   })
 });
+
+
+
+
+
+
+
+resizeComment = function(textArea)
+{
+	var oldHeight = textArea.style.height;
+	textArea.style.height = "";
+	var newHeight = Math.max(textArea.scrollHeight - 20, 60);
+	textArea.style.height = oldHeight;
+	textArea.style.height = newHeight + 'px';
+}
+
+focusComment = function(textArea)
+{
+	if(textArea.value === "")
+	{
+		textArea.style.height = "60px";
+		document.getElementById("commentSubmit").style.display = "block";
+	}
+}
+
+unfocusComment = function(textArea)
+{
+	if(textArea.value === "")
+	{
+		textArea.style.height = "20px";
+		document.getElementById("commentSubmit").style.display = "none";
+	}
+}
 
 
 
