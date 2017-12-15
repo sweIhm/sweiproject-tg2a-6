@@ -6,19 +6,29 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class GenerateHash {
+	
+	private String toEncode;
+	
+	public GenerateHash(String toEncode) {
+		this.toEncode = toEncode;
+	};
 
-	public static String getHash(String toEncode) {
+	public String getHash() {
 		
 		byte[] hash = new byte[toEncode.length()];
 		
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			hash = digest.digest(toEncode.getBytes(StandardCharsets.UTF_8));
+			return Arrays.toString(hash);
 		} 
 		catch (NoSuchAlgorithmException e) {
 			e.getStackTrace();
 			return null;
 		}
-		return Arrays.toString(hash);
+		catch (NullPointerException e) {
+			e.getStackTrace();
+			return null;
+		}
 	}
 }
