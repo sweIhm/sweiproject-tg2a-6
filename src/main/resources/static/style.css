@@ -639,4 +639,5 @@ background-color: #EA3B3B;
 #commentSubmit
 {
 	display: none;
+	float: right;
 }

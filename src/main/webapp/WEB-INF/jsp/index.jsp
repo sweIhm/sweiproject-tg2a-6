@@ -966,6 +966,22 @@ $(document).ready(function () {
 
 
 
+adjustButton = function(textArea)
+{
+	if(textArea.value == "")
+	{
+		document.getElementById("commentSubmit").disabled = true;
+		document.getElementById("commentSubmit").classList.add("buttonDisabled");
+
+	}
+	else
+	{
+		document.getElementById("commentSubmit").disabled = false;
+		document.getElementById("commentSubmit").classList.remove('buttonDisabled');
+	}
+		
+}
+
 resizeComment = function(textArea)
 {
 	var oldHeight = textArea.style.height;
@@ -979,6 +995,7 @@ focusComment = function(textArea)
 {
 	if(textArea.value === "")
 	{
+		textArea.placeholder = "";
 		textArea.style.height = "60px";
 		document.getElementById("commentSubmit").style.display = "block";
 	}
@@ -988,6 +1005,8 @@ unfocusComment = function(textArea)
 {
 	if(textArea.value === "")
 	{
+		
+		textArea.placeholder = "Comment ...";
 		textArea.style.height = "20px";
 		document.getElementById("commentSubmit").style.display = "none";
 	}
