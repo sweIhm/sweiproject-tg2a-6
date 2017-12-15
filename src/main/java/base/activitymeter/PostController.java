@@ -23,7 +23,7 @@ public class PostController {
 	@PostMapping
 	public Activity create(@RequestBody Activity input) {
 		
-		String hash = GenerateHash.getHash(input.geteMail());
+		String hash = new GenerateHash(input.geteMail()).getHash();
 		
 		ArrayList<EMail> eMails = new ArrayList<>();
 	    emailRepository.findAll().forEach(eMail -> eMails.add(eMail));

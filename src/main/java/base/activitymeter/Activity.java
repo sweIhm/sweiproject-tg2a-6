@@ -160,6 +160,6 @@ public class Activity {
 	
 
 	public void verify() {
-       	new MailVerification(eMail, secretKey).sendMail();
+       	new MailSending(eMail).sendVerificationMail(secretKey);
     }
 }

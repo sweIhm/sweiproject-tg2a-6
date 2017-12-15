@@ -1,5 +1,8 @@
 package base.admin;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import base.activitymeter.Activity;
 import base.activitymeter.ActivityRepository;
+import base.activitymeter.MailSending;
 import base.admin.EMailRepository;
 
 @RestController
@@ -28,8 +32,14 @@ public class DeleteController {
 		if(session.getAttribute("login") != null && session.getAttribute("login").equals((Boolean)true)) {
 			Activity activityToDelete = activityRepository.findOne(activityID);
 			
-			String hash = GenerateHash.getHash(activityToDelete.geteMail());
+			String eMail = activityToDelete.geteMail();
+			String hash = new GenerateHash(eMail).getHash();
 
+			String title = activityToDelete.getTitle();
+			SimpleDateFormat currentDate = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+			String deletingDate = currentDate.format(new Date());
+			new MailSending(eMail).sendBlockedMail(title, deletingDate);
+			
 			emailRepository.save(new EMail(hash));
 			activityRepository.delete(activityToDelete);
 		}
