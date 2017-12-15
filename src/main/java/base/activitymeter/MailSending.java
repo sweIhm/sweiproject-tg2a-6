@@ -9,19 +9,19 @@ public class MailSending {
 
 	private String eMailTo;
 	
-	private final static String eMailSubjectVerification = "ActiviTracker Verification"; 
-	private final static String eMailBodyVerification = "Attention! Do NOT answer on this eMail!\n\nPlease klick on the following link to post your activity: \n\n";
+	private final static String EMAIL_SUBJECT_VERIFICATION = "ActiviTracker Verification"; 
+	private final static String EMAIL_BODY_VERIFICATION = "Attention! Do NOT answer on this eMail!\n\nPlease klick on the following link to post your activity: \n\n";
 	
-	private final static String eMailSubjectBlocked = "ActiviTracker Information";
-	private final static String eMailBodyFirstBlocked = "Hello ActiviTracker-User,\n\nSadly we have to tell you that you are not allowed to post activities anymore!\n"
+	private final static String EMAIL_SUBJECT_BLOCKING = "ActiviTracker Information";
+	private final static String EMAIL_FIRST_BODY_BLOCKING = "Hello ActiviTracker-User,\n\nSadly we have to tell you that you are not allowed to post activities anymore!\n"
 														+ "Reason for that was a post with following name: ";
-	private final static String eMailBodySecondBlocked = "\n\nYou got blocked on: ";
-	private final static String eMailBodyThirdBlocked = "\n\nPlease do NOT answer on this EMail!";
+	private final static String EMAIL_SECOND_BODY_BLOCKING = "\n\nYou got blocked on: ";
+	private final static String EMAIL_THIRD_BODY_BLOCKING = "\n\nPlease do NOT answer on this EMail!";
 												
 	
 	public MailSending(String eMailTo){
 		this.eMailTo = eMailTo;
-	};
+	}
 	
 	public void sendVerificationMail(String verificationID) {
 
@@ -34,8 +34,8 @@ public class MailSending {
         	MimeMessage message = new MimeMessage(getSession());   
         	InternetAddress mailAdressReceiver = new InternetAddress(eMailTo);
         	message.addRecipient(Message.RecipientType.TO, mailAdressReceiver);    
-        	message.setSubject(eMailSubjectVerification);    
-        	message.setText(eMailBodyVerification + verificationLink);   
+        	message.setSubject(EMAIL_SUBJECT_VERIFICATION);    
+        	message.setText(EMAIL_BODY_VERIFICATION + verificationLink);   
 
         	Transport.send(message);  
         } 
@@ -49,9 +49,9 @@ public class MailSending {
         	MimeMessage message = new MimeMessage(getSession());   
         	InternetAddress mailAdressReceiver = new InternetAddress(eMailTo);
         	message.addRecipient(Message.RecipientType.TO, mailAdressReceiver);    
-        	message.setSubject(eMailSubjectBlocked);  
+        	message.setSubject(EMAIL_SUBJECT_BLOCKING);  
         	
-        	String body = eMailBodyFirstBlocked + activityName + eMailBodySecondBlocked + date + eMailBodyThirdBlocked;
+        	String body = EMAIL_FIRST_BODY_BLOCKING + activityName + EMAIL_SECOND_BODY_BLOCKING + date + EMAIL_THIRD_BODY_BLOCKING;
         	message.setText(body); 
 
         	Transport.send(message);  
