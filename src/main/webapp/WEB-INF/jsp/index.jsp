@@ -458,6 +458,8 @@ function loadReportedActivities ($scope, $http){
 }
 
 
+
+
 function loadMUASActivitiesForGMap ($scope, $http){
 
 		bounds = new google.maps.LatLngBounds();
@@ -709,15 +711,32 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		document.getElementById("reportButton").style.display = "none";
 		document.getElementById("reportMessage").style.display = "block";
 	}
+
+	$scope.reply = function()
+	{
+
+		console.log(activity);
+		var postRequest = {
+    	method : 'POST',
+       	url: 'rest/comment' ,
+       	data: {
+  				activityID: activity.id,
+					comment: document.getElementById("commentInput").value
+			  }
+		}
+
+		$http(postRequest).then(function (response) {
+  		})
+	}
 	
 
 	
-	var getRequest = {
+	var detailsRequest = {
 		method: 'GET',
 		url: 'rest/details/' + activity.id
 	}
 
-	$http(getRequest).then(function(response) {
+	$http(detailsRequest).then(function(response) {
 		$scope.activity = response.data;
 
 		var modal = document.getElementsByClassName("modal");
@@ -740,6 +759,13 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		
 	});
 
+	var detailsRequest = {
+		method: 'GET',
+		url: 'rest/comment/' + activity.id
+	}
+	$http(detailsRequest).then(function(response) {
+		console.log(response);
+	});
 	
 
 
@@ -1153,7 +1179,7 @@ unfocusComment = function(textArea)
 				<td class="mdl-data-table__cell--non-numeric"></td>
 			</tr>
 			<!-- | orderBy:'+':true reverses ng-repeat-->
-			<tr ng-repeat="reportedActivity in reportedActivities | orderBy:'+':true">
+			<tr ng-repeat="reportedActivity in reportedActivities | ordeloadActivitiesrBy:'+':true">
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.title}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.uni}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{reportedActivity.tags}}</td>

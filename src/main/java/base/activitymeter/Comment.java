@@ -23,6 +23,11 @@ public class Comment
 	
 	private Date postTime;
 	
+	public Comment()
+	{
+		
+	}
+	
 	public Comment( Long activityID, String comment )
 	{
 		this.activityID = activityID;

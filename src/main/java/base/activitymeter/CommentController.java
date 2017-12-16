@@ -1,6 +1,8 @@
 package base.activitymeter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,31 @@ public class CommentController {
 	private CommentRepository commentRepository;
 	
 	@GetMapping
-	public String getAll()
+	public List<Comment> getAll()
 	{
-		return "hui";
+		List<Comment> result = new ArrayList<>();
+		for (Comment a : commentRepository.findAll())
+		{
+			result.add(a);
+		}
+		return result;
 	}
 	
 	@GetMapping("{id}")
-	public Long getForActivity(@PathVariable Long id)
+	public List<Comment> getForActivity(@PathVariable Long id)
 	{
-		return id;
+
+		commentRepository.save(new Comment(id, "testComment1"));
+		commentRepository.save(new Comment(id, "testComment2"));
+		commentRepository.save(new Comment(id, "testComment3"));
+		commentRepository.save(new Comment(id, "testComment4"));
+		List<Comment> result = new ArrayList<>();
+		for (Comment a : commentRepository.findAll())
+		{
+			if(a.getActivityID().equals(id))
+				result.add(a);
+		}
+		return result;
 	}
 	
 	@PostMapping
@@ -40,9 +58,10 @@ public class CommentController {
 		try {
 			jsonMap = new ObjectMapper().readValue(json, Map.class);
 
-			Long activityID = (Long)jsonMap.get("activityID");
+			Long activityID = ((Integer)jsonMap.get("activityID")).longValue();
 			String comment = (String)jsonMap.get("comment");
-			
+			System.out.println(activityID);
+			System.out.println(comment);
 			commentRepository.save( new Comment(activityID, comment));
 		} 
 		catch (JsonParseException e) {} 
