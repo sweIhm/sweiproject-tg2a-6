@@ -13,6 +13,11 @@
         <span id="reportMessage">Successfully Reported!</span>
         <textarea id="commentInput" placeholder="Comment..." oninput="resizeComment(this);adjustButton(this);" onfocus="focusComment(this)" onblur="unfocusComment(this)"></textarea>
         <button ng-click="reply()"id="commentSubmit" class="button buttonGreen buttonDisabled" disabled>Reply</button>
+
+        <div ng-repeat="comment in activity.comments">
+            abc
+
+        </div>
 	
     </div>
 

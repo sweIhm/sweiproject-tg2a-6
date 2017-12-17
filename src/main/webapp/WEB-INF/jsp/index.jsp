@@ -764,7 +764,7 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		url: 'rest/comment/' + activity.id
 	}
 	$http(detailsRequest).then(function(response) {
-		console.log(response);
+		$scope.activity.comments = response
 	});
 	
 

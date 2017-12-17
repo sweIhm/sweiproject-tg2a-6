@@ -15,10 +15,6 @@ public class ActivityController {
 
 	@GetMapping
 	public ArrayList<Activity> listAll() {
-
-		Activity test = new Activity("a", "a", "a", "a@hm.edu", "MUAS", "07", "", "12345");
-		test.setPublished(true);
-		activityRepository.save(test);
 		
 		ArrayList<Activity> activities = new ArrayList<>();
 
