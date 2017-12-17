@@ -21,7 +21,9 @@ public class Activity {
     private Long id;
     
     @Column(columnDefinition="TEXT")
+    @Lob
     private String text;
+    
     private String tags;
     private String title;
     private String eMail;

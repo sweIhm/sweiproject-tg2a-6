@@ -276,7 +276,7 @@ background-color: #EA3B3B;
 	margin-right: 10px;
 }
 
-.postDialog p
+.postDialog p, .editor
 {
 	width: calc(100% - 40px);
 	margin-right: 20px;
@@ -338,7 +338,6 @@ background-color: #EA3B3B;
 .showText {
 	font-size: 24px;
 	white-space: pre-line;
-	text-align: justify;
 }
 
 .showTags {
@@ -640,4 +639,11 @@ background-color: #EA3B3B;
 {
 	display: none;
 	float: right;
+}
+
+
+[ng-quill-editor] { display: block; }
+
+.ql-video, .ql-link, .ql-image  {
+	display: none !important;
 }

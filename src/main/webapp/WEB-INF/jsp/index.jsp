@@ -29,6 +29,16 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
 
 
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.3.4/quill.js"></script>
+
+<script type="text/javascript" src="ng-quill.js"></script>
+
+<!-- Include stylesheet -->
+<link href="https://cdn.quilljs.com/1.3.4/quill.snow.css" rel="stylesheet">
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-sanitize.js"></script>
+
 
 <script>
 
@@ -428,7 +438,45 @@ function reverseOrder() {
 <script>
 
 
-var app = angular.module('ActivityMeterApp', ['ui.bootstrap']);
+var app = angular.module('ActivityMeterApp', ['ui.bootstrap', 'ngQuill', 'ngSanitize']);
+
+// declare a module and load quillModule
+  //var myAppModule = angular.module('ActivityMeterApp', ['ngQuill'])
+  app.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
+    ngQuillConfigProvider.set(null, null, 'custom placeholder')
+  }])
+  app.controller('AppCtrl', [
+    '$scope',
+    '$timeout',
+    function ($scope, $timeout) {
+      $scope.title = 'Quill works'
+      $scope.readOnly = false
+      $scope.test = ''
+      $scope.customOptions = [{
+        import: 'attributors/style/size',
+        whitelist: ['14', '16', '18', 'small', 'large', 'huge']
+      }]
+      $scope.customModules = {
+        toolbar: [
+          [{'size': [false, '14', '16', '18']}]
+        ]
+      }
+
+      $timeout(function () {
+        $scope.title += ' awsome!!!'
+      }, 2000)
+
+      $scope.editorCreated = function (editor) {
+        console.log(editor)
+      }
+      $scope.contentChanged = function (editor, html, text, delta, oldDelta, source) {
+        console.log('editor: ', editor, 'html: ', html, 'text:', text, 'delta: ', delta, 'oldDelta:', oldDelta, 'source:', source)
+      }
+      $scope.selectionChanged = function (editor, range, oldRange, source) {
+        console.log('editor: ', editor, 'range: ', range, 'oldRange:', oldRange, 'source:', source)
+      }
+    }
+  ])
 
 //$qProvider.errorOnUnhandledRejections(false);
 
@@ -781,11 +829,13 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 	var imgValidSize = true;
 	var imgValidType = true;
 	
+	var TextIsValid = false;
+	
 	var zipNotYetEntered = true;
 	
 	$scope.verifyPostForm = function() {
 		var title = document.getElementById('postTitle').value;
-		var text = document.getElementById('postText').value;
+		//var text = document.getElementById('postText').value;
 		var tags = document.getElementById('postTags').value;
 		var university = document.querySelector('input[name = "postUniversity"]:checked').value;
 		var faculty = document.getElementById('postFaculty').value;
@@ -799,13 +849,32 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 		console.log(faculty);
 		console.log(email);*/
 		
-		if(title.length > 0 && text.length > 0 && tags.length > 0 && university.length > 0 && faculty.length > 0 && email.length > 0 && emailIsValid && ZIPIsValid) {
+		if(title.length > 0 && TextIsValid && tags.length > 0 && university.length > 0 && faculty.length > 0 && email.length > 0 && emailIsValid && ZIPIsValid) {
 			document.getElementById("postSubmit").disabled = false;
 			document.getElementById("postSubmit").classList.remove('buttonDisabled');
 		} else {
 			document.getElementById("postSubmit").disabled = true;
 			document.getElementById("postSubmit").classList.add('buttonDisabled');
 		}
+		
+	}
+	
+	$scope.verifyTextEditor = function(activity) {
+			
+		try {
+    
+			if(activity.text.length > 0) {
+				TextIsValid = true;
+			} else {
+				TextIsValid = false;
+			}
+		
+		} catch (e if e instanceof TypeError) {
+			TextIsValid = false;
+		}
+		
+		$scope.verifyPostForm();
+	
 	}
 	
 	$scope.checkUni = function() {
@@ -972,9 +1041,10 @@ app.controller('PostCtrl', function($scope, $http, dialog){
   		});
   	};
   
-  	$scope.close = function(){;
+  	$scope.close = function() {
     	dialog.close(undefined);
   	};
+  	
 });
 
 $(document).ready(function () {
