@@ -2,6 +2,7 @@ package base.activitymeter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,10 +39,6 @@ public class CommentController {
 	public List<Comment> getForActivity(@PathVariable Long id)
 	{
 
-		commentRepository.save(new Comment(id, "testComment1"));
-		commentRepository.save(new Comment(id, "testComment2"));
-		commentRepository.save(new Comment(id, "testComment3"));
-		commentRepository.save(new Comment(id, "testComment4"));
 		List<Comment> result = new ArrayList<>();
 		for (Comment a : commentRepository.findAll())
 		{

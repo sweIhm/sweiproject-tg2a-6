@@ -31,6 +31,8 @@
 
 
 <script>
+var days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var months = ["January","February","March","April","May","Juni","July","August","Septemper","October","November","December",];
 
 var geocoder;
 var map;
@@ -728,6 +730,48 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		$http(postRequest).then(function (response) {
   		})
 	}
+
+	
+
+	$scope.prepareComments = function(data)
+	{
+		var result = [];
+		for( var i = 0; i < data.length; i++ )
+		{
+			
+			var date = new Date(data[i].postTime)
+			var newDay = true;
+
+			for( var j = 0; j < result.length; j++ )
+			{
+				if(result[j].timeOrder === "" + date.getFullYear() + date.getMonth() + date.getDate())
+				{
+					newDay = false;
+					data[i].timeReadable = (date.getHours() < 10 ? '0' : '') + date.getHours()  + " : " + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+					result[j].comment.push(data[i]);
+					result[j].comment.sort(function(a,b){return b.postTime - a.postTime;});
+				}
+			}
+			if(newDay)
+			{
+				var day = {
+					timeOrder:  "" + date.getFullYear() + date.getMonth() + date.getDate(),
+					year: date.getFullYear(),
+					month: date.getMonth(),
+					date: date.getDate(),
+					day: date.getDay(),
+					timeReadable: days[date.getDay()] + " - " + date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear(),
+					timeReadableAlt: days[date.getDay()] + " - " + date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear(),
+					comment: [data[i]]
+				}
+				day.comment[0].timeReadable = (date.getHours() < 10 ? '0' : '') + date.getHours()  + " : " + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+				result.push(day);
+				
+			}
+		}
+		result.sort(function(a,b){return b.timeOrder - a.timeOrder;});
+		return result;
+	}
 	
 
 	
@@ -764,7 +808,9 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		url: 'rest/comment/' + activity.id
 	}
 	$http(detailsRequest).then(function(response) {
-		$scope.activity.comments = response
+		console.log(response);
+		$scope.activity.days = $scope.prepareComments(response.data);
+		console.log($scope.activity.days);
 	});
 	
 
@@ -1037,6 +1083,7 @@ unfocusComment = function(textArea)
 		document.getElementById("commentSubmit").style.display = "none";
 	}
 }
+
 
 
 
