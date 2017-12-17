@@ -15,7 +15,7 @@ public class ActivityController {
 
 	@GetMapping
 	public ArrayList<Activity> listAll() {
-		
+
 		ArrayList<Activity> activities = new ArrayList<>();
 
 		for (Activity a : activityRepository.findAll()) {

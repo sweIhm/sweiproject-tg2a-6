@@ -14,9 +14,13 @@
         <textarea id="commentInput" placeholder="Comment..." oninput="resizeComment(this);adjustButton(this);" onfocus="focusComment(this)" onblur="unfocusComment(this)"></textarea>
         <button ng-click="reply()"id="commentSubmit" class="button buttonGreen buttonDisabled" disabled>Reply</button>
 
-        <div ng-repeat="comment in activity.comments">
-            abc
-
+        <div ng-repeat="comments in activity.days" class="commentDay">
+            <div class="commentDate"><span>{{comments.timeReadable}}</span></div>
+            <div ng-repeat="comment in comments.comment" class="fullComment" ng-class-even="'evenComment'">
+                <div class="commentText">{{comment.comment}}</div>
+                <div class="commentTime">{{comment.timeReadable}}</div>
+                
+            </div>
         </div>
 	
     </div>

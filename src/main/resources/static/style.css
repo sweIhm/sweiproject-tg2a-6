@@ -638,8 +638,8 @@ background-color: #EA3B3B;
 #commentSubmit
 {
 	display: none;
-	float: right;
 }
+
 
 
 [ng-quill-editor] { display: block; }
@@ -647,3 +647,53 @@ background-color: #EA3B3B;
 .ql-video, .ql-link, .ql-image  {
 	display: none !important;
 }
+
+.commentDay
+{
+	margin-top: 10px;
+}
+
+
+.commentDate
+{
+	width:700px;
+
+	text-align:center;
+	border-bottom: 1px solid #AAAAAA;
+	color: #AAAAAA;
+	line-height: 0.1em;
+	margin: 20px -30px 10px -30px; 
+}
+
+.commentDate span
+{
+	background-color: #FFFFFF;
+	padding: 2px 0;
+}
+
+
+.fullComment
+{
+	margin: 0 -30px;
+	padding: 10px 40px; 
+}
+.commentText
+{
+	margin-top: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.commentTime
+{
+	margin: 0 -40px;
+    font-size: 11px;
+    width: 660px;
+    text-align: right;
+    padding: 0 20px;
+    color: #888888;
+}
+.evenComment
+{
+	background-color:#DDDDDD;
+}
+
