@@ -873,6 +873,8 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 	
 	var zipNotYetEntered = true;
 	
+	var uniDefault = true;
+	
 	$scope.verifyPostForm = function() {
 		var title = document.getElementById('postTitle').value;
 		//var text = document.getElementById('postText').value;
@@ -918,6 +920,8 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 	}
 	
 	$scope.checkUni = function() {
+	
+		uniDefault = false;
 	
 		var uni = document.querySelector('input[name = "postUniversity"]:checked').value;
 
@@ -1058,20 +1062,38 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 	}
 
   	$scope.save = function(Activity) {
-  		var postRequest = {
-    	method : 'POST',
-       	url: 'rest/post' ,
-       	data: {
-  				text: $scope.activity.text,
-  				tags: $scope.activity.tags,
-  				title: $scope.activity.title,
-  				eMail: $scope.activity.eMail,
-  				uni: $scope.activity.uni,
-  				faculty: $scope.activity.faculty,
-  				image: imgData,
-  				zipcode: $scope.activity.ZIPCode
-			  }
-		}  
+  	
+  		if(uniDefault == true) {
+	  		var postRequest = {
+	    	method : 'POST',
+	       	url: 'rest/post' ,
+	       	data: {
+	  				text: $scope.activity.text,
+	  				tags: $scope.activity.tags,
+	  				title: $scope.activity.title,
+	  				eMail: $scope.activity.eMail,
+	  				uni: "MUAS",
+	  				faculty: $scope.activity.faculty,
+	  				image: imgData,
+	  				zipcode: $scope.activity.ZIPCode
+				  }
+			}  
+		} else {
+	  		var postRequest = {
+	    	method : 'POST',
+	       	url: 'rest/post' ,
+	       	data: {
+	  				text: $scope.activity.text,
+	  				tags: $scope.activity.tags,
+	  				title: $scope.activity.title,
+	  				eMail: $scope.activity.eMail,
+	  				uni: $scope.activity.uni,
+	  				faculty: $scope.activity.faculty,
+	  				image: imgData,
+	  				zipcode: $scope.activity.ZIPCode
+				  }
+			}  
+		}
 		
   		$http(postRequest).then(function (response) {
   		    $scope.activities = response.data;
