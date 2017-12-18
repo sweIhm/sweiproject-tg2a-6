@@ -331,7 +331,7 @@ background-color: #EA3B3B;
 [ng-quill-editor] { display: block; }
 
 
-.ql-formats:nth-child(2), .ql-formats:nth-child(3), .ql-formats:nth-child(6), .ql-formats:nth-child(7), .ql-formats:nth-child(11), .ql-formats:nth-child(12), .ql-formats:nth-child(14) {
+.ql-formats:nth-child(2), .ql-formats:nth-child(3), .ql-formats:nth-child(6), .ql-formats:nth-child(7), .ql-formats:nth-child(8), .ql-formats:nth-child(10), .ql-formats:nth-child(11), .ql-formats:nth-child(12), .ql-formats:nth-child(14) {
 	display: none !important;
 }
 

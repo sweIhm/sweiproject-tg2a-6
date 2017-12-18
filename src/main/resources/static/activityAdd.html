@@ -9,7 +9,7 @@
 	</p>
 
 	<p>
-		Text (max. 255 characters) <span class="required">*</span>
+		Text <span class="required">*</span>
 	</p>
 		
 	<div class="editor">
@@ -29,7 +29,7 @@
 	<p>
 		University <span class="required">*</span><br>
   		<label>
-    		<input id="postUniversity" name="postUniversity" type="radio" ng-model="activity.uni" value="MUAS" onclick="angular.element(this).scope().checkUni(); angular.element(this).scope().verifyPostForm();">
+    		<input ng-checked="true" id="postUniversity" name="postUniversity" type="radio" ng-model="activity.uni" value="MUAS" onclick="angular.element(this).scope().checkUni(); angular.element(this).scope().verifyPostForm();">
     		MUAS
   		</label>
   		<label>
