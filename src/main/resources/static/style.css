@@ -357,6 +357,11 @@ background-color: #EA3B3B;
 	color: #657786;
 }
 
+.showBody h1, .showBody h2, .showBody h3, .showBody h4, .showBody h5, .showBody h6, .showBody ul, .showBody ol, .showBody li
+{
+color: #657786;
+} 
+
 .showContainer {
 	position: relative;
 	width:700px;
