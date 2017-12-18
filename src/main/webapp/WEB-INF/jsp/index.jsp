@@ -768,9 +768,12 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 					comment: document.getElementById("commentInput").value
 			  }
 		}
-
 		$http(postRequest).then(function (response) {
-  		})
+			document.getElementById("commentInput").value = "";
+			document.getElementById("commentSubmit").disabled = true;
+			document.getElementById("commentSubmit").classList.add("buttonDisabled");
+			$scope.loadComments();
+  	});
 	}
 
 	
@@ -845,16 +848,16 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		
 	});
 
-	var detailsRequest = {
-		method: 'GET',
-		url: 'rest/comment/' + activity.id
+	$scope.loadComments = function() {
+		var detailsRequest = {
+			method: 'GET',
+			url: 'rest/comment/' + activity.id
+		}
+		$http(detailsRequest).then(function(response) {
+			$scope.activity.days = $scope.prepareComments(response.data);
+		});
 	}
-	$http(detailsRequest).then(function(response) {
-		console.log(response);
-		$scope.activity.days = $scope.prepareComments(response.data);
-		console.log($scope.activity.days);
-	});
-	
+	$scope.loadComments();
 
 
 });
@@ -911,7 +914,7 @@ app.controller('PostCtrl', function($scope, $http, dialog){
 				TextIsValid = false;
 			}
 		
-		} catch (e if e instanceof TypeError) {
+		} catch (err) {
 			TextIsValid = false;
 		}
 		

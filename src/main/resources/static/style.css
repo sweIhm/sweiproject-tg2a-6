@@ -686,7 +686,8 @@ color: #657786;
 {
 	margin-top: 10px;
     font-size: 18px;
-    margin-bottom: 10px;
+	margin-bottom: 10px;
+	white-space: pre-wrap;
 }
 .commentTime
 {

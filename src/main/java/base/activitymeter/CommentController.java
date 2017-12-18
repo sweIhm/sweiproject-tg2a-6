@@ -57,8 +57,8 @@ public class CommentController {
 
 			Long activityID = ((Integer)jsonMap.get("activityID")).longValue();
 			String comment = (String)jsonMap.get("comment");
-			System.out.println(activityID);
-			System.out.println(comment);
+			if(comment.equals(""))
+				return;
 			commentRepository.save( new Comment(activityID, comment));
 		} 
 		catch (JsonParseException e) {} 
