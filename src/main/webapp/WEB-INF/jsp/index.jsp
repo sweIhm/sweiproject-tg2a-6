@@ -29,14 +29,10 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
 
 
-<!-- Include the Quill library -->
+<!-- Quill stuff -->
 <script src="https://cdn.quilljs.com/1.3.4/quill.js"></script>
-
 <script type="text/javascript" src="ng-quill.js"></script>
-
-<!-- Include stylesheet -->
 <link href="https://cdn.quilljs.com/1.3.4/quill.snow.css" rel="stylesheet">
-
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-sanitize.js"></script>
 
 
@@ -442,12 +438,11 @@ function reverseOrder() {
 
 var app = angular.module('ActivityMeterApp', ['ui.bootstrap', 'ngQuill', 'ngSanitize']);
 
-// declare a module and load quillModule
-  //var myAppModule = angular.module('ActivityMeterApp', ['ngQuill'])
-  app.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
+app.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
     ngQuillConfigProvider.set(null, null, 'custom placeholder')
   }])
-  app.controller('AppCtrl', [
+  
+app.controller('EditorCtrl', [
     '$scope',
     '$timeout',
     function ($scope, $timeout) {
@@ -469,18 +464,17 @@ var app = angular.module('ActivityMeterApp', ['ui.bootstrap', 'ngQuill', 'ngSani
       }, 2000)
 
       $scope.editorCreated = function (editor) {
-        console.log(editor)
+        //console.log(editor)
       }
       $scope.contentChanged = function (editor, html, text, delta, oldDelta, source) {
-        console.log('editor: ', editor, 'html: ', html, 'text:', text, 'delta: ', delta, 'oldDelta:', oldDelta, 'source:', source)
+        //console.log('editor: ', editor, 'html: ', html, 'text:', text, 'delta: ', delta, 'oldDelta:', oldDelta, 'source:', source)
       }
       $scope.selectionChanged = function (editor, range, oldRange, source) {
-        console.log('editor: ', editor, 'range: ', range, 'oldRange:', oldRange, 'source:', source)
+        //console.log('editor: ', editor, 'range: ', range, 'oldRange:', oldRange, 'source:', source)
       }
     }
   ])
 
-//$qProvider.errorOnUnhandledRejections(false);
 
     
 function loadActivities ($scope, $http){

@@ -20,7 +20,6 @@ public class Activity {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
-    @Column(columnDefinition="TEXT")
     @Lob
     private String text;
     
