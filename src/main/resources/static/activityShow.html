@@ -1,5 +1,6 @@
 
 <div id="showClose">&times;</div>
+<div id="hiddenActivityID" style="display:none;">{{activity.id}}</div>
 <div class="showContainer" id="showContainer">
     <div class="modal-header">
         <h3 class="center">{{activity.title}}</h3>
@@ -11,7 +12,7 @@
         <p>University: {{activity.uni}} - {{activity.faculty}}</p>
         <input type="button" id="reportButton" class="button buttonSmall buttonRed" value="Report" ng-click="report(activity)" />
         <span id="reportMessage">Successfully Reported!</span>
-        <textarea id="commentInput" placeholder="Comment..." oninput="resizeComment(this);adjustButton(this);" onfocus="focusComment(this)" onblur="unfocusComment(this)"></textarea>
+        <textarea id="commentInput" placeholder="Comment..." oninput="resizeComment(this);adjustButton(this);saveData(this);" onfocus="focusComment(this)" onblur="unfocusComment(this)">{{activity.textarea}}</textarea>
         <button ng-click="reply()"id="commentSubmit" class="button buttonGreen buttonDisabled" disabled>Reply</button>
 
         <div ng-repeat="comments in activity.days" class="commentDay">

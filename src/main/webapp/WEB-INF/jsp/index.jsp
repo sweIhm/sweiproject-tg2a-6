@@ -739,8 +739,7 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 });
 
 app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
-
-
+	
 	$scope.close = function() {
 		document.getElementsByTagName("body")[0].style.position = "static";
 		dialog.close();
@@ -772,6 +771,8 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 			document.getElementById("commentInput").value = "";
 			document.getElementById("commentSubmit").disabled = true;
 			document.getElementById("commentSubmit").classList.add("buttonDisabled");
+			unfocusComment(document.getElementById("commentInput"));
+			
 			$scope.loadComments();
   	});
 	}
@@ -827,6 +828,18 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 
 	$http(detailsRequest).then(function(response) {
 		$scope.activity = response.data;
+		if(typeof(Storage) !== "undefined")
+		{
+			$scope.activity.textarea = localStorage.getItem( "comment" + activity.id );
+			setTimeout(function()
+			{
+				focusComment(document.getElementById("commentInput"));
+				adjustButton(document.getElementById("commentInput"));
+				resizeComment(document.getElementById("commentInput"));
+				unfocusComment(document.getElementById("commentInput"));
+			},100)
+			
+		}
 
 		var modal = document.getElementsByClassName("modal");
 		modal[0].style.top = "0%";
@@ -848,6 +861,21 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		
 	});
 
+	
+	$scope.loadData = function( )
+	{
+		
+		if(typeof(Storage) !== "undefined")
+		{
+			console.log(activity.id);
+			console.log("comment" + activity.id);
+			console.log(localStorage.getItem( "comment" + activity.id ));
+			console.log(document.getElementById("commentInput"));
+			console.log(document.getElementById("commentInput").value);
+			document.getElementById("commentInput").value = localStorage.getItem( "comment" + activity.id );
+		}
+			
+	}
 	$scope.loadComments = function() {
 		var detailsRequest = {
 			method: 'GET',
@@ -1148,32 +1176,36 @@ resizeComment = function(textArea)
 	var oldHeight = textArea.style.height;
 	textArea.style.height = "";
 	var newHeight = Math.max(textArea.scrollHeight - 20, 60);
-	textArea.style.height = oldHeight;
 	textArea.style.height = newHeight + 'px';
 }
 
 focusComment = function(textArea)
 {
 	if(textArea.value === "")
-	{
-		textArea.placeholder = "";
 		textArea.style.height = "60px";
-		document.getElementById("commentSubmit").style.display = "block";
-	}
+	textArea.placeholder = "";
+	document.getElementById("commentSubmit").style.display = "block";
 }
 
 unfocusComment = function(textArea)
 {
 	if(textArea.value === "")
 	{
-		
-		textArea.placeholder = "Comment ...";
 		textArea.style.height = "20px";
 		document.getElementById("commentSubmit").style.display = "none";
 	}
+		
+	textArea.placeholder = "Comment ...";
+	
 }
 
-
+saveData = function(textArea)
+{
+	if(typeof(Storage) !== "undefined")
+	{
+		localStorage.setItem( "comment" + document.getElementById("hiddenActivityID").innerHTML, textArea.value );
+	}
+}
 
 
 
