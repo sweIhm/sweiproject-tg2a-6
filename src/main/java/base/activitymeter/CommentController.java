@@ -24,16 +24,6 @@ public class CommentController {
 	@Autowired
 	private CommentRepository commentRepository;
 	
-	@GetMapping
-	public List<Comment> getAll()
-	{
-		List<Comment> result = new ArrayList<>();
-		for (Comment a : commentRepository.findAll())
-		{
-			result.add(a);
-		}
-		return result;
-	}
 	
 	@GetMapping("{id}")
 	public List<Comment> getForActivity(@PathVariable Long id)
@@ -58,6 +48,8 @@ public class CommentController {
 			Long activityID = ((Integer)jsonMap.get("activityID")).longValue();
 			String comment = (String)jsonMap.get("comment");
 			if(comment.equals(""))
+				return;
+			if(activityRepository.findOne(activityID) == null )
 				return;
 			commentRepository.save( new Comment(activityID, comment));
 		} 
