@@ -774,6 +774,7 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 			unfocusComment(document.getElementById("commentInput"));
 			
 			$scope.loadComments();
+			saveData( document.getElementById("commentInput") );
   	});
 	}
 
@@ -867,11 +868,6 @@ app.controller('ShowActivityCtrl', function($scope, $http, activity, dialog){
 		
 		if(typeof(Storage) !== "undefined")
 		{
-			console.log(activity.id);
-			console.log("comment" + activity.id);
-			console.log(localStorage.getItem( "comment" + activity.id ));
-			console.log(document.getElementById("commentInput"));
-			console.log(document.getElementById("commentInput").value);
 			document.getElementById("commentInput").value = localStorage.getItem( "comment" + activity.id );
 		}
 			
