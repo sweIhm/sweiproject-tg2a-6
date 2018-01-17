@@ -47,6 +47,10 @@ table th {
 	background: -webkit-gradient(linear, left top, left bottom, from(#ededed),
 		to(#ebebeb));
 	background: -moz-linear-gradient(top, #ededed, #ebebeb);
+	
+	font-weight: bold;
+	color: #23AD4A;
+	font-size: 18px;
 }
 
 table th:first-child {

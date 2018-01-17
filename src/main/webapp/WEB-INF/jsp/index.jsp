@@ -1207,6 +1207,30 @@ saveData = function(textArea)
 
 
 </script>
+
+<script>
+function searchUserTable() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("UserInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("userTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
+
 </head>
 <body onload="angular.element(document.querySelector('#menu-container')).scope().getView();">
 
@@ -1247,15 +1271,18 @@ saveData = function(textArea)
 		<% if(!(request.getAttribute("login") != null && request.getAttribute("login").equals((Boolean)true))) { %>
 		
 		<!-- normal user view -->
+		
 		<div id="activities-table">
-		<table class="mdl-data-table">
+		<input type="text" id="UserInput" onkeyup="searchUserTable()" placeholder="search">
+		
+		<table class="mdl-data-table" id="userTable">
 
-			<tr class="table-head">
-				<td class="mdl-data-table__cell--non-numeric">Title</td>
-				<td class="mdl-data-table__cell--non-numeric">University</td>
-				<td class="mdl-data-table__cell--non-numeric">Tags</td>
-				<td class="mdl-data-table__cell--non-numeric"></td>
-			</tr>
+			<th class="table-head">
+				<th class="mdl-data-table__cell--non-numeric">Title</th>
+				<th class="mdl-data-table__cell--non-numeric">University</th>
+				<th class="mdl-data-table__cell--non-numeric">Tags</th>
+				<th class="mdl-data-table__cell--non-numeric"></th>
+			</th>
 			<tr ng-repeat="activity in activities">
 				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.uni}}</td>
