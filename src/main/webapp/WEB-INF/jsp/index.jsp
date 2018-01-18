@@ -1231,6 +1231,7 @@ function searchUserTable() {
 }
 </script>
 
+
 </head>
 <body onload="angular.element(document.querySelector('#menu-container')).scope().getView();">
 
@@ -1272,8 +1273,10 @@ function searchUserTable() {
 		
 		<!-- normal user view -->
 		
-		<div id="activities-table">
+		<!-- search field -->
 		<input type="text" id="UserInput" onkeyup="searchUserTable()" placeholder="search">
+		
+		<div id="activities-table">
 		
 		<table class="mdl-data-table" id="userTable">
 
@@ -1308,16 +1311,17 @@ function searchUserTable() {
 		  <option value="report-table-desc">Report Handling Descending</option>
 		</select>
 		
-		
-		
 		<div id="activities-table" class="group">
-		<table class="mdl-data-table">
+		<!-- search field -->
+		<input type="text" id="UserInput" onkeyup="searchUserTable()" placeholder="search">
+		
+		<table class="mdl-data-table" id="userTable">
 
 			<tr class="table-head">
-				<td class="mdl-data-table__cell--non-numeric">Title</td>
-				<td class="mdl-data-table__cell--non-numeric">University</td>
-				<td class="mdl-data-table__cell--non-numeric">Tags</td>
-				<td class="mdl-data-table__cell--non-numeric"></td>
+				<th class="mdl-data-table__cell--non-numeric">Title</th>
+				<th class="mdl-data-table__cell--non-numeric">University</th>
+				<th class="mdl-data-table__cell--non-numeric">Tags</th>
+				<th class="mdl-data-table__cell--non-numeric"></th>
 			</tr>
 			<tr ng-repeat="activity in activities">
 				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
@@ -1333,9 +1337,8 @@ function searchUserTable() {
 		</table>
 		</div>
 		
-		<div id="report-table-asc" class="group">
+				<div id="report-table-asc" class="group">
 		<table class="mdl-data-table">
-
 			<tr class="table-head">
 				<td class="mdl-data-table__cell--non-numeric">Title</td>
 				<td class="mdl-data-table__cell--non-numeric">University</td>
@@ -1361,7 +1364,6 @@ function searchUserTable() {
 		
 		<div id="report-table-desc" class="group">
 		<table class="mdl-data-table">
-
 			<tr class="table-head">
 				<td class="mdl-data-table__cell--non-numeric">Title</td>
 				<td class="mdl-data-table__cell--non-numeric">University</td>
