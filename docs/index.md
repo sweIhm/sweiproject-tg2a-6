@@ -2,3 +2,6 @@
 
 ## Anwendungsfalldiagramm
 <img src="images/Anwendungsfalldiagramm.jpg" alt="Use Cases" class="inline"/>
+
+## Fachklassenmodell
+<img src="images/Fachklassenmodell.jpg" alt="Use Cases" class="inline"/>
