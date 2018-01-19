@@ -1,4 +1,4 @@
 # Activitracker
 
 ## Anwendungsfalldiagramm
-<img src="files/sprint0/Anwendungsfalldiagramm.jpg" alt="Use Cases" class="inline"/>
+<img src="https://github.com/sweIhm/sweiproject-tg2a-6/blob/master/files/sprint0/Anwendungsfalldiagramm.jpg" alt="Use Cases" class="inline"/>
