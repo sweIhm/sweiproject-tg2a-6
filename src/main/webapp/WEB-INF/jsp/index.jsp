@@ -1280,12 +1280,12 @@ function searchUserTable() {
 		
 		<table class="mdl-data-table" id="userTable">
 
-			<th class="table-head">
+			<tr class="table-head">
 				<th class="mdl-data-table__cell--non-numeric">Title</th>
 				<th class="mdl-data-table__cell--non-numeric">University</th>
 				<th class="mdl-data-table__cell--non-numeric">Tags</th>
 				<th class="mdl-data-table__cell--non-numeric"></th>
-			</th>
+			</tr>
 			<tr ng-repeat="activity in activities">
 				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.uni}}</td>
